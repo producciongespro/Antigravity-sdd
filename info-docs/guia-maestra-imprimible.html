@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Guía Maestra: Spec-Driven Development, Arneses, Agentes y Guardrails</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap');
+
+    :root {
+      --primary: #059669;
+      --primary-dark: #064e3b;
+      --primary-light: #ecfdf5;
+      --secondary: #0284c7;
+      --secondary-light: #f0f9ff;
+      --dark: #0f172a;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --card-bg: #f8fafc;
+      --accent: #f59e0b;
+      --danger: #ef4444;
+      --danger-light: #fef2f2;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: var(--text);
+      line-height: 1.65;
+      background: #ffffff;
+      padding: 0;
+      font-size: 14px;
+    }
+
+    /* Print styling rules */
+    @page {
+      size: A4 portrait;
+      margin: 1.8cm 1.5cm 2cm 1.5cm;
+      @bottom-right {
+        content: counter(page);
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 9pt;
+        color: #94a3b8;
+      }
+    }
+
+    .container {
+      max-width: 850px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* Cover Page */
+    .cover {
+      page-break-after: always;
+      min-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 3px solid #0f172a;
+      padding: 3.5rem 2.5rem;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #f8fafc 0%, #ecfdf5 100%);
+      margin-bottom: 2rem;
+    }
+    .cover-badge {
+      display: inline-block;
+      background: var(--dark);
+      color: #6ee7b7;
+      padding: 0.4rem 1rem;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      align-self: flex-start;
+    }
+    .cover-title {
+      font-size: 2.8rem;
+      font-weight: 800;
+      line-height: 1.15;
+      color: var(--dark);
+      margin: 1.5rem 0 1rem;
+      letter-spacing: -0.03em;
+    }
+    .cover-subtitle {
+      font-size: 1.25rem;
+      color: #334155;
+      font-weight: 500;
+      line-height: 1.45;
+      max-width: 650px;
+    }
+    .cover-meta {
+      border-top: 2px solid #cbd5e1;
+      padding-top: 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      font-size: 0.9rem;
+    }
+    .meta-item strong { display: block; color: var(--dark); font-weight: 700; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.2rem; }
+
+    /* Headings */
+    h1, h2, h3, h4 { color: var(--dark); font-weight: 800; letter-spacing: -0.02em; }
+    h2 {
+      font-size: 1.6rem;
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      page-break-after: avoid;
+    }
+    h3 {
+      font-size: 1.2rem;
+      margin-top: 1.6rem;
+      margin-bottom: 0.6rem;
+      page-break-after: avoid;
+    }
+
+    p { margin-bottom: 1rem; color: #334155; text-align: justify; }
+
+    /* Callout Boxes */
+    .callout {
+      border-radius: 12px;
+      padding: 1.2rem 1.4rem;
+      margin: 1.4rem 0;
+      border-left: 5px solid;
+      page-break-inside: avoid;
+    }
+    .callout-success { background: var(--primary-light); border-left-color: var(--primary); color: #064e3b; }
+    .callout-info { background: var(--secondary-light); border-left-color: var(--secondary); color: #0c4a6e; }
+    .callout-warning { background: #fffbeb; border-left-color: var(--accent); color: #78350f; }
+    .callout-danger { background: var(--danger-light); border-left-color: var(--danger); color: #7f1d1d; }
+    .callout-title { font-weight: 800; margin-bottom: 0.35rem; font-size: 0.95rem; display: flex; align-items: center; gap: 0.4rem; }
+
+    /* Diagram / Visual box */
+    .diagram-box {
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 1.5rem;
+      border-radius: 14px;
+      margin: 1.5rem 0;
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 0.85rem;
+      line-height: 1.5;
+      border: 1px solid #334155;
+      page-break-inside: avoid;
+      overflow-x: auto;
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.4rem 0;
+      font-size: 0.85rem;
+      page-break-inside: avoid;
+    }
+    th, td {
+      padding: 0.75rem 0.9rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    th {
+      background: #f1f5f9;
+      color: var(--dark);
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+    }
+    tr:nth-child(even) td { background: #f8fafc; }
+
+    /* Code snippets */
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      background: #f1f5f9;
+      color: #0f172a;
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.85em;
+      font-weight: 600;
+    }
+    pre {
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 1rem 1.25rem;
+      border-radius: 10px;
+      overflow-x: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      margin: 1.2rem 0;
+      page-break-inside: avoid;
+    }
+
+    .page-break { page-break-after: always; }
+
+    /* Lists */
+    ul, ol { margin-left: 1.5rem; margin-bottom: 1rem; color: #334155; }
+    li { margin-bottom: 0.4rem; }
+    li strong { color: var(--dark); }
+
+    /* Grid cards */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin: 1.2rem 0;
+      page-break-inside: avoid;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.2rem;
+    }
+    .card h4 { font-size: 0.95rem; margin-bottom: 0.4rem; color: var(--dark); }
+    .card p { font-size: 0.85rem; margin-bottom: 0; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- ==================== PORTADA ==================== -->
+  <div class="cover">
+    <div>
+      <span class="cover-badge">Laboratorio de Ingeniería con IA</span>
+      <h1 class="cover-title">Guía Maestra de Spec-Driven Development, Arneses, Agentes y Guardrails</h1>
+      <p class="cover-subtitle">
+        Manual integral de arquitectura moderna: desde la concepción de la especificación viva hasta el arnés automatizado de evaluación, la orquestación de agentes y los sistemas de contención.
+      </p>
+    </div>
+
+    <div class="cover-meta">
+      <div class="meta-item">
+        <strong>Autor / Estudiante:</strong>
+        Christian Vargas A.
+      </div>
+      <div class="meta-item">
+        <strong>Copiloto Técnico:</strong>
+        Antigravity (Google DeepMind)
+      </div>
+      <div class="meta-item">
+        <strong>Proyecto de Referencia:</strong>
+        SuperCart SDD (React 18 + Vite + Tailwind CSS)
+      </div>
+      <div class="meta-item">
+        <strong>Fecha y Versión:</strong>
+        Octubre 2026 | Versión 1.0 Definitiva
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== CAPÍTULO 1 ==================== -->
+  <h2>📖 1. ¿Qué es Spec-Driven Development (SDD)?</h2>
+
+  <p>
+    El <strong>Desarrollo Guiado por Especificaciones (Spec-Driven Development o SDD)</strong> es una metodología de ingeniería de software en la cual <strong>una especificación formal, estructurada y versionada actúa como la Única Fuente de Verdad (Single Source of Truth o SSOT)</strong> antes de escribir o modificar cualquier línea de código de producción.
+  </p>
+
+  <div class="callout callout-danger">
+    <div class="callout-title">⚠️ El Problema de la Programación Tradicional con Agentes de IA</div>
+    Cuando los desarrolladores utilizan IA pidiéndole *"hazme una pantalla de lista de compras"*, la IA recurre a sus patrones probabilísticos y **adivina** los nombres de los campos, inventa reglas de negocio, y genera código inconsistente. Esto produce el fenómeno de <em>alucinación técnica</em> y rompe el sistema ante el menor cambio.
+  </div>
+
+  <h3>La Regla de Oro del SDD</h3>
+  <div class="callout callout-success">
+    <div class="callout-title">💎 Ley Fundamental</div>
+    <strong>"El código siempre sigue a la especificación; la especificación NUNCA persigue al código."</strong>
+    Cualquier cambio de negocio (un campo nuevo, una regla de confirmación, un cambio de idioma) se aprueba primero en la especificación, luego se refleja en el arnés, y por último se programa.
+  </div>
+
+  <h3>Estructura Anatómica de una Especificación Profesional</h3>
+  <p>Un documento formal como <code>docs/ESPECIFICACION_PRINCIPAL.md</code> debe incluir obligatoriamente:</p>
+  <ul>
+    <li><strong>Historial de Cambios (Changelog):</strong> Control de versiones SemVer (ej: v2.0 $\rightarrow$ v2.1 $\rightarrow$ v2.2) indicando fecha, autor y razón del cambio.</li>
+    <li><strong>Modelo de Dominio / Contrato de Datos:</strong> Definición exacta de entidades, claves, tipos y valores por defecto (TypeScript / JSON Schemas).</li>
+    <li><strong>Requerimientos Funcionales (RF):</strong> Reglas operativas numeradas y delimitadas (ej: <code>RF-1.1</code>, <code>RF-4.6</code>).</li>
+    <li><strong>Requerimientos No Funcionales (RNF):</strong> Políticas de persistencia, tolerancia a fallos, recuperación de corrupción y migración retroactiva.</li>
+  </ul>
+
+  <!-- ==================== CAPÍTULO 2 ==================== -->
+  <div class="page-break"></div>
+  <h2>🛡️ 2. El Arnés de Pruebas (The Test Harness)</h2>
+
+  <p>
+    El <strong>Arnés de Pruebas</strong> es el banco de evaluación automatizado donde se colocan los componentes de software en condiciones controladas para verificar que cumplen matemáticamente las promesas hechas en la especificación.
+  </p>
+
+  <div class="diagram-box">
+┌─────────────────────────────────────────────────────────────┐
+│                 ARQUITECTURA DEL ARNÉS                      │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│   [ ESPECIFICACIÓN ] ──(Define Reglas)──> [ TEST HARNESS ]  │
+│                                                   │         │
+│                                           (Ejecuta Pruebas) │
+│                                                   ▼         │
+│   [ CÓDIGO FUENTE ] <───(Corrige)─── [ ASERCIÓN: PASS/FAIL ]│
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+  </div>
+
+  <h3>El Órgano Sensorial del Agente de IA</h3>
+  <p>
+    Los seres humanos verificamos el código abriendo el navegador, haciendo clics e inspeccionando la pantalla. <strong>Un Agente de IA no tiene ojos humanos nativos.</strong> El arnés es el <em>órgano sensorial</em> que le permite al agente saber si su solución funciona:
+  </p>
+  <ul>
+    <li><strong>Sin Arnés:</strong> El agente dice *"¡Listo, ya terminé!"* basándose en una corazonada. El código puede estar lleno de errores sutiles.</li>
+    <li><strong>Con Arnés:</strong> El agente ejecuta el arnés, lee el error exacto (ej: <code>"Expected 5 but received 2"</code>), corrige la línea de código precisa y vuelve a evaluar hasta obtener 100% verde.</li>
+  </ul>
+
+  <h3>La Metáfora del Restaurante de Alta Cocina</h3>
+  <div class="card-grid">
+    <div class="card">
+      <h4>📜 La Especificación (`SPEC.md`)</h4>
+      <p>Es la <strong>Carta y la Receta</strong>. Define exactamente los ingredientes, el sabor, las porciones y lo que el cliente final pagó por recibir.</p>
+    </div>
+    <div class="card">
+      <h4>🤖 El Reglamento (`AGENTS.md`)</h4>
+      <p>Son las <strong>Normas de la Cocina</strong>. Indica a los cocineros cómo comportarse, qué herramientas usar y qué prácticas están prohibidas.</p>
+    </div>
+    <div class="card">
+      <h4>🛡️ El Arnés (`harness.html`)</h4>
+      <p>Es el <strong>Inspector de Calidad</strong>. Antes de que el plato salga a la mesa, verifica peso, temperatura e higiene sin compasión.</p>
+    </div>
+    <div class="card">
+      <h4>🧠 La Memoria (`MEMORY.md`)</h4>
+      <p>Es la <strong>Bitácora del Chef</strong>. Anota lecciones, incidentes pasados y recetas mejoradas para no repetir errores.</p>
+    </div>
+  </div>
+
+  <h3>Principios de Aislamiento: El Sandbox (MockStorage)</h3>
+  <p>
+    Un buen arnés jamás toca los datos reales del usuario. Utiliza un <code>MockStorage</code> en memoria volátil. Cada prueba arranca con una pizarra en blanco, ejecuta su lógica y se limpia, garantizando pruebas reproducibles e independientes de la red o del disco.
+  </p>
+
+  <!-- ==================== CAPÍTULO 3 ==================== -->
+  <div class="page-break"></div>
+  <h2>🔄 3. El Ciclo de Vida: Rojo $\rightarrow$ Verde $\rightarrow$ Refactor</h2>
+
+  <p>
+    Heredado de Test-Driven Development (TDD) y perfeccionado para la era de la IA, este ciclo es la base de la máxima confiabilidad en ingeniería:
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Fase</th>
+        <th>Color</th>
+        <th>Acción en el Laboratorio</th>
+        <th>Propósito / Objetivo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Fase Roja</strong></td>
+        <td>🔴 FAIL</td>
+        <td>Diseñar la prueba antes de programar y verla fallar con un error explícito.</td>
+        <td>Demostrar que la prueba es real y detecta la ausencia de la función.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Fase Verde</strong></td>
+        <td>🟢 PASS</td>
+        <td>Escribir el código mínimo necesario para que la prueba pase a verde.</td>
+        <td>Alcanzar el cumplimiento estricto del contrato sin sobre-ingeniería.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Refactorización</strong></td>
+        <td>🔵 CLEAN</td>
+        <td>Reorganizar taxonomía, limpiar deuda técnica, optimizar variables.</td>
+        <td>Mejorar la calidad sin miedo: el arnés garantiza que nada se rompió.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>¿Por qué es indispensable ver la prueba en Rojo?</h3>
+  <div class="callout callout-warning">
+    <div class="callout-title">⚠️ La Trampa de las Pruebas Falsas Positivas</div>
+    Si creas una prueba y pasa en verde de inmediato sin que hayas programado nada, <strong>la prueba no sirve</strong> (está mal formulada o no está evaluando nada). La Fase Roja es la garantía científica de que la prueba es sensible a los fallos.
+  </div>
+
+  <!-- ==================== CAPÍTULO 4 ==================== -->
+  <h2>🤖 4. Arquitectura de Agentes y Subagentes</h2>
+
+  <p>
+    Al trabajar en Pair Programming con IA o con enjambres de múltiples agentes, cada actor debe tener un rol y límites perfectamente delimitados:
+  </p>
+
+  <ul>
+    <li><strong>Agente Orquestador:</strong> Entiende los objetivos de alto nivel del usuario, coordina la estrategia y gestiona la bitácora en <code>MEMORY.md</code>.</li>
+    <li><strong>Subagente Programador (Coder):</strong> Lee la especificación, revisa el archivo a modificar y escribe el código correspondiente.</li>
+    <li><strong>Subagente Verificador (Tester / QA):</strong> Corre el arnés de pruebas de manera independiente y certifica si el trabajo del programador pasa o debe rechazarse.</li>
+  </ul>
+
+  <h3>La Taxonomía Estandarizada de Pruebas</h3>
+  <p>
+    Una de las lecciones clave aprendidas hoy es que el arnés debe hablar el mismo idioma que la especificación. En lugar de identificadores genéricos (<code>test1</code>, <code>mod1</code>), cada prueba lleva el identificador contractual:
+  </p>
+  <ul>
+    <li><code>[RNF-02]</code>: Prueba de Resistencia ante JSON corrupto.</li>
+    <li><code>[RNF-03]</code>: Prueba de Migración Automática de versiones.</li>
+    <li><code>[RF-1.1]</code>: Prueba de Alta y Validación de Productos.</li>
+    <li><code>[RF-4.6]</code>: Prueba de Prevención de Desmarcado Accidental.</li>
+  </ul>
+
+  <!-- ==================== CAPÍTULO 5 ==================== -->
+  <div class="page-break"></div>
+  <h2>🚧 5. Guardrails: Las Barandillas de Seguridad</h2>
+
+  <p>
+    Los <strong>Guardrails (Barandillas de Seguridad)</strong> son restricciones, validaciones y cortafuegos diseñados para evitar que los agentes de IA o los propios usuarios cometan errores destructivos, rompan la arquitectura o provoquen pérdidas de datos.
+  </p>
+
+  <div class="card-grid">
+    <div class="card">
+      <h4>1. Guardrails de Instrucción (AGENTS.md)</h4>
+      <p>Límites operativos que la IA no puede violar: <em>"Prohibido asumir requerimientos"</em>, <em>"Prohibido entregar tareas si el arnés está en rojo"</em>, <em>"Obligatorio consultar docs/ antes de codificar"</em>.</p>
+    </div>
+    <div class="card">
+      <h4>2. Guardrails Estructurales (El Arnés y CI/CD)</h4>
+      <p>Sistemas automatizados que impiden la integración de código roto: Git hooks (Husky), pruebas unitarias previas al commit y pipelines de despliegue.</p>
+    </div>
+    <div class="card">
+      <h4>3. Guardrails de Negocio / UX (Anti-dedazos)</h4>
+      <p>Validaciones en la experiencia de usuario. Ejemplo real implementado hoy (<code>RF-4.6</code>): si un producto ya está en el carrito, se exige confirmación obligatoria antes de desmarcarlo.</p>
+    </div>
+    <div class="card">
+      <h4>4. Guardrails de Resiliencia (Fallback)</h4>
+      <p>Tolerancia ante desastres. Si la base de datos local se corrompe (<code>RNF-02</code>), el sistema captura la excepción y reinicia las tablas limpias sin colapsar la aplicación.</p>
+    </div>
+  </div>
+
+  <h3>Implementación de Guardrails en Proyectos Reales</h3>
+  <pre><code>// Ejemplo de Guardrail de Código: Validación y Confirmación (RF-4.6)
+alternarConConfirmacion(itemId, callbackConfirmacion) {
+  const item = db.productos_listas.find(i => i.id === itemId);
+  if (!item) return false;
+
+  // Paso libre sin fricción hacia adelante
+  if (!item.enCarrito) {
+    item.enCarrito = true;
+    return true;
+  }
+
+  // GUARDRAIL: Freno de seguridad antes de una acción potencialmente accidental
+  const confirmado = typeof callbackConfirmacion === 'function' ? callbackConfirmacion() : true;
+  if (confirmado) {
+    item.enCarrito = false;
+    return false;
+  }
+
+  // Si no se confirma, se mantiene protegido
+  return true;
+}</code></pre>
+
+  <!-- ==================== RESUMEN EJECUTIVO ==================== -->
+  <div class="page-break"></div>
+  <h2>📌 6. Checklist de Buenas Prácticas (Cheat Sheet)</h2>
+
+  <div class="callout callout-info">
+    <div class="callout-title">📋 Protocolo Profesional para Desarrollar Nuevas Funcionalidades</div>
+    <ol>
+      <li><strong>Definir y Acordar:</strong> Hablar con el usuario/sponsor para entender el problema real.</li>
+      <li><strong>Documentar en la Spec:</strong> Crear o editar la sección correspondiente en <code>docs/ESPECIFICACION_PRINCIPAL.md</code> y aumentar la versión.</li>
+      <li><strong>Diseñar el Caso de Prueba:</strong> Agregar la prueba en <code>tests/harness.html</code> con su código estandarizado (<code>RF-*</code>).</li>
+      <li><strong>Comprobar el Fallo Rojo:</strong> Re-ejecutar el arnés y certificar que la nueva prueba falla con la causa esperada.</li>
+      <li><strong>Escribir el Código:</strong> Modificar los servicios y componentes en <code>src/</code> para resolver la aserción.</li>
+      <li><strong>Comprobar el Éxito Verde:</strong> Re-ejecutar el arnés hasta alcanzar 100% PASS.</li>
+      <li><strong>Registrar en la Memoria:</strong> Agregar la decisión arquitectónica (ADR) en <code>MEMORY.md</code>.</li>
+      <li><strong>Commit Atómico en Git:</strong> Guardar el cambio con un mensaje semántico claro (<code>feat(...)</code>).</li>
+    </ol>
+  </div>
+
+  <div style="margin-top: 3rem; text-align: center; border-top: 1px solid var(--border); padding-top: 1.5rem; color: var(--text-muted); font-size: 0.85rem;">
+    <strong>SuperCart SDD - Laboratorio de Aprendizaje</strong><br>
+    Documento generado para Chris Vargas A. en colaboración con Antigravity (Google DeepMind).
+  </div>
+
+</div>
+
+</body>
+</html>

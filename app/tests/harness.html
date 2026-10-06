@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Arnés de Pruebas Automatizado - SuperMarket SDD v2.2.0</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --card-hover: #24344d;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --pass: #22c55e;
+      --fail: #ef4444;
+      --border: #334155;
+      --accent: #10b981;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      padding: 2rem 1.5rem;
+      line-height: 1.5;
+    }
+    .header {
+      max-width: 950px;
+      margin: 0 auto 1.5rem;
+      display: flex;
+      flex-direction: column;
+      sm-flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1.5rem;
+      gap: 1rem;
+    }
+    @media (min-width: 640px) {
+      .header { flex-direction: row; align-items: center; }
+    }
+    .title-group h1 { font-size: 1.7rem; font-weight: 800; display: flex; align-items: center; gap: 0.6rem; letter-spacing: -0.02em; }
+    .title-group p { color: var(--text-muted); font-size: 0.9rem; margin-top: 0.25rem; }
+    .spec-badge {
+      background: rgba(16, 185, 129, 0.15);
+      color: #6ee7b7;
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .summary-card {
+      max-width: 950px;
+      margin: 0 auto 1.5rem;
+      background: var(--card-bg);
+      border-radius: 14px;
+      padding: 1.25rem;
+      border: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+    .metric { text-align: center; }
+    .metric-value { font-size: 2.2rem; font-weight: 800; line-height: 1.1; }
+    .metric-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700; margin-top: 0.25rem; }
+    .metric-pass { color: var(--pass); }
+    .metric-fail { color: var(--fail); }
+    .metric-total { color: var(--accent); }
+    
+    .actions {
+      max-width: 950px;
+      margin: 0 auto 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    button.btn-primary {
+      background: #10b981;
+      color: #042f2e;
+      border: none;
+      padding: 0.65rem 1.4rem;
+      border-radius: 10px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+    }
+    button.btn-primary:hover {
+      background: #059669;
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    .test-list {
+      max-width: 950px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.75rem;
+    }
+
+    .section-title {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #cbd5e1;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #1e293b;
+      margin-bottom: 0.75rem;
+    }
+    .section-title span.count-badge {
+      background: #334155;
+      color: #94a3b8;
+      font-size: 0.7rem;
+      padding: 0.1rem 0.5rem;
+      border-radius: 999px;
+    }
+
+    .section-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .test-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 1.15rem 1.25rem;
+      border-left: 5px solid var(--border);
+      border-top: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.15s;
+    }
+    .test-card:hover {
+      background: var(--card-hover);
+    }
+    .test-card.passed { border-left-color: var(--pass); }
+    .test-card.failed { border-left-color: var(--fail); }
+
+    .test-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+    .test-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+    .code-badge {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.75rem;
+      font-weight: 700;
+      background: #090d16;
+      color: #38bdf8;
+      padding: 0.2rem 0.55rem;
+      border-radius: 6px;
+      border: 1px solid rgba(56, 189, 248, 0.25);
+    }
+    .test-title { font-size: 0.95rem; font-weight: 600; color: #f1f5f9; }
+    
+    .status-pill {
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 0.25rem 0.7rem;
+      border-radius: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .status-pill.pass { background: rgba(34, 197, 94, 0.15); color: var(--pass); border: 1px solid rgba(34, 197, 94, 0.3); }
+    .status-pill.fail { background: rgba(239, 68, 68, 0.15); color: var(--fail); border: 1px solid rgba(239, 68, 68, 0.3); }
+
+    .test-detail {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.85rem;
+      background: #090d16;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      margin-top: 0.75rem;
+      color: #cbd5e1;
+      border: 1px solid #334155;
+      white-space: pre-wrap;
+    }
+    .error-text { color: #f87171; font-weight: 700; }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="title-group">
+      <h1>🛡️ Arnés de Pruebas Automatizado</h1>
+      <p>Validación de Especificación Formal: docs/ESPECIFICACION_PRINCIPAL.md</p>
+    </div>
+    <span class="spec-badge">
+      <span>●</span> Contrato v2.2.0 (Español)
+    </span>
+  </div>
+
+  <div class="summary-card">
+    <div class="metric">
+      <div id="stat-total" class="metric-value metric-total">0</div>
+      <div class="metric-label">Total Pruebas</div>
+    </div>
+    <div class="metric">
+      <div id="stat-pass" class="metric-value metric-pass">0</div>
+      <div class="metric-label">Aprobadas</div>
+    </div>
+    <div class="metric">
+      <div id="stat-fail" class="metric-value metric-fail">0</div>
+      <div class="metric-label">Fallidas</div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button id="btn-rerun" class="btn-primary">🔄 Re-ejecutar Arnés Completo</button>
+    <div style="font-size: 0.85rem; color: var(--text-muted);">
+      Ejecutado con motor en aislamiento (MockStorage Sandbox)
+    </div>
+  </div>
+
+  <div id="test-results" class="test-list">
+    <!-- Pruebas renderizadas agrupadas por sección -->
+  </div>
+
+  <script type="module">
+    import { SupermarketStorage, DB_KEY } from '../src/services/storage.js';
+
+    // Mock Storage Aislado para Pruebas (Sandbox)
+    class MockStorage {
+      constructor() { this.store = {}; }
+      getItem(key) { return this.store[key] !== undefined ? this.store[key] : null; }
+      setItem(key, value) { this.store[key] = String(value); }
+      removeItem(key) { delete this.store[key]; }
+      clear() { this.store = {}; }
+    }
+
+    function assert(cond, msg) {
+      if (!cond) throw new Error(msg || "Aserción fallida");
+    }
+    function assertEquals(actual, expected, msg) {
+      if (actual !== expected) {
+        throw new Error(`${msg}: Esperado "${expected}", pero se recibió "${actual}"`);
+      }
+    }
+
+    // Suite de Pruebas organizada por Módulos y Requerimientos (SDD Taxonomía)
+    const suite = [
+      // SECCIÓN 1: PERSISTENCIA Y REGLAS NO FUNCIONALES
+      {
+        section: "⚙️ Requerimientos No Funcionales (Persistencia y Migración)",
+        id: "RNF-02",
+        name: "Resistencia ante JSON corrupto (Inicialización limpia de tablas)",
+        run: () => {
+          const mock = new MockStorage();
+          mock.setItem(DB_KEY, '{ json_totalmente_danado...');
+          const service = new SupermarketStorage(mock);
+          const db = service.obtenerBaseDeDatos();
+
+          assert(Array.isArray(db.productos), "db.productos debe ser un Array");
+          assert(Array.isArray(db.listas), "db.listas debe ser un Array");
+          assert(Array.isArray(db.productos_listas), "db.productos_listas debe ser un Array");
+          assertEquals(db.productos.length, 0, "Debe inicializar productos como []");
+        }
+      },
+      {
+        section: "⚙️ Requerimientos No Funcionales (Persistencia y Migración)",
+        id: "RNF-03",
+        name: "Migración automática de retrocompatibilidad (v2.0 inglés -> v2.1 español)",
+        run: () => {
+          const mock = new MockStorage();
+          const legacyData = {
+            products: [{ id: 'prod_99', name: 'Café Tarrazú', category: 'Abarrotes', unit: 'bolsa', createdAt: 1000 }],
+            lists: [{ id: 'list_99', title: 'Compras de Prueba', date: '2026-10-06', status: 'active', createdAt: 1000 }],
+            items: [{ id: 'item_99', listId: 'list_99', productId: 'prod_99', quantity: 2, inCart: false }]
+          };
+          mock.setItem(DB_KEY, JSON.stringify(legacyData));
+
+          const service = new SupermarketStorage(mock);
+          const db = service.obtenerBaseDeDatos();
+
+          assert(Array.isArray(db.productos), "Debe existir la tabla 'productos'");
+          assertEquals(db.productos.length, 1, "Debe migrar el producto");
+          assertEquals(db.productos[0].nombre, 'Café Tarrazú', "El campo 'name' debe migrar a 'nombre'");
+
+          assert(Array.isArray(db.listas), "Debe existir la tabla 'listas'");
+          assertEquals(db.listas[0].titulo, 'Compras de Prueba', "El campo 'title' debe migrar a 'titulo'");
+
+          assert(Array.isArray(db.productos_listas), "Debe existir la tabla 'productos_listas'");
+          assertEquals(db.productos_listas[0].enCarrito, false, "El campo 'inCart' debe migrar a 'enCarrito'");
+        }
+      },
+
+      // SECCIÓN 2: CATÁLOGO MAESTRO
+      {
+        section: "📦 Módulo 1: Catálogo Maestro de Productos",
+        id: "RF-1.1 / RF-1.3",
+        name: "Alta, validación de nombre obligatorio (trim) y eliminación de Producto",
+        run: () => {
+          const mock = new MockStorage();
+          mock.setItem(DB_KEY, JSON.stringify({ productos: [], listas: [], productos_listas: [] }));
+          const service = new SupermarketStorage(mock);
+
+          let threw = false;
+          try { service.crearProducto({ nombre: "   " }); } catch (e) { threw = true; }
+          assert(threw, "Debe rechazar nombres vacíos");
+
+          const prod = service.crearProducto({ nombre: "  Queso Blanco  ", categoria: "Lácteos", unidad: "kg" });
+          assertEquals(prod.nombre, "Queso Blanco", "Nombre debe estar recortado con trim()");
+          assertEquals(prod.categoria, "Lácteos", "Categoría correcta");
+          assert(prod.id.startsWith("prod_"), "ID debe tener formato prod_");
+
+          const deleted = service.eliminarProducto(prod.id);
+          assert(deleted, "eliminarProducto debe retornar true");
+          assertEquals(service.obtenerProductos().length, 0, "Catálogo debe quedar vacío");
+        }
+      },
+
+      // SECCIÓN 3: GESTOR DE LISTAS
+      {
+        section: "📋 Módulo 2: Gestor de Listas de Compra",
+        id: "RF-2.1 / RF-2.4",
+        name: "Creación de Lista y borrado en cascada de ítems vinculados",
+        run: () => {
+          const mock = new MockStorage();
+          mock.setItem(DB_KEY, JSON.stringify({ productos: [], listas: [], productos_listas: [] }));
+          const service = new SupermarketStorage(mock);
+
+          const lista = service.crearLista({ titulo: "Súper Mensual", fecha: "2026-10-15" });
+          assertEquals(lista.titulo, "Súper Mensual", "Título correcto");
+
+          const prod = service.crearProducto({ nombre: "Arroz" });
+          service.agregarProductoALista(lista.id, prod.id, 2);
+          assertEquals(service.obtenerItemsDeLista(lista.id).length, 1, "Debe tener 1 producto vinculado");
+
+          service.eliminarLista(lista.id);
+          assertEquals(service.obtenerListas().length, 0, "La lista debe ser eliminada");
+          assertEquals(service.obtenerItemsDeLista(lista.id).length, 0, "Los productos_listas deben borrarse en cascada");
+        }
+      },
+
+      // SECCIÓN 4: VINCULACIÓN
+      {
+        section: "🔗 Módulo 3: Vinculación y Armado de Lista",
+        id: "RF-3.1 / RF-3.2",
+        name: "Vinculación de catálogo y acumulación de cantidad (2 + 3 = 5)",
+        run: () => {
+          const mock = new MockStorage();
+          mock.setItem(DB_KEY, JSON.stringify({ productos: [], listas: [], productos_listas: [] }));
+          const service = new SupermarketStorage(mock);
+
+          const lista = service.crearLista({ titulo: "Barbacoa" });
+          const prod = service.crearProducto({ nombre: "Carne" });
+
+          service.agregarProductoALista(lista.id, prod.id, 2);
+          service.agregarProductoALista(lista.id, prod.id, 3);
+
+          const items = service.obtenerItemsDeLista(lista.id);
+          assertEquals(items.length, 1, "No debe duplicar registros");
+          assertEquals(items[0].cantidad, 5, "La cantidad debe sumarse (2 + 3 = 5)");
+        }
+      },
+
+      // SECCIÓN 5: MODO SUPERMERCADO
+      {
+        section: "🛒 Módulo 4: Modo Supermercado (Compra del Día)",
+        id: "RF-4.2 / RF-4.4 / RF-4.5",
+        name: "Alternar en carrito (toggle), métricas en vivo y limpiar comprados",
+        run: () => {
+          const mock = new MockStorage();
+          mock.setItem(DB_KEY, JSON.stringify({ productos: [], listas: [], productos_listas: [] }));
+          const service = new SupermarketStorage(mock);
+
+          const lista = service.crearLista({ titulo: "Fin de Semana" });
+          const p1 = service.crearProducto({ nombre: "Pan" });
+          const p2 = service.crearProducto({ nombre: "Leche" });
+
+          const item1 = service.agregarProductoALista(lista.id, p1.id, 1);
+          const item2 = service.agregarProductoALista(lista.id, p2.id, 1);
+
+          let metricas = service.obtenerMetricasLista(lista.id);
+          assertEquals(metricas.porcentaje, 0, "Progreso inicial debe ser 0%");
+
+          const estado = service.alternarEnCarrito(item1.id);
+          assertEquals(estado, true, "alternarEnCarrito debe ser true");
+
+          metricas = service.obtenerMetricasLista(lista.id);
+          assertEquals(metricas.enCarrito, 1, "1 producto en carrito");
+          assertEquals(metricas.pendientes, 1, "1 producto pendiente");
+          assertEquals(metricas.porcentaje, 50, "Progreso debe ser 50%");
+
+          service.limpiarCompradosDeLista(lista.id);
+          const restantes = service.obtenerItemsDeLista(lista.id);
+          assertEquals(restantes.length, 1, "Debe quedar 1 producto");
+          assertEquals(restantes[0].nombreProducto, "Leche", "Leche debe preservarse");
+        }
+      },
+      {
+        section: "🛒 Módulo 4: Modo Supermercado (Compra del Día)",
+        id: "RF-4.6",
+        name: "Prevención de desmarcado accidental (Confirmación anti-dedazos)",
+        run: () => {
+          const mock = new MockStorage();
+          mock.setItem(DB_KEY, JSON.stringify({ productos: [], listas: [], productos_listas: [] }));
+          const service = new SupermarketStorage(mock);
+
+          const lista = service.crearLista({ titulo: "Compra Segura" });
+          const prod = service.crearProducto({ nombre: "Aceite de Oliva" });
+          const item = service.agregarProductoALista(lista.id, prod.id, 1);
+
+          // 1. De pendiente (false) a enCarrito (true) -> pasa directo sin confirmación
+          let callbackLlamado = false;
+          const estado1 = service.alternarConConfirmacion(item.id, () => {
+            callbackLlamado = true;
+            return true;
+          });
+          assertEquals(estado1, true, "Debe marcarse directo en el carrito");
+          assertEquals(callbackLlamado, false, "NO debe pedir confirmación al marcar hacia el carrito");
+
+          // 2. Si ya está en carrito (true) y el usuario CANCELA la confirmación
+          callbackLlamado = false;
+          const estado2 = service.alternarConConfirmacion(item.id, () => {
+            callbackLlamado = true;
+            return false;
+          });
+          assertEquals(callbackLlamado, true, "SÍ debe llamar a la confirmación al desmarcar");
+          assertEquals(estado2, true, "Debe permanecer en el carrito (true) porque se canceló");
+
+          // 3. Si ya está en carrito (true) y el usuario ACEPTA la confirmación
+          const estado3 = service.alternarConConfirmacion(item.id, () => {
+            return true;
+          });
+          assertEquals(estado3, false, "Debe desmarcarse a false porque el usuario confirmó");
+        }
+      }
+    ];
+
+    function runTests() {
+      const container = document.getElementById('test-results');
+      container.innerHTML = "";
+      let pass = 0, fail = 0;
+
+      // Agrupar pruebas por sección
+      const sectionsMap = new Map();
+      suite.forEach(t => {
+        if (!sectionsMap.has(t.section)) {
+          sectionsMap.set(t.section, []);
+        }
+        sectionsMap.get(t.section).push(t);
+      });
+
+      sectionsMap.forEach((tests, sectionName) => {
+        const secDiv = document.createElement('div');
+        secDiv.className = "section-group";
+
+        const titleDiv = document.createElement('div');
+        titleDiv.className = "section-title";
+        titleDiv.innerHTML = `
+          <span>${sectionName}</span>
+          <span class="count-badge">${tests.length} ${tests.length === 1 ? 'prueba' : 'pruebas'}</span>
+        `;
+        secDiv.appendChild(titleDiv);
+
+        tests.forEach(t => {
+          let ok = false, errorMsg = "";
+          try {
+            t.run();
+            ok = true;
+            pass++;
+          } catch (e) {
+            ok = false;
+            errorMsg = e.message || String(e);
+            fail++;
+          }
+
+          const div = document.createElement('div');
+          div.className = `test-card ${ok ? 'passed' : 'failed'}`;
+          div.innerHTML = `
+            <div class="test-header">
+              <div class="test-meta">
+                <span class="code-badge">${t.id}</span>
+                <span class="test-title">${t.name}</span>
+              </div>
+              <span class="status-pill ${ok ? 'pass' : 'fail'}">${ok ? 'PASS' : 'FAIL'}</span>
+            </div>
+            ${!ok ? `<div class="test-detail"><span class="error-text">Fallo:</span> ${errorMsg}</div>` : ''}
+          `;
+          secDiv.appendChild(div);
+        });
+
+        container.appendChild(secDiv);
+      });
+
+      document.getElementById('stat-total').innerText = suite.length;
+      document.getElementById('stat-pass').innerText = pass;
+      document.getElementById('stat-fail').innerText = fail;
+    }
+
+    document.getElementById('btn-rerun').addEventListener('click', runTests);
+    runTests();
+  </script>
+</body>
+</html>
