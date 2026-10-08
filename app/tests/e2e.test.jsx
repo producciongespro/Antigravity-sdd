@@ -206,5 +206,14 @@ describe('🧪 Arnés Sensorial End-to-End (E2E) - SuperCarrito SDD', () => {
       expect(screen.getByRole('button', { name: /Simular Commit OK/i })).toBeDefined();
       expect(screen.getByRole('button', { name: /Simular Rechazo/i })).toBeDefined();
     });
+
+    // Probar la Opción 4: Arnés Sensorial E2E (Vitest)
+    const btnE2E = screen.getByRole('button', { name: /Arnés E2E \(Vitest\)/i });
+    fireEvent.click(btnE2E);
+
+    await waitFor(() => {
+      expect(screen.getByText(/Consola Sensorial Vitest/i)).toBeDefined();
+      expect(screen.getByText(/Desglose de los 6 Flujos de Usuario Reales/i)).toBeDefined();
+    });
   });
 });

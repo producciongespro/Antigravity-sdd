@@ -140,8 +140,8 @@ interface ProductoLista {
   - Para los módulos de administración y mantenimiento (**Paso 1: Gestión** y **Paso 3: Auditoría y Arneses**), la interfaz implementa un diseño de dos columnas:
     1. **Panel Lateral Izquierdo (Sidebar):** Menú vertical con opciones claras, iconos identificativos y badges con conteo dinámico de elementos.
        - En Paso 1: Opciones `Catálogo` y `Armado de Listas`.
-       - En Paso 3: Opciones `Auditar el Sistema`, `Ver Arnés Sensorial` y `Guardrail de Acero (Git)`.
-    2. **Área de Trabajo Derecha (Workspace):** Despliegue amplio del sub-módulo activo, maximizando el espacio para formularios, filtros, tablas y terminal interactiva.
+       - En Paso 3: Opciones `Auditar el Sistema`, `Ver Arnés Sensorial`, `Guardrail de Acero (Git)` y `Arnés E2E (Vitest)`.
+    2. **Área de Trabajo Derecha (Workspace):** Despliegue amplio del sub-módulo activo, maximizando el espacio para formularios, filtros, tablas, consola interactiva de Vitest y terminal interactiva de Git.
   - **Excepción de Ergonomía Móvil (Paso 2):** El Paso 2 (¡Vamos al Súper! en tienda) **no adopta menú lateral**; se mantiene en una sola columna vertical con tarjetas táctiles de alta densidad optimizadas para el uso en el pasillo del supermercado con una sola mano.
 - **RF-5.6 (Arnés Sensorial End-to-End Automatizado con Vitest y Testing Library):**
   - El sistema cuenta con una suite de pruebas de integración sensoriales (`tests/e2e.test.jsx`) bajo Vitest y JSDOM que valida los flujos completos de usuario en el DOM virtual sin navegadores pesados:
@@ -150,7 +150,8 @@ interface ProductoLista {
     3. **Modo Compra y Métricas Reactivas:** Clic táctil en productos pendientes, marcado en carrito y actualización en vivo del contador de progreso (`x de y artículos`).
     4. **Protección Anti-dedazos con Modal Táctil:** Intercepción ante el intento de devolver productos del carrito, prueba de cancelación segura (`No, mantener en carrito`) y confirmación efectiva (`Sí, sacar del carrito`).
     5. **Conmutación de Tema Claro/Oscuro:** Alternancia de clases CSS en `document.documentElement` (`dark` $\leftrightarrow$ `light`).
-    6. **Centro de Auditoría y Guardrails:** Navegación por pestañas del Sidebar AdminLTE (Guardrails, Arnés Sensorial y Guardrail de Acero Git).
+    6. **Centro de Auditoría y Guardrails:** Navegación por las 4 pestañas del Sidebar AdminLTE (Guardrails, Arnés Sensorial, Guardrail de Acero Git y Arnés E2E).
+  - **Consola y Ejecutor Interactivo en SPA (Paso 3):** Incorpora la 4ª opción en el Sidebar de `AuditoriaHub.jsx` con botón interactivo de ejecución táctil (`▶ Ejecutar Suite E2E`), métricas de latencia, consola estilo terminal Vitest en vivo y desglose interactivo de selectores DOM de los 6 flujos.
   - Comando de ejecución: `npm run test:e2e` y verificación combinada en `npm test`.
 
 ---

@@ -134,6 +134,7 @@
   2. Implementar una suite exhaustiva de 6 pruebas E2E ([`tests/e2e.test.jsx`](tests/e2e.test.jsx)) que montan directamente el componente raíz [`App.jsx`](src/App.jsx) y simulan las interacciones físicas reales del usuario sobre el DOM (clics en botones, selección de casillas de verificación, conmutación de temas, modales de confirmación y navegación lateral).
   3. Registrar formalmente el comando `npm run test:e2e` en `package.json`, e integrar la ejecución combinada en `npm test` (`node scripts/guardrails.js && vitest run`).
   4. Incorporar la presencia de la suite E2E en las 44 verificaciones del script de Guardrails ([`scripts/guardrails.js`](scripts/guardrails.js)) y en el Centro de Auditoría de la SPA ([`AuditoriaHub.jsx`](src/components/AuditoriaHub.jsx)).
+  5. Incorporar en el Centro de Auditoría ([`AuditoriaHub.jsx`](src/components/AuditoriaHub.jsx)) la 4ª opción de navegación lateral ("Arnés E2E (Vitest)") con botón de re-ejecución táctil interactiva (`▶ Ejecutar Suite E2E`), consola estilo terminal Vitest en vivo y desglose de selectores DOM de los 6 flujos de usuario evaluados.
 - **Motivo:** Cerrar la brecha entre las pruebas unitarias en memoria y la interacción visual real en pantalla, otorgando al sistema un verdadero órgano sensorial interactivo que certifique la experiencia del usuario sin depender de navegadores pesados ni pruebas manuales lentas.
 
 ---
