@@ -13,7 +13,7 @@ La aplicación, el código fuente y toda la base de conocimiento técnico se enc
 | Orden | Artefacto Maestro | Ubicación | Rol y Propósito |
 | :---: | :--- | :--- | :--- |
 | **0º** | **Reglamento del Agente (Constitución)** | [`app/AGENTS.md`](app/AGENTS.md) | Normas de comportamiento, flujos y comandos del agente. |
-| **1º** | **Especificación Principal (SSOT)** | [`app/docs/ESPECIFICACION_PRINCIPAL.md`](app/docs/ESPECIFICACION_PRINCIPAL.md) | **Única Fuente de Verdad** funcional y técnica. |
+| **1º** | **Especificación Principal (SSOT)** | [`app/docs/SPEC.md`](app/docs/SPEC.md) | **Única Fuente de Verdad** funcional y técnica. |
 | **2º** | **Arquitectura del Sistema** | [`app/docs/ARCHITECTURE.md`](app/docs/ARCHITECTURE.md) | Diagramas C4, modelo relacional y flujo de datos. |
 | **3º** | **Estándares y Reglas de Calidad** | [`app/docs/RULES.md`](app/docs/RULES.md) | Estándares de ingeniería y Criterios de Aceptación (DoD). |
 | **4º** | **Bitácora de Memoria y Decisiones** | [`app/docs/MEMORY.md`](app/docs/MEMORY.md) | Registro de ADRs, lecciones aprendidas y roadmap activo. |

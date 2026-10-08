@@ -29,7 +29,7 @@ const FASES_GUARDRAILS = [
     icono: '📁',
     nombre: 'Artefactos Fundamentales del Sistema SDD',
     items: [
-      { id: 'F1-01', desc: 'Existe Especificación Principal (SSOT) (docs/ESPECIFICACION_PRINCIPAL.md)' },
+      { id: 'F1-01', desc: 'Existe Especificación Principal (SSOT) (docs/SPEC.md)' },
       { id: 'F1-02', desc: 'Existe Reglamento Operativo para Agentes de IA (AGENTS.md)' },
       { id: 'F1-03', desc: 'Existe Bitácora de Memoria y Decisiones (docs/MEMORY.md)' },
       { id: 'F1-04', desc: 'Existe Estándares de Ingeniería y Codificación (docs/RULES.md)' },

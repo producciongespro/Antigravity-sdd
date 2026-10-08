@@ -8,7 +8,7 @@
 
 ## 🏛️ 1. Principio Rector: Spec-Driven Development (SDD)
 
-1. **La Especificación es la Ley:** Ninguna función, campo de datos o cambio en la persistencia puede crearse si no está previamente aprobado en [`docs/ESPECIFICACION_PRINCIPAL.md`](docs/ESPECIFICACION_PRINCIPAL.md).
+1. **La Especificación es la Ley:** Ninguna función, campo de datos o cambio en la persistencia puede crearse si no está previamente aprobado en [`docs/SPEC.md`](SPEC.md).
 2. **Prohibido asumir o alucinar:** Si un requerimiento no está explícito en la especificación, está prohibido adivinarlo; se debe consultar primero al usuario o documentar formalmente la propuesta.
 3. **El Ciclo TDD/SDD es Innegociable:**
    - 📜 **1. Spec:** Redactar regla formal con identificador único (`RF-*` o `RNF-*`).
@@ -116,7 +116,7 @@ El repositorio cuenta con un hook de pre-commit forzoso versionado en `.githooks
 
 Una tarea o requerimiento solo se considera **COMPLETADO** cuando cumple con la siguiente lista de verificación:
 
-- [ ] **1. Spec:** El requerimiento está documentado con código formal (`RF-*` / `RNF-*`) en `docs/ESPECIFICACION_PRINCIPAL.md`.
+- [ ] **1. Spec:** El requerimiento está documentado con código formal (`RF-*` / `RNF-*`) en `docs/SPEC.md`.
 - [ ] **2. Harness:** Existe una prueba correspondiente en `tests/harness.html` y flujos sensoriales en `tests/e2e.test.jsx`.
 - [ ] **3. Fase Roja superada:** Se verificó que la prueba fallaba antes de la solución.
 - [ ] **4. Arnés en Verde:** 100% de las pruebas del arnés y suite E2E pasan exitosamente.

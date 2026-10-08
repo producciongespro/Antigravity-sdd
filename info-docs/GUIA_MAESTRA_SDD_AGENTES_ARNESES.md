@@ -50,7 +50,7 @@ flowchart LR
 ```
 
 Si el sponsor pide un cambio de negocio (ej: confirmación anti-dedazos o nombres en español):
-1. **Primero** se redacta en la especificación ([`app/docs/ESPECIFICACION_PRINCIPAL.md`](file:///c:/xampp/htdocs/Antigravity-sdd/app/docs/ESPECIFICACION_PRINCIPAL.md)).
+1. **Primero** se redacta en la especificación ([`app/docs/SPEC.md`](file:///c:/xampp/htdocs/Antigravity-sdd/app/docs/SPEC.md)).
 2. **Segundo** se diseña la prueba en el arnés ([`app/tests/harness.html`](file:///c:/xampp/htdocs/Antigravity-sdd/app/tests/harness.html) o [`app/tests/e2e.test.jsx`](file:///c:/xampp/htdocs/Antigravity-sdd/app/tests/e2e.test.jsx)).
 3. **Tercero** se implementa el código en producción ([`app/src/`](file:///c:/xampp/htdocs/Antigravity-sdd/app/src/)).
 
@@ -70,7 +70,7 @@ El **Arnés de Pruebas** es un banco de evaluación automatizado donde se coloca
 ### 🍽️ La Metáfora del Restaurante de Alta Cocina
 | Componente | Rol en el Restaurante | Función en el Proyecto |
 | :--- | :--- | :--- |
-| **`ESPECIFICACION_PRINCIPAL.md`** | La Carta y la Receta Maestra | Define ingredientes, porciones y lo que el cliente pagó por recibir. |
+| **`SPEC.md`** | La Carta y la Receta Maestra | Define ingredientes, porciones y lo que el cliente pagó por recibir. |
 | **`AGENTS.md` / `RULES.md`** | Normas de la Cocina | Reglas operativas y estándares que los cocineros (humanos e IA) deben obedecer. |
 | **`tests/harness.html`** | El Inspector de Calidad | Prueba el plato antes de servirlo a la mesa. Si algo está crudo, rechaza la entrega. |
 | **`MEMORY.md`** | La Bitácora del Chef | Anota lecciones aprendidas, incidentes y decisiones arquitectónicas (ADRs). |
@@ -209,7 +209,7 @@ Son atajos rápidos que el usuario escribe en la caja de texto (como `/plan`, `/
 
 | Concepto | Analogía de la Vida Real | Función en el Proyecto SuperCarrito |
 | :--- | :--- | :--- |
-| **Spec-Driven Development (SDD)** | El plano del arquitecto antes de colocar ladrillos. | [`app/docs/ESPECIFICACION_PRINCIPAL.md`](file:///c:/xampp/htdocs/Antigravity-sdd/app/docs/ESPECIFICACION_PRINCIPAL.md) como Única Fuente de Verdad. |
+| **Spec-Driven Development (SDD)** | El plano del arquitecto antes de colocar ladrillos. | [`app/docs/SPEC.md`](file:///c:/xampp/htdocs/Antigravity-sdd/app/docs/SPEC.md) como Única Fuente de Verdad. |
 | **Arnés de Pruebas (Harness)** | El banco de pruebas del laboratorio o el catador de cocina. | [`app/tests/harness.html`](file:///c:/xampp/htdocs/Antigravity-sdd/app/tests/harness.html) para validación sensorial objetiva (7/7 verde). |
 | **Guardrails Duales (CLI + Web)** | La barandilla de la autopista y el tablero de control de mando. | [`app/scripts/guardrails.js`](file:///c:/xampp/htdocs/Antigravity-sdd/app/scripts/guardrails.js) en terminal y [`app/tests/guardrails.html`](file:///c:/xampp/htdocs/Antigravity-sdd/app/tests/guardrails.html) en navegador. |
 | **Guardrail de Acero (Git)** | La barrera física de un peaje que no abre sin ticket. | `.githooks/pre-commit` impidiendo físicamente commits con guardrails rotos. |
@@ -395,7 +395,7 @@ flowchart TD
     ROOT_AGENTS["app/AGENTS.md (Constitución Operativa y Puntero Maestro)"]
     
     subgraph DOCS ["docs/ (Única Fuente de Verdad Técnica Centralizada)"]
-        SPEC["1º docs/ESPECIFICACION_PRINCIPAL.md\n(SSOT Funcional y de Negocio)"]
+        SPEC["1º docs/SPEC.md\n(SSOT Funcional y de Negocio)"]
         ARCH["2º docs/ARCHITECTURE.md\n(Diagramas C4 y Modelo Relacional)"]
         RULES["3º docs/RULES.md\n(Estándares de Calidad y Definition of Done)"]
         MEM["4º docs/MEMORY.md\n(Bitácora Viva de ADRs y Roadmap)"]
@@ -419,7 +419,7 @@ Cada vez que vayas a construir una nueva función en cualquier proyecto futuro:
 
 ```text
 [ ] 1. Acordar el requerimiento de negocio con el sponsor / usuario.
-[ ] 2. Redactar el requerimiento formal en docs/ESPECIFICACION_PRINCIPAL.md (subir versión SemVer).
+[ ] 2. Redactar el requerimiento formal en docs/SPEC.md (subir versión SemVer).
 [ ] 3. Escribir la prueba unitaria en tests/harness.html o tests/e2e.test.jsx con ID formal (RF-* / RNF-*).
 [ ] 4. Ejecutar el arnés y verificar el FALLO CIENTÍFICO EN ROJO 🔴 (Fase Roja).
 [ ] 5. Implementar el código mínimo en src/ hasta lograr ÉXITO EN VERDE 🟢 (Fase Verde).
@@ -436,7 +436,7 @@ Compilación exhaustiva de las consultas reales planteadas por Chris durante nue
 
 ---
 
-### ❓ P1: ¿Por qué no programamos directamente la interfaz o la base de datos en vez de escribir primero la especificación (`ESPECIFICACION_PRINCIPAL.md`)?
+### ❓ P1: ¿Por qué no programamos directamente la interfaz o la base de datos en vez de escribir primero la especificación (`SPEC.md`)?
 **Respuesta:**  
 Porque programar sin especificación previa obliga a la IA (y a los desarrolladores) a **suponer y alucinar**. Cuando no existe un contrato formal con nombres exactos de campos, tipos de datos y reglas de negocio, la IA inventa estructuras sobre la marcha (por ejemplo, llamando a un campo `inCart` en un archivo y `comprado` en otro).  
 Al redactar primero la especificación, se crea un contrato inmutable: **la Única Fuente de Verdad (SSOT)**. Cualquier función o componente que se escriba después tiene una referencia matemática contra la cual compararse. *El código siempre sigue a la especificación, la especificación jamás persigue al código*.
@@ -463,7 +463,7 @@ Ver la prueba fallar en rojo con el motivo exacto del fallo demuestra dos cosas 
 **Respuesta:**  
 Una prueba unitaria típica evalúa una función aislada (por ejemplo: `sumar(2, 3) === 5`).  
 Un **Guardrail (Barandilla de Seguridad)** es una restricción arquitectónica global y preventiva que abarca múltiples capas del sistema:
-- **Guardrails Estructurales:** Verifican que existan los archivos obligatorios (`docs/ESPECIFICACION_PRINCIPAL.md`, `docs/RULES.md`, etc.).
+- **Guardrails Estructurales:** Verifican que existan los archivos obligatorios (`docs/SPEC.md`, `docs/RULES.md`, etc.).
 - **Guardrails Semánticos:** Comprueban que la especificación cumpla con el formato SemVer y contenga los requerimientos aprobados.
 - **Guardrails de Linter de Dominio:** Escanean el código fuente para prohibir términos obsoletos en inglés, sentencias `debugger;` olvidadas o accesos directos indebidos de la UI a `localStorage`.
 - **Guardrails de Ejecución:** Corren el arnés en memoria en menos de 50 milisegundos para certificar la integridad total antes de cualquier entrega.
@@ -532,7 +532,7 @@ En el desarrollo de software convencional, los equipos cambian arquitecturas y m
 **Respuesta:**  
 En SDD, una funcionalidad **NO está terminada** simplemente porque *"el código ya compila"* o *"se ve bien en pantalla"*.  
 Según nuestro [`docs/RULES.md`](file:///c:/xampp/htdocs/Antigravity-sdd/app/docs/RULES.md), una tarea solo se considera formalmente **COMPLETADA** cuando cumple con la lista de verificación completa:
-1. **Spec:** El requerimiento tiene código formal (`RF-*` / `RNF-*`) en `docs/ESPECIFICACION_PRINCIPAL.md`.
+1. **Spec:** El requerimiento tiene código formal (`RF-*` / `RNF-*`) en `docs/SPEC.md`.
 2. **Harness:** Existe una prueba en el arnés correspondiente.
 3. **Fase Roja superada:** Se verificó que la prueba fallaba antes de escribir la solución.
 4. **Arnés en Verde:** 100% de las pruebas pasan con éxito.

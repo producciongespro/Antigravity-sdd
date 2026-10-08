@@ -3,7 +3,7 @@
 > **Documento:** `docs/ARCHITECTURE.md`  
 > **Versión:** 1.0.0  
 > **Estado:** Aprobado  
-> **Alineación:** Conforme a [`docs/ESPECIFICACION_PRINCIPAL.md`](ESPECIFICACION_PRINCIPAL.md) v2.2.0
+> **Alineación:** Conforme a [`docs/SPEC.md`](SPEC.md) v2.12.0
 
 ---
 
@@ -113,9 +113,9 @@ erDiagram
 ```
 
 ### Reglas de Integridad Referencial:
-1. **Borrado en Cascada ([RF-2.4](file:///c:/xampp/htdocs/Antigravity-sdd/app/docs/ESPECIFICACION_PRINCIPAL.md#L87)):** Al eliminar una `Lista`, se destruyen automáticamente todos sus registros asociados en `productos_listas`.
-2. **Preservación ante Desincorporación ([RF-1.3](file:///c:/xampp/htdocs/Antigravity-sdd/app/docs/ESPECIFICACION_PRINCIPAL.md#L80)):** Si un `Producto` maestro se elimina, las listas existentes preservan sus ítems con valores de salvaguarda sin provocar excepciones de referencia nula.
-3. **Acumulación de Cantidad ([RF-3.2](file:///c:/xampp/htdocs/Antigravity-sdd/app/docs/ESPECIFICACION_PRINCIPAL.md#L91)):** Si se intenta vincular un producto ya existente en la lista, no se duplica el registro; se incrementa la propiedad `cantidad`.
+1. **Borrado en Cascada ([RF-2.4](SPEC.md#L87)):** Al eliminar una `Lista`, se destruyen automáticamente todos sus registros asociados en `productos_listas`.
+2. **Preservación ante Desincorporación ([RF-1.3](SPEC.md#L80)):** Si un `Producto` maestro se elimina, las listas existentes preservan sus ítems con valores de salvaguarda sin provocar excepciones de referencia nula.
+3. **Acumulación de Cantidad ([RF-3.2](SPEC.md#L91)):** Si se intenta vincular un producto ya existente en la lista, no se duplica el registro; se incrementa la propiedad `cantidad`.
 
 ---
 

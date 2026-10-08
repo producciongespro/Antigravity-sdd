@@ -1,6 +1,6 @@
 /**
  * Storage Service - Motor de persistencia y lógica relacional (v2.2.0 en Español)
- * Fuente de Verdad: docs/ESPECIFICACION_PRINCIPAL.md
+ * Fuente de Verdad: docs/SPEC.md
  */
 
 export const DB_KEY = 'supermarket_app_db_v2';

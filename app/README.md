@@ -13,16 +13,14 @@ Proyecto desarrollado por **Christian Vargas A.** en pair programming con **Anti
 ```text
 Antigravity-sdd/
 ├── app/                  # 🛒 Aplicación Web Completa (React 18 + Vite 6 + Tailwind v4)
-│   ├── docs/             # 📜 Fuente Única de Verdad (docs/ESPECIFICACION_PRINCIPAL.md) y ARCHITECTURE.md
-│   ├── tests/            # 🛡️ Arnés de Pruebas Visual (tests/harness.html)
+│   ├── docs/             # 📜 Documentación Técnica SSOT: SPEC.md, ARCHITECTURE.md, RULES.md, MEMORY.md
+│   ├── tests/            # 🛡️ Arnés de Pruebas Visual (tests/harness.html) y Suite E2E (e2e.test.jsx)
 │   ├── scripts/          # 🚨 Guardrails Automatizados (scripts/guardrails.js)
-│   ├── src/              # 💻 Código Fuente (HomeHub, Catálogo, Listas, Modo Súper)
-│   ├── RULES.md          # 📐 Estándares de Ingeniería y Definición de Terminado (DoD)
-│   ├── AGENTS.md         # 🤖 Reglamento Operativo para Agentes de IA
-│   ├── MEMORY.md         # 🧠 Bitácora de Memoria del Proyecto y ADRs
+│   ├── src/              # 💻 Código Fuente (HomeHub, GestionHub, ActiveShopping, AuditoriaHub)
+│   ├── AGENTS.md         # 🤖 Reglamento Operativo y Puntero Maestro
 │   ├── .gitignore        # Exclusiones de Git
 │   └── README.md         # Esta portada
-└── info-docs/            # 📚 Documentación Teórica, Guía Maestra PDF e Imprimible
+└── info-docs/            # 📚 Documentación Teórica, Guía Maestra e Imprimible HTML
 ```
 
 ---

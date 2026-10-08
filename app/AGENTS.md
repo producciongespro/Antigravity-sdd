@@ -10,7 +10,7 @@ Para mantener la raíz del proyecto limpia y libre de saturación, toda la base 
 
 | Orden | Artefacto Maestro | Ubicación | Rol y Propósito |
 | :---: | :--- | :--- | :--- |
-| **1º** | **Especificación Principal (SSOT)** | [`docs/ESPECIFICACION_PRINCIPAL.md`](docs/ESPECIFICACION_PRINCIPAL.md) | **Única Fuente de Verdad** funcional, técnica y de negocio del proyecto. |
+| **1º** | **Especificación Principal (SSOT)** | [`docs/SPEC.md`](docs/SPEC.md) | **Única Fuente de Verdad** funcional, técnica y de negocio del proyecto. |
 | **2º** | **Arquitectura del Sistema** | [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) | Diseño de componentes, modelo relacional C4 y flujo de datos. |
 | **3º** | **Estándares y Reglas de Calidad** | [`docs/RULES.md`](docs/RULES.md) | Reglas de codificación, stack y Criterios de Aceptación (*Definition of Done*). |
 | **4º** | **Bitácora de Memoria y Decisiones** | [`docs/MEMORY.md`](docs/MEMORY.md) | Registro de ADRs (Architectural Decision Records), lecciones y roadmap activo. |
@@ -21,7 +21,7 @@ Para mantener la raíz del proyecto limpia y libre de saturación, toda la base 
 
 1. **La Única Fuente de Verdad:**  
    Antes de escribir o modificar una sola línea de código, el agente **DEBE LEER** el archivo:
-   👉 [`docs/ESPECIFICACION_PRINCIPAL.md`](docs/ESPECIFICACION_PRINCIPAL.md).
+   👉 [`docs/SPEC.md`](docs/SPEC.md).
 2. **Prohibido asumir requerimientos:**  
    Si una regla de negocio o modelo de datos entra en conflicto, la especificación en `docs/` siempre tiene la última palabra. Si algo no está claro, pregunta al usuario en lugar de inventar.
 3. **El Código sigue a la Spec:**  

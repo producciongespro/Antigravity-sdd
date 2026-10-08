@@ -12,7 +12,7 @@
 - **Dominio:** Aplicación web para optimizar compras en el supermercado con modelo relacional (Catálogo Maestro $\rightarrow$ Listas $\rightarrow$ Vinculación $\rightarrow$ Modo Súper táctil).
 - **Persistencia:** `localStorage` bajo la clave `'supermarket_app_db_v2'`.
 - **Stack:** React 18, Vite, Tailwind CSS v4 (`@tailwindcss/postcss`), JavaScript (ESModules).
-- **Única Fuente de Verdad:** [docs/ESPECIFICACION_PRINCIPAL.md](docs/ESPECIFICACION_PRINCIPAL.md) (Versión 2.2.0 en Español).
+- **Única Fuente de Verdad:** [docs/SPEC.md](SPEC.md) (Versión 2.12.0 en Español).
 - **Arnés de Pruebas Visual:** [tests/harness.html](tests/harness.html) (Ejecutable en `http://localhost:3000/tests/harness.html`).
 - **Guardrails Automatizados:** [scripts/guardrails.js](scripts/guardrails.js) (`npm run check:guardrails` / `npm test`).
 - **Arquitectura y Estándares:** [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) y [RULES.md](RULES.md).
@@ -140,10 +140,23 @@
 ### ADR-17: Patrón de Puntero Maestro y Consolidación de Documentación en `docs/` (v2.11.0)
 - **Decisión:**
   1. Mantener en la raíz del proyecto exclusivamente `AGENTS.md` actuando como Constitución Operativa y **Puntero Maestro** de contexto.
-  2. Consolidar todos los archivos Markdown de conocimiento técnico, arquitectónico y estándares dentro de la carpeta `docs/` ([`docs/ESPECIFICACION_PRINCIPAL.md`](ESPECIFICACION_PRINCIPAL.md), [`docs/ARCHITECTURE.md`](ARCHITECTURE.md), [`docs/RULES.md`](RULES.md) y [`docs/MEMORY.md`](MEMORY.md)).
+  2. Consolidar todos los archivos Markdown de conocimiento técnico, arquitectónico y estándares dentro de la carpeta `docs/` ([`docs/SPEC.md`](SPEC.md), [`docs/ARCHITECTURE.md`](ARCHITECTURE.md), [`docs/RULES.md`](RULES.md) y [`docs/MEMORY.md`](MEMORY.md)).
   3. Estructurar en `AGENTS.md` una tabla de lectura obligatoria con orden de consulta estricto para agentes de IA al iniciar sesión.
   4. Actualizar el script de Guardrails ([`scripts/guardrails.js`](../scripts/guardrails.js)), el Centro de Auditoría ([`AuditoriaHub.jsx`](../src/components/AuditoriaHub.jsx)) y el panel visual ([`tests/guardrails.html`](../tests/guardrails.html)) para auditar las nuevas rutas unificadas en `docs/`.
 - **Motivo:** Mantener una estructura de carpetas limpia y profesional, evitando la dispersión de documentos en la raíz y garantizando que cualquier agente de IA descubra de inmediato las directivas de comportamiento y el mapa completo del sistema.
+
+### ADR-18: Estandarización Internacional de Nombres Markdown: SPEC.md (v2.12.0)
+- **Decisión:**
+  1. Renombrar y consolidar el artefacto de especificación funcional como [`docs/SPEC.md`](SPEC.md) en lugar de nombres localizados (`ESPECIFICACION_PRINCIPAL.md`), adoptando la convención internacional estandarizada de proyectos de ingeniería de software y agentes de IA.
+  2. Preservar la simetría y legibilidad universal de la documentación técnica centralizada:
+     - `SPEC.md`: Especificación funcional, modelo de datos y reglas de negocio (SSOT).
+     - `ARCHITECTURE.md`: Diagramas C4, modelo entidad-relación y flujo desacoplado.
+     - `RULES.md`: Reglas de codificación, stack y Criterios de Aceptación (DoD).
+     - `MEMORY.md`: Bitácora viva de contexto, ADRs y roadmap.
+     - `AGENTS.md`: Constitución y reglamento operativo del agente de IA.
+     - `README.md`: Portada y guía rápida de puesta en marcha.
+  3. Actualizar todas las referencias en scripts de guardrails, arnés en memoria, componentes React y guías maestras para auditar `docs/SPEC.md`.
+- **Motivo:** Alinear el proyecto con las mejores prácticas globales del ecosistema de software y facilitar la interoperabilidad con herramientas automatizadas, LLMs y desarrolladores de cualquier procedencia lingüística, manteniendo el contenido íntegro y documentado en español.
 
 ---
 
@@ -175,7 +188,7 @@
 ## 🚦 4. Estado de Tareas (Roadmap)
 
 - [x] **Paso 0:** Definir visión y arquitectura relacional de 4 módulos.
-- [x] **Paso 1:** Redactar la especificación formal v2.1.0 en español (`docs/ESPECIFICACION_PRINCIPAL.md`).
+- [x] **Paso 1:** Redactar la especificación formal v2.1.0 en español (`docs/SPEC.md`).
 - [x] **Paso 2:** Actualizar el arnés de pruebas (`tests/harness.html`).
 - [x] **Paso 3:** Verificación de la Fase Roja 🔴.
 - [x] **Paso 4:** Refactorizar el motor de datos (`src/services/storage.js`) y componentes React al español.
@@ -204,4 +217,5 @@
 - [x] **Paso 25:** Incorporar la 3ª Opción en Auditoría ([`AuditoriaHub.jsx`](../src/components/AuditoriaHub.jsx)): Guardrail de Acero (Git), con tarjeta de commit certificado (`47b9dc6`), terminal interactiva con simulación de intercepciones, visor web embebido en iframe de `/tests/guardrails.html` y código del hook (v2.9.0).
 - [x] **Paso 26:** Implementar el Arnés Sensorial End-to-End (E2E) con Vitest y Testing Library ([`tests/e2e.test.jsx`](../tests/e2e.test.jsx) - RF-5.6), con 6 pruebas automatizadas sobre el DOM real emulado, comando `npm run test:e2e` y elevación a 44 Guardrails Maestros en verde 🟢 (v2.10.0).
 - [x] **Paso 27:** Implementar el Patrón del Puntero Maestro consolidando todos los archivos de conocimiento en `docs/` (`docs/MEMORY.md` y `docs/RULES.md`), dejando `AGENTS.md` como único punto de entrada en raíz (v2.11.0).
+- [x] **Paso 28:** Estandarizar la nomenclatura Markdown al estándar internacional de la industria (`docs/SPEC.md`), unificando todos los artefactos clave del repositorio bajo nombres en mayúsculas universalmente reconocidos (v2.12.0).
 

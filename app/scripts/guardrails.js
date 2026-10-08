@@ -84,7 +84,7 @@ async function runGuardrails() {
   printSection('FASE 1: Existencia de Artefactos Fundamentales SDD', '📁');
 
   const requiredFiles = [
-    { file: 'docs/ESPECIFICACION_PRINCIPAL.md', desc: 'Especificación Principal (SSOT)' },
+    { file: 'docs/SPEC.md', desc: 'Especificación Principal (SSOT)' },
     { file: 'AGENTS.md', desc: 'Reglamento Operativo para Agentes de IA' },
     { file: 'docs/MEMORY.md', desc: 'Bitácora de Memoria y Decisiones Arquitectónicas (ADRs)' },
     { file: 'docs/RULES.md', desc: 'Estándares de Ingeniería y Reglas de Codificación' },
@@ -121,7 +121,7 @@ async function runGuardrails() {
   // ==========================================================================
   printSection('FASE 2: Integridad Semántica de la Especificación (SSOT)', '📜');
 
-  const specPath = path.join(ROOT_DIR, 'docs/ESPECIFICACION_PRINCIPAL.md');
+  const specPath = path.join(ROOT_DIR, 'docs/SPEC.md');
   const specContent = fs.existsSync(specPath) ? fs.readFileSync(specPath, 'utf8') : '';
 
   check('La Especificación declara un número de versión formal válido (SemVer)', () => {
@@ -201,7 +201,7 @@ async function runGuardrails() {
   check('AGENTS.md exige Spec-Driven Development (SDD) como principio fundamental', () => {
     const agentsPath = path.join(ROOT_DIR, 'AGENTS.md');
     const agentsContent = fs.existsSync(agentsPath) ? fs.readFileSync(agentsPath, 'utf8') : '';
-    return agentsContent.includes('Spec-Driven Development') && agentsContent.includes('docs/ESPECIFICACION_PRINCIPAL.md');
+    return agentsContent.includes('Spec-Driven Development') && agentsContent.includes('docs/SPEC.md');
   });
 
   check('docs/RULES.md define Criterios de Entrega (Definition of Done)', () => {
