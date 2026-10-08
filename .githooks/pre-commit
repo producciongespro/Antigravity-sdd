@@ -31,6 +31,6 @@ if [ $EXIT_CODE -ne 0 ]; then
 fi
 
 echo ""
-echo "✨ [PRE-COMMIT HOOK] 40/40 Guardrails en Verde 🟢. Commit autorizado."
+echo "✨ [PRE-COMMIT HOOK] 44/44 Guardrails en Verde 🟢. Commit autorizado."
 echo ""
 exit 0
