@@ -764,7 +764,7 @@ export default function AuditoriaHub() {
                     </h5>
                   </div>
                   <span className="text-[10px] font-mono font-bold text-purple-300 bg-purple-500/10 px-2 py-0.5 rounded border border-purple-500/20">
-                    Commit: b35a3f0
+                    Commit: 9064670
                   </span>
                 </div>
 
