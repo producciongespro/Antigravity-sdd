@@ -1,7 +1,7 @@
 # SPEC.md - Especificación Principal del Sistema: SuperCarrito (SDD)
 
 > **Documento:** `docs/SPEC.md`  
-> **Versión:** 2.13.0  
+> **Versión:** 2.14.0  
 > **Fecha de Actualización:** 2026-10-08  
 > **Estado:** Aprobado / Fuente Única de Verdad (SSOT)  
 > **Stack Técnico:** React 18+ | JavaScript (ESModules) | Vite 6+ | Tailwind CSS v4 | LocalStorage | Vitest & Testing Library
@@ -28,6 +28,7 @@
 | **v2.11.0** | 2026-10-08 | Christian Vargas A. | **Patrón del Puntero Maestro (RF-5.7):** Consolidación de toda la documentación técnica dentro del directorio `docs/` y establecimiento de `AGENTS.md` en la raíz como único puntero operativo para agentes de IA. |
 | **v2.12.0** | 2026-10-08 | Christian Vargas A. | **Estandarización Internacional de Nombres Markdown:** Consolidación de la especificación como `docs/SPEC.md` según los estándares internacionales de la industria y la comunidad de agentes SDD. |
 | **v2.13.0** | 2026-10-08 | Christian Vargas A. | **Módulo de Inspección de Agentes y Subagentes Autónomos (RF-5.8):** Incorporación de la 5ª opción en el panel lateral AdminLTE del Centro de Auditoría (Paso 3) para visualizar, auditar y desplegar la orquestación en tiempo real de 3 subagentes especialistas (Centinela de Especificación, Analista de Memoria/ADRs y Probador Sensorial DOM). |
+| **v2.14.0** | 2026-10-08 | Christian Vargas A. | **Panel Ejecutivo 360° Estilo Power BI en Auditoría (RF-5.9):** Incorporación de la vista inicial unificada de mando ejecutivo (Posición 0 en Sidebar AdminLTE) con 4 tarjetas KPI estratégicas, 4 widgets gráficos de telemetría (desglose de fases, enjambre de agentes, pipeline funnel y gobernanza viva) y navegación interactiva con drill-down a cada módulo técnico. |
 
 ---
 
@@ -172,6 +173,22 @@ interface ProductoLista {
     - Botón táctil interactivo: `▶ Desplegar Enjambre de Subagentes`.
     - Simulación reactiva del ciclo de vida con estados visuales: `Inactivo` $\rightarrow$ `Desplegando en Paralelo` $\rightarrow$ `Completado 100% Verde`.
     - Tarjetas de diagnóstico con barras de progreso, telemetría de latencia, insignias de estado y reporte consolidado de salud arquitectónica.
+
+- **RF-5.9 (Panel Ejecutivo 360° Estilo Power BI en Auditoría):**
+  - La plataforma incorpora en el Centro de Auditoría (`AuditoriaHub.jsx`) una **opción principal destacada en la posición 0 del panel lateral AdminLTE** denominada `📊 Panel Ejecutivo 360°`, seleccionada por defecto al ingresar a la pantalla del Paso 3.
+  - **4 Tarjetas KPI Ejecutivas Principales:**
+    1. **Salud Global del Sistema:** Indicador unificado de cumplimiento SDD (100% / Grado A+ / SSOT Consistente).
+    2. **Guardrails Maestros:** Contador de aserciones de seguridad en verde (45/45 Verde, latencia media 35ms).
+    3. **Arnés Sensorial E2E:** Flujos de usuario simulados sobre DOM real emulado (7/7 Aprobados, 100% Cobertura).
+    4. **Enjambre Multi-Agente:** Estado del orquestador y subagentes especialistas (3 Activos, telemetría y latencia ~390ms).
+  - **4 Widgets Gráficos de Telemetría (Estilo Power BI):**
+    1. **Desglose de Guardrails por Fase:** Gráfico de barras horizontales de progreso porcentual para las Fases 1 a 5 (Artefactos, Contratos, Gobernanza, Aislamiento y Dominio).
+    2. **Matriz de Telemetría Multi-Agente:** Vista ejecutiva de roles, estado operativo (`EN LÍNEA 🟢`) y métricas de cada agente (Antigravity, Centinela, Analista, Sensorial).
+    3. **Embudo de Seguridad SDD (Pipeline Funnel):** Visualización de las 4 compuertas secuenciales de calidad (Spec $\rightarrow$ Linters $\rightarrow$ Arnés E2E $\rightarrow$ Guardrail de Acero Pre-commit).
+    4. **Gobernanza y Memoria Viva:** Balance general de 19 ADRs activos, 29 pasos de roadmap completados y certificación criptográfica del último commit en Git.
+  - **Navegación Interactiva "Drill-Down":**
+    - Cada tarjeta KPI o widget contiene botones de acción rápida para saltar directamente a la pestaña técnica profunda correspondiente (`guardrails`, `harness`, `git`, `e2e`, `agentes`).
+    - Botón de refresco interactivo de telemetría general con recálculo dinámico y animación reactiva.
 
 ---
 

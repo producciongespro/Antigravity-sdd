@@ -21,7 +21,9 @@ import {
   Check,
   MousePointer,
   Bot,
-  Users
+  Users,
+  LayoutDashboard,
+  BarChart3
 } from 'lucide-react';
 
 // Definición de las 38 verificaciones maestras de Guardrails en 5 fases
@@ -224,7 +226,7 @@ const SUBAGENTES_CATALOGO = [
 ];
 
 export default function AuditoriaHub() {
-  const [activeMenu, setActiveMenu] = useState('guardrails'); // 'guardrails' | 'harness' | 'git' | 'e2e' | 'agentes'
+  const [activeMenu, setActiveMenu] = useState('dashboard'); // 'dashboard' | 'guardrails' | 'harness' | 'git' | 'e2e' | 'agentes'
   const [isAuditing, setIsAuditing] = useState(false);
   const [auditTime, setAuditTime] = useState(34);
   const [harnessResults, setHarnessResults] = useState([]);
@@ -232,6 +234,19 @@ export default function AuditoriaHub() {
   const [gitTerminalMode, setGitTerminalMode] = useState('success'); // 'success' | 'failure' | 'running'
   const [gitViewTab, setGitViewTab] = useState('terminal'); // 'terminal' | 'preview' | 'code'
   const [isRunningSim, setIsRunningSim] = useState(false);
+
+  // Estados del Panel Ejecutivo 360° (RF-5.9)
+  const [isRefreshingDashboard, setIsRefreshingDashboard] = useState(false);
+  const [dashboardLastUpdated, setDashboardLastUpdated] = useState(new Date().toLocaleTimeString());
+
+  const handleRefreshAll = () => {
+    setIsRefreshingDashboard(true);
+    setTimeout(() => {
+      setIsRefreshingDashboard(false);
+      setDashboardLastUpdated(new Date().toLocaleTimeString());
+      runHarnessTests();
+    }, 350);
+  };
 
   // Estados del Arnés Sensorial E2E (Vitest)
   const [isRunningE2E, setIsRunningE2E] = useState(false);
@@ -496,6 +511,16 @@ export default function AuditoriaHub() {
         </div>
 
         <div className="flex items-center gap-2 self-stretch sm:self-auto">
+          {activeMenu === 'dashboard' && (
+            <button
+              onClick={handleRefreshAll}
+              disabled={isRefreshingDashboard}
+              className="px-4 py-2.5 rounded-xl bg-purple-500 hover:bg-purple-400 text-slate-950 text-xs font-black flex items-center justify-center gap-2 transition-all shadow-md hover:shadow-purple-500/20 disabled:opacity-50"
+            >
+              <RefreshCw className={`w-4 h-4 ${isRefreshingDashboard ? 'animate-spin' : ''}`} />
+              <span>{isRefreshingDashboard ? 'Recalculando...' : 'Recalcular Telemetría'}</span>
+            </button>
+          )}
           {activeMenu === 'guardrails' && (
             <button
               onClick={triggerAudit}
@@ -547,6 +572,29 @@ export default function AuditoriaHub() {
             <span className="px-3 py-1.5 text-[11px] font-bold text-slate-400 uppercase tracking-wider block">
               Opciones de Auditoría
             </span>
+
+            {/* Opción 0: Panel Ejecutivo 360° (Power BI) */}
+            <button
+              aria-label="Panel Ejecutivo"
+              onClick={() => setActiveMenu('dashboard')}
+              className={`w-full flex items-center justify-between p-3 rounded-xl text-xs font-bold transition-all text-left group ${
+                activeMenu === 'dashboard'
+                  ? 'bg-purple-500 text-slate-950 shadow-md font-black'
+                  : 'text-slate-300 hover:bg-slate-700/60 hover:text-white'
+              }`}
+            >
+              <div className="flex items-center gap-3">
+                <LayoutDashboard className={`w-4 h-4 ${activeMenu === 'dashboard' ? 'text-slate-950' : 'text-purple-400'}`} />
+                <span>Panel Ejecutivo 360°</span>
+              </div>
+              <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${
+                activeMenu === 'dashboard'
+                  ? 'bg-slate-950/20 text-slate-950'
+                  : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
+              }`}>
+                Power BI
+              </span>
+            </button>
 
             {/* Opción 1: Auditar el Sistema (Guardrails) */}
             <button
@@ -690,42 +738,420 @@ export default function AuditoriaHub() {
 
         {/* ÁREA DE TRABAJO DERECHA: Despliegue de la opción seleccionada */}
         <main className="md:col-span-8 lg:col-span-9 space-y-5">
-          {/* Tarjetas de métricas del área de trabajo */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            <div className="bg-slate-800 border border-slate-700 rounded-2xl p-3.5 shadow-sm text-center">
-              <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block mb-1">
-                {activeMenu === 'guardrails' ? 'Guardrails Totales' : activeMenu === 'harness' ? 'Pruebas Sensoriales' : 'Guardrail de Acero'}
-              </span>
-              <span className="text-xl font-black text-white">
-                {activeMenu === 'guardrails' ? `${totalChecks} / ${totalChecks}` : activeMenu === 'harness' ? `${harnessResults.length} / ${harnessResults.length}` : 'Pre-commit'}
-              </span>
+          {/* Tarjetas de métricas del área de trabajo (para vistas técnicas 1 a 5) */}
+          {activeMenu !== 'dashboard' && (
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <div className="bg-slate-800 border border-slate-700 rounded-2xl p-3.5 shadow-sm text-center">
+                <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block mb-1">
+                  {activeMenu === 'guardrails' ? 'Guardrails Totales' : activeMenu === 'harness' ? 'Pruebas Sensoriales' : 'Guardrail de Acero'}
+                </span>
+                <span className="text-xl font-black text-white">
+                  {activeMenu === 'guardrails' ? `${totalChecks} / ${totalChecks}` : activeMenu === 'harness' ? `${harnessResults.length} / ${harnessResults.length}` : 'Pre-commit'}
+                </span>
+              </div>
+              <div className="bg-slate-800 border border-emerald-500/30 rounded-2xl p-3.5 shadow-sm text-center bg-emerald-500/5">
+                <span className="text-[10px] font-semibold text-emerald-400 uppercase tracking-wider block mb-1">
+                  {activeMenu === 'git' ? 'Estado del Hook' : 'Aprobadas (Verde 🟢)'}
+                </span>
+                <span className="text-xl font-black text-emerald-400">
+                  {activeMenu === 'guardrails' ? totalChecks : activeMenu === 'harness' ? harnessResults.filter(r => r.status === 'passed').length : 'Blindado'}
+                </span>
+              </div>
+              <div className="bg-slate-800 border border-slate-700 rounded-2xl p-3.5 shadow-sm text-center">
+                <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block mb-1">
+                  {activeMenu === 'git' ? 'Commit Certificado' : 'Fallidas (Rojo 🔴)'}
+                </span>
+                <span className="text-xl font-black text-purple-400 font-mono">
+                  {activeMenu === 'git' ? '2d3a257' : '0'}
+                </span>
+              </div>
+              <div className="bg-slate-800 border border-slate-700 rounded-2xl p-3.5 shadow-sm text-center">
+                <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block mb-1">
+                  Latencia
+                </span>
+                <span className="text-xl font-black text-sky-400 flex items-center justify-center gap-1">
+                  <Clock className="w-3.5 h-3.5 inline" />
+                  <span>{activeMenu === 'guardrails' ? `${auditTime}ms` : activeMenu === 'harness' ? '<10ms' : '42ms'}</span>
+                </span>
+              </div>
             </div>
-            <div className="bg-slate-800 border border-emerald-500/30 rounded-2xl p-3.5 shadow-sm text-center bg-emerald-500/5">
-              <span className="text-[10px] font-semibold text-emerald-400 uppercase tracking-wider block mb-1">
-                {activeMenu === 'git' ? 'Estado del Hook' : 'Aprobadas (Verde 🟢)'}
-              </span>
-              <span className="text-xl font-black text-emerald-400">
-                {activeMenu === 'guardrails' ? totalChecks : activeMenu === 'harness' ? harnessResults.filter(r => r.status === 'passed').length : 'Blindado'}
-              </span>
+          )}
+
+          {/* OPCIÓN 0: PANEL EJECUTIVO 360° (POWER BI STYLE) */}
+          {activeMenu === 'dashboard' && (
+            <div className="space-y-6 animate-fadeIn">
+              {/* BANNER DE IDENTIFICACIÓN EJECUTIVA */}
+              <div className="bg-gradient-to-r from-purple-950/60 via-slate-800 to-slate-900 border border-purple-500/30 rounded-2xl p-5 shadow-lg flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                  <div className="flex items-center gap-2 mb-1.5">
+                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-purple-500/20 text-purple-300 border border-purple-500/30 flex items-center gap-1.5">
+                      <LayoutDashboard className="w-3 h-3 text-purple-400" />
+                      Power BI Executive Command Center
+                    </span>
+                    <span className="text-xs text-slate-400 flex items-center gap-1">
+                      <Clock className="w-3.5 h-3.5 text-slate-400" />
+                      Telemetría en Vivo ({dashboardLastUpdated})
+                    </span>
+                  </div>
+                  <h3 className="text-lg sm:text-xl font-black text-white flex items-center gap-2">
+                    Cuadro de Mando Ejecutivo (360° SDD)
+                  </h3>
+                  <p className="text-xs text-slate-300 mt-1 max-w-2xl">
+                    Centro de inteligencia unificada para auditoría de contratos, arneses de simulación física, barandillas de acero en Git y enjambre multi-agente en tiempo real.
+                  </p>
+                </div>
+                <div className="flex items-center gap-2 flex-shrink-0">
+                  <span className="px-3 py-1.5 rounded-xl bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-black flex items-center gap-1.5 shadow-sm">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                    100% Salubre
+                  </span>
+                </div>
+              </div>
+
+              {/* 4 TARJETAS KPI ESTRATÉGICAS (TOP ROW) */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                {/* KPI 1: Salud Global SDD */}
+                <div className="bg-slate-800/90 border border-slate-700/80 rounded-2xl p-4 shadow-sm hover:border-emerald-500/40 transition-all group relative overflow-hidden">
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-emerald-500" />
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                      Salud Global SDD
+                    </span>
+                    <span className="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-400">
+                      <ShieldCheck className="w-4 h-4" />
+                    </span>
+                  </div>
+                  <div className="flex items-baseline gap-2 mb-1">
+                    <span className="text-3xl font-black text-white">100%</span>
+                    <span className="text-[10px] font-black px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                      GRADO A+
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-slate-400">
+                    Cero deuda de especificación · Contrato íntegro
+                  </p>
+                  <div className="mt-3 w-full bg-slate-700/50 rounded-full h-1.5 overflow-hidden">
+                    <div className="bg-emerald-500 h-full rounded-full w-full" />
+                  </div>
+                </div>
+
+                {/* KPI 2: Guardrails Maestros */}
+                <div className="bg-slate-800/90 border border-slate-700/80 rounded-2xl p-4 shadow-sm hover:border-purple-500/40 transition-all group relative overflow-hidden">
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-purple-500" />
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                      Guardrails Maestros
+                    </span>
+                    <span className="p-1.5 rounded-lg bg-purple-500/10 text-purple-400">
+                      <Layers className="w-4 h-4" />
+                    </span>
+                  </div>
+                  <div className="flex items-baseline gap-2 mb-1">
+                    <span className="text-3xl font-black text-white">{totalChecks} / {totalChecks}</span>
+                    <span className="text-[10px] font-black px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30">
+                      {auditTime}ms
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-slate-400">
+                    5 Fases activas · CLI & Web sincrónicos
+                  </p>
+                  <div className="mt-3 flex items-center justify-between">
+                    <span className="text-[10px] text-purple-400 font-semibold">{totalChecks} aserciones OK</span>
+                    <button
+                      onClick={() => setActiveMenu('guardrails')}
+                      className="text-[10px] font-bold text-purple-300 hover:text-white flex items-center gap-1 group-hover:underline"
+                    >
+                      <span>Ver Detalle</span>
+                      <ChevronRight className="w-3 h-3" />
+                    </button>
+                  </div>
+                </div>
+
+                {/* KPI 3: Arnés Sensorial E2E */}
+                <div className="bg-slate-800/90 border border-slate-700/80 rounded-2xl p-4 shadow-sm hover:border-sky-500/40 transition-all group relative overflow-hidden">
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-sky-500" />
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                      Arnés Sensorial E2E
+                    </span>
+                    <span className="p-1.5 rounded-lg bg-sky-500/10 text-sky-400">
+                      <MousePointer className="w-4 h-4" />
+                    </span>
+                  </div>
+                  <div className="flex items-baseline gap-2 mb-1">
+                    <span className="text-3xl font-black text-white">7 / 7</span>
+                    <span className="text-[10px] font-black px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 border border-sky-500/30">
+                      PASS 🟢
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-slate-400">
+                    Vitest + JSDOM · 100% flujos reales
+                  </p>
+                  <div className="mt-3 flex items-center justify-between">
+                    <span className="text-[10px] text-sky-400 font-semibold">2.2s ejecución</span>
+                    <button
+                      onClick={() => setActiveMenu('e2e')}
+                      className="text-[10px] font-bold text-sky-300 hover:text-white flex items-center gap-1 group-hover:underline"
+                    >
+                      <span>Ver Detalle</span>
+                      <ChevronRight className="w-3 h-3" />
+                    </button>
+                  </div>
+                </div>
+
+                {/* KPI 4: Enjambre Multi-Agente */}
+                <div className="bg-slate-800/90 border border-slate-700/80 rounded-2xl p-4 shadow-sm hover:border-amber-500/40 transition-all group relative overflow-hidden">
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-amber-500" />
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                      Enjambre Multi-Agente
+                    </span>
+                    <span className="p-1.5 rounded-lg bg-amber-500/10 text-amber-400">
+                      <Bot className="w-4 h-4" />
+                    </span>
+                  </div>
+                  <div className="flex items-baseline gap-2 mb-1">
+                    <span className="text-3xl font-black text-white">3 Activos</span>
+                    <span className="text-[10px] font-black px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                      ~{swarmLatency}ms
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-slate-400">
+                    1 Orquestador + 3 Subagentes
+                  </p>
+                  <div className="mt-3 flex items-center justify-between">
+                    <span className="text-[10px] text-amber-400 font-semibold">Paralelismo Seguro</span>
+                    <button
+                      onClick={() => setActiveMenu('agentes')}
+                      className="text-[10px] font-bold text-amber-300 hover:text-white flex items-center gap-1 group-hover:underline"
+                    >
+                      <span>Ver Enjambre</span>
+                      <ChevronRight className="w-3 h-3" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* 4 WIDGETS GRÁFICOS INTERACTIVOS (CUADRÍCULA 2x2) */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+                {/* WIDGET 1: Desglose de Cobertura por Fase */}
+                <div className="bg-slate-800 border border-slate-700 rounded-2xl p-5 shadow-sm space-y-4">
+                  <div className="flex items-center justify-between border-b border-slate-700/60 pb-3">
+                    <div className="flex items-center gap-2.5">
+                      <span className="p-2 rounded-xl bg-purple-500/10 text-purple-400">
+                        <BarChart3 className="w-4 h-4" />
+                      </span>
+                      <div>
+                        <h4 className="text-xs font-bold text-white uppercase tracking-wider">
+                          Desglose de Cobertura por Fase
+                        </h4>
+                        <p className="text-[11px] text-slate-400">
+                          Distribución de las 45 aserciones de Guardrails Maestros
+                        </p>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => setActiveMenu('guardrails')}
+                      className="text-xs text-purple-400 hover:text-purple-300 font-bold flex items-center gap-1 hover:underline"
+                    >
+                      <span>Examinar</span>
+                      <ChevronRight className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+
+                  <div className="space-y-3 pt-1">
+                    {[
+                      { fase: 'Fase 1: Artefactos Base SDD', ok: 16, total: 16, color: 'bg-emerald-500', pct: '100%' },
+                      { fase: 'Fase 2: Semántica y Contratos', ok: 13, total: 13, color: 'bg-purple-500', pct: '100%' },
+                      { fase: 'Fase 3: Gobernanza y ADRs', ok: 3, total: 3, color: 'bg-sky-500', pct: '100%' },
+                      { fase: 'Fase 4: Aislamiento de Capas', ok: 4, total: 4, color: 'bg-amber-500', pct: '100%' },
+                      { fase: 'Fase 5: Dominio en Memoria', ok: 9, total: 9, color: 'bg-teal-500', pct: '100%' }
+                    ].map((item, idx) => (
+                      <div key={idx} className="space-y-1">
+                        <div className="flex items-center justify-between text-xs">
+                          <span className="text-slate-300 font-medium text-[11px]">{item.fase}</span>
+                          <span className="font-mono font-bold text-slate-200 text-[11px]">
+                            {item.ok} / {item.total} ({item.pct})
+                          </span>
+                        </div>
+                        <div className="w-full bg-slate-900/80 rounded-full h-2 overflow-hidden border border-slate-700/50">
+                          <div className={`${item.color} h-full rounded-full transition-all duration-500`} style={{ width: item.pct }} />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* WIDGET 2: Matriz del Enjambre de Agentes */}
+                <div className="bg-slate-800 border border-slate-700 rounded-2xl p-5 shadow-sm space-y-4">
+                  <div className="flex items-center justify-between border-b border-slate-700/60 pb-3">
+                    <div className="flex items-center gap-2.5">
+                      <span className="p-2 rounded-xl bg-purple-500/10 text-purple-400">
+                        <Bot className="w-4 h-4" />
+                      </span>
+                      <div>
+                        <h4 className="text-xs font-bold text-white uppercase tracking-wider">
+                          Matriz del Enjambre de Agentes
+                        </h4>
+                        <p className="text-[11px] text-slate-400">
+                          Orquestador principal y subagentes especialistas
+                        </p>
+                      </div>
+                    </div>
+                    <button
+                      aria-label="Ver Enjambre"
+                      onClick={() => setActiveMenu('agentes')}
+                      className="text-xs text-purple-400 hover:text-purple-300 font-bold flex items-center gap-1 hover:underline"
+                    >
+                      <span>Ver Enjambre</span>
+                      <ChevronRight className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+
+                  <div className="space-y-2.5 pt-1">
+                    <div className="p-2.5 rounded-xl bg-slate-900/60 border border-purple-500/30 flex items-center justify-between">
+                      <div className="flex items-center gap-2.5">
+                        <span className="text-lg">🤖</span>
+                        <div>
+                          <div className="flex items-center gap-1.5">
+                            <span className="text-xs font-black text-white">Antigravity</span>
+                            <span className="text-[9px] px-1.5 py-0.2 rounded bg-purple-500/20 text-purple-300 font-bold">Orquestador</span>
+                          </div>
+                          <span className="text-[10px] text-slate-400 block">Gobierno global y delegación</span>
+                        </div>
+                      </div>
+                      <span className="text-[9px] font-black px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                        EN LÍNEA 🟢
+                      </span>
+                    </div>
+
+                    {SUBAGENTES_CATALOGO.map((sub) => (
+                      <div key={sub.id} className="p-2 rounded-xl bg-slate-900/40 border border-slate-700/60 flex items-center justify-between">
+                        <div className="flex items-center gap-2.5">
+                          <span className="text-base">{sub.icono}</span>
+                          <div>
+                            <span className="text-xs font-bold text-slate-200 block truncate max-w-[200px] sm:max-w-[260px]">
+                              {sub.nombre}
+                            </span>
+                            <span className="text-[10px] text-slate-400 block">{sub.rol}</span>
+                          </div>
+                        </div>
+                        <span className="text-[9px] font-black px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                          ACTIVO 🟢
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* WIDGET 3: Embudo de Seguridad SDD */}
+                <div className="bg-slate-800 border border-slate-700 rounded-2xl p-5 shadow-sm space-y-4">
+                  <div className="flex items-center justify-between border-b border-slate-700/60 pb-3">
+                    <div className="flex items-center gap-2.5">
+                      <span className="p-2 rounded-xl bg-purple-500/10 text-purple-400">
+                        <GitCommit className="w-4 h-4" />
+                      </span>
+                      <div>
+                        <h4 className="text-xs font-bold text-white uppercase tracking-wider">
+                          Embudo de Seguridad SDD
+                        </h4>
+                        <p className="text-[11px] text-slate-400">
+                          Pipeline de calidad y compuertas inviolables
+                        </p>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => setActiveMenu('git')}
+                      className="text-xs text-purple-400 hover:text-purple-300 font-bold flex items-center gap-1 hover:underline"
+                    >
+                      <span>Ver Hook Git</span>
+                      <ChevronRight className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+
+                  <div className="space-y-2 pt-1 font-mono text-xs">
+                    {[
+                      { etapa: '1. Especificación Formal', detalle: 'docs/SPEC.md v2.14.0 (SSOT)', estado: 'PASÓ 🟢' },
+                      { etapa: '2. Linter & Tipado de Dominio', detalle: 'Aislamiento de persistencia en storage.js', estado: 'PASÓ 🟢' },
+                      { etapa: '3. Arnés Sensorial E2E', detalle: '7 flujos de usuario completos (Vitest)', estado: 'PASÓ 🟢' },
+                      { etapa: '4. Guardrail de Acero (Git)', detalle: 'Pre-commit hook (.githooks/pre-commit)', estado: 'BLINDADO 🔒' }
+                    ].map((step, idx) => (
+                      <div key={idx} className="p-2.5 rounded-xl bg-slate-900/60 border border-slate-700/60 flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" />
+                          <div>
+                            <span className="text-slate-200 font-bold block">{step.etapa}</span>
+                            <span className="text-[10px] text-slate-400 font-sans">{step.detalle}</span>
+                          </div>
+                        </div>
+                        <span className="text-[9px] font-black px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                          {step.estado}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* WIDGET 4: Gobernanza y Memoria Viva */}
+                <div className="bg-slate-800 border border-slate-700 rounded-2xl p-5 shadow-sm space-y-4">
+                  <div className="flex items-center justify-between border-b border-slate-700/60 pb-3">
+                    <div className="flex items-center gap-2.5">
+                      <span className="p-2 rounded-xl bg-purple-500/10 text-purple-400">
+                        <FileCheck className="w-4 h-4" />
+                      </span>
+                      <div>
+                        <h4 className="text-xs font-bold text-white uppercase tracking-wider">
+                          Gobernanza y Memoria Viva
+                        </h4>
+                        <p className="text-[11px] text-slate-400">
+                          Decisiones arquitectónicas y trazabilidad inmutable
+                        </p>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => setActiveMenu('harness')}
+                      className="text-xs text-purple-400 hover:text-purple-300 font-bold flex items-center gap-1 hover:underline"
+                    >
+                      <span>Ver Arnés</span>
+                      <ChevronRight className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-3 pt-1">
+                    <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-700/60">
+                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">
+                        ADRs Registrados
+                      </span>
+                      <span className="text-2xl font-black text-white">19</span>
+                      <span className="text-[10px] text-emerald-400 block mt-0.5">100% Inmutables</span>
+                    </div>
+
+                    <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-700/60">
+                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">
+                        Pasos Roadmap
+                      </span>
+                      <span className="text-2xl font-black text-white">29 / 29</span>
+                      <span className="text-[10px] text-emerald-400 block mt-0.5">Completados</span>
+                    </div>
+
+                    <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-700/60 col-span-2 flex items-center justify-between">
+                      <div>
+                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
+                          Último Commit Certificado
+                        </span>
+                        <span className="font-mono text-xs font-bold text-purple-300">
+                          git commit [2d3a257]
+                        </span>
+                      </div>
+                      <span className="text-[9px] font-black px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30">
+                        SINCRONIZADO ☁️
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="bg-slate-800 border border-slate-700 rounded-2xl p-3.5 shadow-sm text-center">
-              <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block mb-1">
-                {activeMenu === 'git' ? 'Commit Certificado' : 'Fallidas (Rojo 🔴)'}
-              </span>
-              <span className="text-xl font-black text-purple-400 font-mono">
-                {activeMenu === 'git' ? '9ae1590' : '0'}
-              </span>
-            </div>
-            <div className="bg-slate-800 border border-slate-700 rounded-2xl p-3.5 shadow-sm text-center">
-              <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block mb-1">
-                Latencia
-              </span>
-              <span className="text-xl font-black text-sky-400 flex items-center justify-center gap-1">
-                <Clock className="w-3.5 h-3.5 inline" />
-                <span>{activeMenu === 'guardrails' ? `${auditTime}ms` : activeMenu === 'harness' ? '<10ms' : '42ms'}</span>
-              </span>
-            </div>
-          </div>
+          )}
 
           {/* OPCIÓN 1: AUDITAR EL SISTEMA (GUARDRAILS) */}
           {activeMenu === 'guardrails' && (

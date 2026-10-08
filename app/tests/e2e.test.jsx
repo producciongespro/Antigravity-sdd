@@ -242,4 +242,42 @@ describe('🧪 Arnés Sensorial End-to-End (E2E) - SuperCarrito SDD', () => {
       expect(screen.getAllByText(/Antigravity/i).length).toBeGreaterThan(0);
     });
   });
+
+  it('8. [RF-5.9] Panel Ejecutivo 360° Estilo Power BI en Auditoría y Navegación Drill-Down', async () => {
+    render(<App />);
+
+    // Entrar al Paso 3 · Auditoría y Arneses
+    const btnAuditoria = screen.getByRole('button', { name: /Auditar Sistema/i });
+    fireEvent.click(btnAuditoria);
+
+    // Debe mostrar la opción 0 "Panel Ejecutivo" en el Sidebar
+    await waitFor(() => {
+      expect(screen.getByRole('button', { name: /Panel Ejecutivo/i })).toBeDefined();
+    });
+
+    // Validar encabezado del Panel Ejecutivo Power BI y Tarjetas KPI
+    await waitFor(() => {
+      expect(screen.getByRole('heading', { name: /Cuadro de Mando Ejecutivo/i })).toBeDefined();
+      expect(screen.getByText(/Salud Global SDD/i)).toBeDefined();
+      expect(screen.getAllByText(/Guardrails Maestros/i).length).toBeGreaterThan(0);
+      expect(screen.getAllByText(/Arnés Sensorial E2E/i).length).toBeGreaterThan(0);
+      expect(screen.getAllByText(/Enjambre Multi-Agente/i).length).toBeGreaterThan(0);
+    });
+
+    // Validar los 4 Widgets de Telemetría (Desglose Fases, Agentes, Embudo Pipeline, Gobernanza)
+    expect(screen.getAllByText(/Desglose de Cobertura por Fase/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/Matriz del Enjambre de Agentes/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/Embudo de Seguridad SDD/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/Gobernanza y Memoria Viva/i).length).toBeGreaterThan(0);
+
+    // Probar interacción Drill-Down: clic en "Ver Enjambre" dentro del widget de agentes
+    const btnDrillDownAgentes = screen.getAllByRole('button', { name: /Ver Enjambre/i })[0];
+    fireEvent.click(btnDrillDownAgentes);
+
+    // Debe saltar a la pantalla de detalle de Agentes & Subagentes
+    await waitFor(() => {
+      expect(screen.getByRole('heading', { name: /Arquitectura de Agentes/i })).toBeDefined();
+    });
+  });
 });
+

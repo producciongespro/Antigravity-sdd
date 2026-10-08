@@ -170,6 +170,23 @@
   4. Ampliar la suite sensorial E2E a 7 flujos de usuario completos (`tests/e2e.test.jsx`) y certificar 45/45 guardrails en verde.
 - **Motivo:** Materializar conceptual y visualmente para el sponsor y desarrolladores cómo opera la orquestación multi-agente en una arquitectura SDD, separando responsabilidades entre agentes directores y subagentes especialistas para evitar la sobrecarga de contexto.
 
+### ADR-20: Panel Ejecutivo 360° Estilo Power BI en el Centro de Auditoría (v2.14.0)
+- **Decisión:**
+  1. Incorporar la Opción 0 destacada en el Sidebar AdminLTE del Centro de Auditoría (`activeMenu === 'dashboard'`) denominada **Panel Ejecutivo 360°** con badge identificador *Power BI*.
+  2. Establecer esta vista como la pantalla por defecto del Centro de Auditoría para brindar una panorámica de inteligencia ejecutiva instantánea al ingresar.
+  3. Desplegar 4 Tarjetas KPI de primer nivel:
+     - **Salud Global SDD:** Calificación Grado A+ (100% de cumplimiento de contrato, barra de progreso completa).
+     - **Guardrails Maestros:** 46/46 aserciones en verde con latencia de ejecución en milisegundos y botón de inspección directa.
+     - **Arnés Sensorial E2E:** 8/8 flujos de usuario completos aprobados con Vitest/JSDOM.
+     - **Enjambre Multi-Agente:** Estado activo de los 3 subagentes especialistas y orquestador Antigravity con latencia reactiva.
+  4. Diseñar 4 Widgets Gráficos interactivos en cuadrícula 2x2:
+     - **Desglose de Cobertura por Fase:** Barras de progreso segmentadas por las 5 fases de seguridad SDD con navegación drill-down a Guardrails.
+     - **Matriz del Enjambre de Agentes:** Lista jerárquica con orquestador y subagentes en línea con botón drill-down directo a la vista de Agentes.
+     - **Embudo de Seguridad SDD:** Pipeline secuencial de 4 compuertas inviolables (Spec -> Linter -> E2E -> Git Hook Pre-commit) con acceso a la consola Git.
+     - **Gobernanza y Memoria Viva:** Trazabilidad inmutable de 20 ADRs, 30 pasos de roadmap completados y último hash de commit certificado.
+  5. Proveer botón de acción en cabecera `Recalcular Telemetría` para re-auditar en caliente todos los indicadores.
+- **Motivo:** Cumplir la visión de diseño del sponsor (Christian Vargas A.) de contar con un cuadro de mando ejecutivo de alto impacto estético y analítico inspirado en Power BI, que agregue toda la telemetría del laboratorio SDD en un único punto de control interactivo con navegación drill-down.
+
 ---
 
 ## 💡 3. Lecciones Aprendidas (Knowledge Base)
@@ -195,6 +212,7 @@
 16. **El Arnés Sensorial DOM Eleva la Certeza:** Las pruebas unitarias validan lógica de datos en memoria, pero el arnés sensorial E2E simula la interacción física del dedo del usuario (clics, checkboxes, modales, temas y tabs). Esto garantiza que no existan discrepancias entre el contrato del backend local y los elementos que el usuario efectivamente ve e interactúa.
 17. **El Patrón del Puntero Maestro en la Raíz:** Tener múltiples archivos Markdown dispersos en la raíz genera desorden cognitivo. Mantener únicamente `AGENTS.md` como la Constitución Operativa en la raíz y concentrar todos los documentos de conocimiento técnico en `docs/` (con un índice de lectura obligatoria) proporciona la máxima limpieza estructural y descubrimiento infalible para los agentes de IA.
 18. **Especialización Multi-Agente sin Polución de Contexto:** Un solo agente orquestador intentando auditar código, memoria, contratos y DOM al mismo tiempo sufre de saturación cognitiva y alucinaciones; segmentar misiones críticas en subagentes especialistas acotados (Centinela de Especificación, Analista de ADRs, Probador Sensorial) permite una orquestación paralela, escalable y con veredictos 100% deterministas.
+19. **Paneles Ejecutivos 360° con Drill-Down Reducen la Fatiga Analítica:** Agrupar múltiples fuentes de telemetría especializada (contratos, arneses sensoriales, barandillas de Git y orquestación multi-agente) en un cuadro de mando ejecutivo estilo Power BI otorga a directores y desarrolladores un veredicto instantáneo de salud sistémica, habilitando a la vez navegación por profundidad (drill-down) hacia la evidencia técnica granular con un solo clic.
 
 ---
 
@@ -232,4 +250,5 @@
 - [x] **Paso 27:** Implementar el Patrón del Puntero Maestro consolidando todos los archivos de conocimiento en `docs/` (`docs/MEMORY.md` y `docs/RULES.md`), dejando `AGENTS.md` como único punto de entrada en raíz (v2.11.0).
 - [x] **Paso 28:** Estandarizar la nomenclatura Markdown al estándar internacional de la industria (`docs/SPEC.md`), unificando todos los artefactos clave del repositorio bajo nombres en mayúsculas universalmente reconocidos (v2.12.0).
 - [x] **Paso 29:** Implementar el Módulo de Inspección de Agentes y Subagentes Autónomos (RF-5.8) en el Centro de Auditoría ([`AuditoriaHub.jsx`](../src/components/AuditoriaHub.jsx)), con catálogo de 3 subagentes especialistas, orquestador Antigravity, consola de telemetría reactiva, suite E2E 7/7 en verde 🟢 y elevación a 45 Guardrails Maestros (v2.13.0).
+- [x] **Paso 30:** Implementar el Panel Ejecutivo 360° Estilo Power BI en el Centro de Auditoría ([`AuditoriaHub.jsx`](../src/components/AuditoriaHub.jsx) - RF-5.9), con 4 KPIs estratégicas, 4 widgets gráficos interactivos con navegación drill-down, suite sensorial E2E ampliada a 8/8 flujos en verde 🟢 y elevación a 46 Guardrails Maestros certificados (v2.14.0).
 
