@@ -1,10 +1,10 @@
 # Especificación Principal del Sistema: SuperCarrito (SDD)
 
 > **Documento:** `docs/ESPECIFICACION_PRINCIPAL.md`  
-> **Versión:** 2.9.0  
+> **Versión:** 2.10.0  
 > **Fecha de Actualización:** 2026-10-08  
 > **Estado:** Aprobado / Fuente Única de Verdad (SSOT)  
-> **Stack Técnico:** React 18+ | JavaScript (ESModules) | Vite 6+ | Tailwind CSS v4 | LocalStorage
+> **Stack Técnico:** React 18+ | JavaScript (ESModules) | Vite 6+ | Tailwind CSS v4 | LocalStorage | Vitest & Testing Library
 
 ---
 
@@ -24,6 +24,7 @@
 | **v2.7.0** | 2026-10-08 | Christian Vargas A. | **Disposición de Navegación Lateral (Sidebar estilo AdminLTE) en Mantenimiento (RF-5.5):** Estructura de dos columnas (panel izquierdo de menú con opciones e insignias numéricas + área de trabajo derecha) para los módulos de administración: Paso 1 (Catálogo vs Armado de Listas) y Paso 3 (Auditar el Sistema vs Arnés Sensorial). El Paso 2 (Modo Súper en tienda) se preserva deliberadamente en disposición vertical simple para manipulación con una sola mano táctil. |
 | **v2.8.0** | 2026-10-08 | Christian Vargas A. | **Modal Táctil de Confirmación Anti-dedazos en Modo Súper (RF-4.6):** Reemplazo del cuadro genérico del navegador (`window.confirm`) por una ventana modal personalizada, táctil y de alto contraste (`ConfirmModal.jsx`), con botones grandes ergonómicos para confirmar o cancelar la devolución de productos del carrito con el pulgar. |
 | **v2.9.0** | 2026-10-08 | Christian Vargas A. | **Tercera Opción en Auditoría: Guardrail de Acero (Git Pre-commit Hook & Terminal) (RF-5.3 / RF-5.5):** Incorporación de la 3ª opción en el panel lateral de auditoría para visualizar en la interfaz gráfica el estado de blindaje del repositorio, último commit certificado (`47b9dc6`), simulación en vivo de intercepción de commits en consola interactiva, visor web embebido (iframe) y código fuente del hook. |
+| **v2.10.0** | 2026-10-08 | Christian Vargas A. | **Arnés Sensorial End-to-End (E2E) con Vitest y Testing Library (RF-5.6):** Implementación de una suite de 6 pruebas E2E automatizadas (`tests/e2e.test.jsx`) con Vitest y JSDOM que simulan la interacción real del usuario sobre el DOM, validando navegación entre vistas, selección múltiple en lote, marcado en carrito, protección modal táctil anti-dedazos, conmutación de tema claro/oscuro y auditoría completa. Integración en `package.json` (`npm run test:e2e`). |
 
 ---
 
@@ -142,6 +143,15 @@ interface ProductoLista {
        - En Paso 3: Opciones `Auditar el Sistema`, `Ver Arnés Sensorial` y `Guardrail de Acero (Git)`.
     2. **Área de Trabajo Derecha (Workspace):** Despliegue amplio del sub-módulo activo, maximizando el espacio para formularios, filtros, tablas y terminal interactiva.
   - **Excepción de Ergonomía Móvil (Paso 2):** El Paso 2 (¡Vamos al Súper! en tienda) **no adopta menú lateral**; se mantiene en una sola columna vertical con tarjetas táctiles de alta densidad optimizadas para el uso en el pasillo del supermercado con una sola mano.
+- **RF-5.6 (Arnés Sensorial End-to-End Automatizado con Vitest y Testing Library):**
+  - El sistema cuenta con una suite de pruebas de integración sensoriales (`tests/e2e.test.jsx`) bajo Vitest y JSDOM que valida los flujos completos de usuario en el DOM virtual sin navegadores pesados:
+    1. **Navegación HomeHub $\leftrightarrow$ Gestión:** Verificación de las 3 tarjetas de inicio, botón "Gestionar" y botón Home contextual en Header.
+    2. **Catálogo con Checkboxes y Carga en Lote:** Selección individual, múltiple y carga de productos al listado activo.
+    3. **Modo Compra y Métricas Reactivas:** Clic táctil en productos pendientes, marcado en carrito y actualización en vivo del contador de progreso (`x de y artículos`).
+    4. **Protección Anti-dedazos con Modal Táctil:** Intercepción ante el intento de devolver productos del carrito, prueba de cancelación segura (`No, mantener en carrito`) y confirmación efectiva (`Sí, sacar del carrito`).
+    5. **Conmutación de Tema Claro/Oscuro:** Alternancia de clases CSS en `document.documentElement` (`dark` $\leftrightarrow$ `light`).
+    6. **Centro de Auditoría y Guardrails:** Navegación por pestañas del Sidebar AdminLTE (Guardrails, Arnés Sensorial y Guardrail de Acero Git).
+  - Comando de ejecución: `npm run test:e2e` y verificación combinada en `npm test`.
 
 ---
 

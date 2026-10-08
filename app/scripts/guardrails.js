@@ -97,7 +97,9 @@ async function runGuardrails() {
     { file: 'src/components/GestionHub.jsx', desc: 'Centro Unificado de Gestión (GestionHub)' },
     { file: 'src/components/AuditoriaHub.jsx', desc: 'Centro Integrado de Auditoría y Guardrails (AuditoriaHub)' },
     { file: 'src/components/ConfirmModal.jsx', desc: 'Modal Táctil de Confirmación Anti-dedazos (ConfirmModal)' },
-    { file: 'src/index.css', desc: 'Hoja de Estilos Global' }
+    { file: 'src/index.css', desc: 'Hoja de Estilos Global' },
+    { file: 'vitest.config.js', desc: 'Configuración del Arnés Sensorial E2E (Vitest)' },
+    { file: 'tests/e2e.test.jsx', desc: 'Suite de Pruebas E2E de Interacción Sensorial' }
   ];
 
   for (const item of requiredFiles) {
@@ -170,6 +172,10 @@ async function runGuardrails() {
 
   check('La Especificación define la Navegación Lateral estilo AdminLTE para Mantenimiento (RF-5.5)', () => {
     return specContent.includes('RF-5.5') && specContent.includes('Sidebar') && specContent.includes('AdminLTE');
+  });
+
+  check('La Especificación define el Arnés Sensorial E2E con Vitest y Testing Library (RF-5.6)', () => {
+    return specContent.includes('RF-5.6') && specContent.includes('tests/e2e.test.jsx');
   });
 
   check('La Especificación define las Reglas de Resiliencia y Migración (RNF-02 / RNF-03)', () => {
@@ -264,6 +270,16 @@ async function runGuardrails() {
       }
     }
     scanDirForDebugger(path.join(ROOT_DIR, 'src'));
+    return true;
+  });
+
+  // 4.4 Verificación del script test:e2e en package.json
+  check('El script "test:e2e" está configurado formalmente en package.json', () => {
+    const pkgPath = path.join(ROOT_DIR, 'package.json');
+    const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
+    if (!pkg.scripts || !pkg.scripts['test:e2e']) {
+      throw new Error('Falta el script "test:e2e" en package.json');
+    }
     return true;
   });
 

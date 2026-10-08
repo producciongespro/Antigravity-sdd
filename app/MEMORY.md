@@ -128,6 +128,14 @@
   3. Exponer el commit certificado (`47b9dc6`), rama activa, autor y métricas de latencia de 42ms directamente en la UI.
 - **Motivo:** Brindar visibilidad gráfica y didáctica completa al sistema de control de versiones Git, transformando un mecanismo que normalmente vive oculto en la consola en una experiencia interactiva para el usuario.
 
+### ADR-16: Arnés Sensorial End-to-End (E2E) con Vitest y Testing Library (v2.10.0)
+- **Decisión:**
+  1. Configurar un entorno de pruebas sensoriales basado en Vitest, JSDOM y `@testing-library/react` ([`vitest.config.js`](vitest.config.js) y [`tests/setup.js`](tests/setup.js)).
+  2. Implementar una suite exhaustiva de 6 pruebas E2E ([`tests/e2e.test.jsx`](tests/e2e.test.jsx)) que montan directamente el componente raíz [`App.jsx`](src/App.jsx) y simulan las interacciones físicas reales del usuario sobre el DOM (clics en botones, selección de casillas de verificación, conmutación de temas, modales de confirmación y navegación lateral).
+  3. Registrar formalmente el comando `npm run test:e2e` en `package.json`, e integrar la ejecución combinada en `npm test` (`node scripts/guardrails.js && vitest run`).
+  4. Incorporar la presencia de la suite E2E en las 44 verificaciones del script de Guardrails ([`scripts/guardrails.js`](scripts/guardrails.js)) y en el Centro de Auditoría de la SPA ([`AuditoriaHub.jsx`](src/components/AuditoriaHub.jsx)).
+- **Motivo:** Cerrar la brecha entre las pruebas unitarias en memoria y la interacción visual real en pantalla, otorgando al sistema un verdadero órgano sensorial interactivo que certifique la experiencia del usuario sin depender de navegadores pesados ni pruebas manuales lentas.
+
 ---
 
 ## 💡 3. Lecciones Aprendidas (Knowledge Base)
@@ -150,6 +158,7 @@
 13. **Erradicación de Diálogos Nativos del Navegador:** Los `alert` y `confirm` nativos rompen la inmersión, no respetan el tema de la aplicación, bloquean el hilo principal y ofrecen una estética prehistórica; un modal táctil nativo en React ofrece accesibilidad, animaciones fluidas y botones amigables para el pulgar.
 14. **El Guardrail de Acero no pide permiso, bloquea:** Un comando `npm run check:guardrails` es una recomendación si depende de que alguien lo ejecute; cuando se amarra a un Git Pre-commit Hook (`.githooks/pre-commit`), se convierte en una barandilla física inviolable que protege la rama principal de errores humanos y alucinaciones de IA.
 15. **La Observabilidad Gráfica de Git Eleva la Confianza:** Traer lo que ocurre en la terminal de Git a la interfaz gráfica del usuario con consolas interactivas y simuladores permite a perfiles de producto, QA y arquitectura presenciar y experimentar el rigor de las barandillas de seguridad sin lidiar con comandos oscuros de shell.
+16. **El Arnés Sensorial DOM Eleva la Certeza:** Las pruebas unitarias validan lógica de datos en memoria, pero el arnés sensorial E2E simula la interacción física del dedo del usuario (clics, checkboxes, modales, temas y tabs). Esto garantiza que no existan discrepancias entre el contrato del backend local y los elementos que el usuario efectivamente ve e interactúa.
 
 ---
 
@@ -183,3 +192,5 @@
 - [x] **Paso 23:** Reemplazar diálogo nativo `window.confirm` por modal táctil personalizado [`ConfirmModal.jsx`](src/components/ConfirmModal.jsx) para la regla anti-dedazos (RF-4.6), actualizar especificación v2.8.0 e incrementar guardrails a 40/40 en verde 🟢 (62ms).
 - [x] **Paso 24:** Implementar el Guardrail de Acero en Git: Hook de Pre-commit versionado ([`.githooks/pre-commit`](.githooks/pre-commit)), configuración con `core.hooksPath` y comando `npm run setup:hooks` para abortar físicamente cualquier commit que no pase los 40 guardrails al 100% en verde 🟢.
 - [x] **Paso 25:** Incorporar la 3ª Opción en Auditoría ([`AuditoriaHub.jsx`](src/components/AuditoriaHub.jsx)): Guardrail de Acero (Git), con tarjeta de commit certificado (`47b9dc6`), terminal interactiva con simulación de intercepciones, visor web embebido en iframe de `/tests/guardrails.html` y código del hook (v2.9.0).
+- [x] **Paso 26:** Implementar el Arnés Sensorial End-to-End (E2E) con Vitest y Testing Library ([`tests/e2e.test.jsx`](tests/e2e.test.jsx) - RF-5.6), con 6 pruebas automatizadas sobre el DOM real emulado, comando `npm run test:e2e` y elevación a 44 Guardrails Maestros en verde 🟢 (v2.10.0).
+

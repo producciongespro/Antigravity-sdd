@@ -8,7 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "check:guardrails": "node scripts/guardrails.js",
-    "test": "node scripts/guardrails.js",
+    "test:e2e": "vitest run",
+    "test": "node scripts/guardrails.js && vitest run",
     "setup:hooks": "git config core.hooksPath ../.githooks"
   },
   "dependencies": {
@@ -18,10 +19,14 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.0.0",
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.7",
     "@vitejs/plugin-react": "^4.3.2",
     "autoprefixer": "^10.4.20",
+    "jsdom": "^29.1.1",
     "postcss": "^8.4.47",
     "tailwindcss": "^4.0.0",
-    "vite": "^6.2.0"
+    "vite": "^6.2.0",
+    "vitest": "^5.0.3"
   }
 }

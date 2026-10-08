@@ -41,7 +41,9 @@ const FASES_GUARDRAILS = [
       { id: 'F1-11', desc: 'Existe Centro Unificado de Gestión (GestionHub) (src/components/GestionHub.jsx)' },
       { id: 'F1-12', desc: 'Existe Centro Integrado de Auditoría (AuditoriaHub) (src/components/AuditoriaHub.jsx)' },
       { id: 'F1-13', desc: 'Existe Modal Táctil de Confirmación Anti-dedazos (src/components/ConfirmModal.jsx)' },
-      { id: 'F1-14', desc: 'Existe Hoja de Estilos Global Tailwind v4 (src/index.css)' }
+      { id: 'F1-14', desc: 'Existe Hoja de Estilos Global Tailwind v4 (src/index.css)' },
+      { id: 'F1-15', desc: 'Existe Configuración del Arnés Sensorial E2E (Vitest) (vitest.config.js)' },
+      { id: 'F1-16', desc: 'Existe Suite de Pruebas E2E de Interacción Sensorial (tests/e2e.test.jsx)' }
     ]
   },
   {
@@ -59,7 +61,8 @@ const FASES_GUARDRAILS = [
       { id: 'F2-08', desc: 'La Especificación define el Centro Unificado de Gestión en Dos Secciones (RF-5.4)' },
       { id: 'F2-09', desc: 'La Especificación define el Selector con Checkboxes y Carga en Lote (RF-3.1)' },
       { id: 'F2-10', desc: 'La Especificación define la Navegación Lateral estilo AdminLTE para Mantenimiento (RF-5.5)' },
-      { id: 'F2-11', desc: 'La Especificación define las Reglas de Resiliencia y Migración (RNF-02 / RNF-03)' }
+      { id: 'F2-11', desc: 'La Especificación define las Reglas de Resiliencia y Migración (RNF-02 / RNF-03)' },
+      { id: 'F2-12', desc: 'La Especificación define el Arnés Sensorial E2E con Vitest y Testing Library (RF-5.6)' }
     ]
   },
   {
@@ -79,7 +82,8 @@ const FASES_GUARDRAILS = [
     items: [
       { id: 'F4-01', desc: 'Uso moderno de Tailwind CSS v4 (@import "tailwindcss";)' },
       { id: 'F4-02', desc: 'Aislamiento de Persistencia: Componentes de UI no acceden a localStorage directamente' },
-      { id: 'F4-03', desc: 'No existen sentencias de depuración (debugger) olvidadas en src/' }
+      { id: 'F4-03', desc: 'No existen sentencias de depuración (debugger) olvidadas en src/' },
+      { id: 'F4-04', desc: 'El script "test:e2e" está configurado formalmente en package.json' }
     ]
   },
   {
