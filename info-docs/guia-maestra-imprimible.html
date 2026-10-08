@@ -624,7 +624,7 @@
 
   <!-- ==================== PREGUNTAS Y RESPUESTAS ==================== -->
   <div class="page-break"></div>
-  <h2>💡 11. Preguntas y Respuestas Frecuentes (Banco Extendido de Repaso - 20 Consultas Clave)</h2>
+  <h2>💡 11. Preguntas y Respuestas Frecuentes (Banco Extendido de Repaso - 21 Consultas Clave)</h2>
   <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Compilación exhaustiva de las consultas reales planteadas por Chris durante nuestras sesiones de laboratorio, con las explicaciones conceptuales y prácticas que sustentan la arquitectura.</p>
 
   <div style="display: flex; flex-direction: column; gap: 1.25rem;">
@@ -826,6 +826,16 @@
       </h4>
       <p style="font-size: 0.9rem; color: #334155; line-height: 1.6;">
         Porque el software debe alinearse con la psicología humana y no con la estructura de sus tablas relacionales. El usuario vive 3 momentos claros: 1. Planificar la compra en casa (Paso 1: Gestión), 2. Hacer las compras caminando en tienda (Paso 2: Modo Súper Táctil) y 3. Auditar la calidad del sistema (Paso 3: Laboratorio SDD). Esta arquitectura mental elimina fricción y maximiza la usabilidad.
+    </div>
+
+    <div style="background: #ffffff; border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+      <h4 style="color: var(--dark); font-size: 0.95rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+        <span style="background: var(--primary-light); color: var(--primary); padding: 0.2rem 0.5rem; border-radius: 6px; font-size: 0.8rem; font-weight: 700;">P21</span>
+        ¿Cuándo usar una Especificación Centralizada (docs/SPEC.md) versus Specs Locales por Componente, y quién las redacta?
+      </h4>
+      <p style="font-size: 0.9rem; color: #334155; line-height: 1.6;">
+        <strong>1. ¿Quién redacta?:</strong> El <strong>Copiloto AI (Antigravity)</strong>, guiado por la visión y directivas de negocio de Chris. Tú no tienes que redactar Markdown manualmente. Antigravity actualiza <code>docs/SPEC.md</code>, asienta el ADR en <code>docs/MEMORY.md</code> y construye el código.<br>
+        <strong>2. ¿Centralizado o Local?:</strong> Para el 90% de las aplicaciones completas (como SuperCarrito), el <strong>patrón centralizado en <code>docs/SPEC.md</code> es el estándar óptimo</strong>: evita la fragmentación de contexto del LLM y ofrece una visión integral del modelo relacional. Los <em>Specs locales o co-localizados</em> (junto al componente) se reservan exclusivamente para librerías de componentes aislados (Design Systems / Storybook), monorrepos de gran escala o microfrontends autónomos. Con los 4 archivos en <code>docs/</code> el proyecto está 100% cubierto.
       </p>
     </div>
 

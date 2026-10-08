@@ -430,7 +430,7 @@ Cada vez que vayas a construir una nueva función en cualquier proyecto futuro:
 
 ---
 
-## 11. Preguntas y Respuestas Frecuentes (Banco Extendido de Repaso - 20 Consultas Clave)
+## 11. Preguntas y Respuestas Frecuentes (Banco Extendido de Repaso - 21 Consultas Clave)
 
 Compilación exhaustiva de las consultas reales planteadas por Chris durante nuestras sesiones de laboratorio, organizadas con explicaciones pedagógicas de alto valor técnico.
 
@@ -602,3 +602,36 @@ Una persona no piensa en *"Entidades y Relaciones"*; su vida se organiza cronol�
 2. **Momento 2 (En el supermercado):** Entro a la tienda, camino por los pasillos con el carrito y marco los productos que voy metiendo (**Paso 2: ¡Vamos al Súper!**).
 3. **Momento 3 (En la oficina técnica / Laboratorio):** Reviso la salud del software, los guardrails y la integridad del sistema (**Paso 3: Laboratorio SDD & Arneses**).  
 Diseñar la portada ([`HomeHub.jsx`](file:///c:/xampp/htdocs/Antigravity-sdd/app/src/components/HomeHub.jsx)) y la navegación respetando estos 3 momentos elimina la fricción cognitiva y ofrece una experiencia de usuario natural e intuitiva.
+
+---
+
+### ❓ P21: ¿Cuándo usar una Especificación Centralizada (`docs/SPEC.md`) versus Especificaciones Locales por Componente (`Co-location`), y quién se encarga de redactarlas?
+**Respuesta:**  
+Esta es una de las preguntas de arquitectura más importantes al diseñar sistemas guiados por especificaciones (SDD) y agentes de IA. La respuesta se divide en dos aspectos fundamentales:
+
+#### 1. ¿Quién se encarga de redactar los archivos Markdown?
+**El Copiloto AI (Antigravity), guiado por ti.**  
+Como Desarrollador Líder y Sponsor (Product Owner), tu rol no es desgastarte redactando sintaxis Markdown a mano ni creando archivos por cada rincón del código. Tu misión es **expresar la intención de negocio, el requerimiento y la visión** (ya sea en chat o mediante audios).  
+A partir de tus directivas, **Antigravity se encarga automáticamente de todo el ciclo SDD**:
+1. Redacta formalmente la regla con su identificador (`RF-*` / `RNF-*`) en [`docs/SPEC.md`](file:///c:/xampp/htdocs/Antigravity-sdd/app/docs/SPEC.md).
+2. Si la arquitectura o las reglas sufren modificaciones, actualiza [`docs/ARCHITECTURE.md`](file:///c:/xampp/htdocs/Antigravity-sdd/app/docs/ARCHITECTURE.md) o [`docs/RULES.md`](file:///c:/xampp/htdocs/Antigravity-sdd/app/docs/RULES.md).
+3. Asienta la decisión y su justificación técnica en [`docs/MEMORY.md`](file:///c:/xampp/htdocs/Antigravity-sdd/app/docs/MEMORY.md) (ADR).
+4. Diseña el caso de prueba en el arnés (`tests/`), verifica el fallo rojo y programa el componente en `src/`.
+
+#### 2. ¿Especificación Centralizada (`docs/SPEC.md`) o Specs Locales por Componente?
+Según los estándares internacionales de la ingeniería de software, existen 3 patrones bien diferenciados:
+
+1. **Patrón SSOT Centralizado Monolítico (Nuestro enfoque en SuperCarrito - Recomendado para el 90% de las aplicaciones):**
+   - **Estructura:** Un único [`docs/SPEC.md`](file:///c:/xampp/htdocs/Antigravity-sdd/app/docs/SPEC.md) dividido en secciones modulares (`RF-1` Catálogo, `RF-2` Listas, `RF-3` Vinculación, `RF-4` Modo Súper, `RF-5` UX).
+   - **Ventajas:** **Cero fragmentación de contexto.** Cuando un agente de IA ingresa al proyecto, lee un solo archivo y comprende inmediatamente todo el modelo relacional, las dependencias cruzadas y el flujo integral sin saltar de carpeta en carpeta ni perderse en árboles de directorios profundos.
+   - **¿Cuándo basta con esto?:** En aplicaciones web, SPAs, APIs REST o proyectos donde los componentes forman un sistema cohesivo que comparte una misma base de datos o almacenamiento. Con los 4 archivos maestros en `docs/` (`SPEC.md`, `ARCHITECTURE.md`, `RULES.md`, `MEMORY.md`) el proyecto está **100% cubierto y no requiere más Markdowns locales**.
+
+2. **Patrón de Especificaciones por Característica (`docs/specs/*.spec.md`):**
+   - **Estructura:** Una carpeta `docs/specs/` con archivos temáticos: `auth.spec.md`, `catalogo.spec.md`, `checkout.spec.md`, enlazados desde un `docs/SPEC.md` maestro.
+   - **¿Cuándo se usa?:** Cuando la aplicación supera los 50 o 100 requerimientos funcionales y se vuelve un documento de más de 1,000 líneas que dificulta la lectura ágil, o cuando diferentes células de desarrollo trabajan en paralelo sobre módulos aislados.
+
+3. **Patrón Co-localizado o Modular Aislado (`src/components/Boton/SPEC.md`):**
+   - **Estructura:** El archivo Markdown vive dentro de la misma carpeta del componente junto a su código y sus pruebas (`Button.jsx`, `Button.test.jsx`, `SPEC.md`, `README.md`).
+   - **¿Cuándo se recomienda?:** Exclusivamente en **Librerías de Componentes (Design Systems / Storybook)**, **Monorrepos (Nx / Turborepo)**, **Microfrontends** o **Plugins independientes** donde cada componente es un paquete autónomo y reutilizable que podría publicarse por separado en npm.
+
+**Conclusión práctica:** Para SuperCarrito y la gran mayoría de desarrollos de productos completos, **nuestra arquitectura actual de 4 archivos maestros centralizados en `docs/` es la solución óptima, limpia y libre de deuda técnica**. No necesitas crear Markdowns locales para cada botón o vista.
