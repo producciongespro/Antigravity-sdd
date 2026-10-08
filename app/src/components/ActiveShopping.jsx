@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { CheckCircle2, Circle, Trash2, Search, Sparkles } from 'lucide-react';
+import ConfirmModal from './ConfirmModal';
 
 export default function ActiveShopping({
   lists,
@@ -13,6 +14,7 @@ export default function ActiveShopping({
 }) {
   const [filter, setFilter] = useState('all'); // 'all' | 'pending' | 'in_cart'
   const [searchTerm, setSearchTerm] = useState('');
+  const [itemToConfirm, setItemToConfirm] = useState(null); // { id, nombre } para modal anti-dedazos
 
   const currentList = lists.find(l => l.id === activeListId);
 
@@ -32,6 +34,31 @@ export default function ActiveShopping({
   const total = items.length;
   const inCartCount = items.filter(i => (i.enCarrito !== undefined ? i.enCarrito : i.inCart)).length;
   const progress = total > 0 ? Math.round((inCartCount / total) * 100) : 0;
+
+  // Manejo de clic con protección anti-dedazos (RF-4.6)
+  const handleItemClick = (item) => {
+    const enCarrito = item.enCarrito !== undefined ? item.enCarrito : item.inCart;
+    const nombre = item.nombreProducto || item.productName || 'este producto';
+
+    if (!enCarrito) {
+      // Al carrito directo sin confirmación (RF-4.2)
+      onToggleInCart(item.id, nombre);
+    } else {
+      // Ya está en el carrito: desplegar ventana modal táctil de confirmación
+      setItemToConfirm({ id: item.id, nombre });
+    }
+  };
+
+  const handleConfirmRemove = () => {
+    if (itemToConfirm) {
+      onToggleInCart(itemToConfirm.id, itemToConfirm.nombre);
+      setItemToConfirm(null);
+    }
+  };
+
+  const handleCancelRemove = () => {
+    setItemToConfirm(null);
+  };
 
   if (!currentList) {
     return (
@@ -163,7 +190,7 @@ export default function ActiveShopping({
         ) : (
           filteredItems.map(item => {
             const enCarrito = item.enCarrito !== undefined ? item.enCarrito : item.inCart;
-            const nombre = item.nombreProducto || item.productName;
+            const nombre = item.nombreProducto || item.productName || 'Producto';
             const categoria = item.categoria || item.category;
             const unidad = item.unidad || item.unit;
             const cantidad = item.cantidad !== undefined ? item.cantidad : item.quantity;
@@ -172,7 +199,7 @@ export default function ActiveShopping({
             return (
               <div
                 key={item.id}
-                onClick={() => onToggleInCart(item.id, nombre)}
+                onClick={() => handleItemClick(item)}
                 className={`p-3.5 sm:p-4 rounded-xl border cursor-pointer select-none transition-all flex items-center justify-between gap-3 ${
                   enCarrito
                     ? 'bg-emerald-950/20 border-emerald-500/30 text-slate-400'
@@ -236,6 +263,17 @@ export default function ActiveShopping({
           </button>
         </div>
       )}
+
+      {/* MODAL TÁCTIL DE CONFIRMACIÓN ANTI-DEDAZOS (RF-4.6) */}
+      <ConfirmModal
+        isOpen={Boolean(itemToConfirm)}
+        title="¿Sacar producto del carrito?"
+        productName={itemToConfirm?.nombre}
+        confirmText="Sí, sacar del carrito"
+        cancelText="No, mantener en carrito"
+        onConfirm={handleConfirmRemove}
+        onCancel={handleCancelRemove}
+      />
     </div>
   );
 }

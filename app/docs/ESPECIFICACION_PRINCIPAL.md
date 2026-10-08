@@ -1,10 +1,10 @@
-# Especificación Principal del Sistema: SuperMarket App (SDD)
+# Especificación Principal del Sistema: SuperCarrito (SDD)
 
 > **Documento:** `docs/ESPECIFICACION_PRINCIPAL.md`  
-> **Versión:** 2.2.0  
-> **Fecha de Actualización:** 2026-10-06  
+> **Versión:** 2.8.0  
+> **Fecha de Actualización:** 2026-10-08  
 > **Estado:** Aprobado / Fuente Única de Verdad (SSOT)  
-> **Stack Técnico:** React 18+ | JavaScript (ESModules) | Vite | Tailwind CSS | LocalStorage
+> **Stack Técnico:** React 18+ | JavaScript (ESModules) | Vite 6+ | Tailwind CSS v4 | LocalStorage
 
 ---
 
@@ -15,6 +15,14 @@
 | **v2.0.0** | 2026-10-06 | Equipo Arquitectura | Creación inicial del modelo relacional de 4 módulos (Catálogo, Listas, Vinculación, Modo Súper). |
 | **v2.1.0** | 2026-10-06 | Solicitud de Negocio (Sponsor) | Nacionalización / Españolización del Modelo de Datos (`productos`, `listas`, `productos_listas`) con migración automática. |
 | **v2.2.0** | 2026-10-06 | Solicitud de Negocio (Sponsor) | **Prevención de Desmarcado Accidental (Anti-dedazos):** Validación con confirmación obligatoria al intentar desmarcar un producto que ya se encuentra en el carrito. |
+| **v2.3.0** | 2026-10-08 | Christian Vargas A. | **Evolución de Marca y Flujo Cronológico:** Renombrado formal a **SuperCarrito**. Incorporación de **RF-5.1 (Pantalla Principal y Flujo Cronológico de 2 Pasos: Gestión en casa $\rightarrow$ ¡Vamos al Súper! en tienda)**. |
+| **v2.4.0** | 2026-10-08 | Christian Vargas A. | **Consolidación de UX y Centro de Control SDD:** Header minimalista sin pestañas redundantes en Home (RF-5.2), botón contextual `← Volver al Inicio`, tercer acceso a Laboratorio SDD en Home y creación del Panel Web de Guardrails interactivo (`tests/guardrails.html`) (RF-5.3). |
+| **v2.5.0** | 2026-10-08 | Christian Vargas A. | **Centro Unificado de Gestión en Dos Secciones (RF-5.4):** Botón único de acción 'Gestionar' en la tarjeta de inicio del Paso 1, y pantalla unificada dividida verticalmente: 1. Catálogo de Despensa arriba (alta, edición, eliminación) y 2. Mantenimiento y Armado de Listas abajo. |
+| **v2.5.1** | 2026-10-08 | Christian Vargas A. | **Selector de Catálogo con Checkboxes y Carga en Lote (RF-3.1):** Reemplazo de la caja de texto solitaria por visualización directa de productos con casillas de verificación (checkboxes), selección múltiple simultánea, botón de agregar en lote, contador dinámico de ítems seleccionados y botón de seleccionar/deseleccionar todos. |
+| **v2.5.2** | 2026-10-08 | Christian Vargas A. | **Modo Claro/Oscuro y Header Minimalista Estricto (RF-5.2):** Botón selector de tema Claro/Oscuro (Sol/Luna) en la barra superior. En subpantallas de detalle, solo coexisten el botón de tema y el botón de Inicio con icono Home a su derecha. Eliminación de textos de bienvenida y métricas en el header. |
+| **v2.6.0** | 2026-10-08 | Christian Vargas A. | **Centro Integrado de Auditoría, Guardrails y Arneses en la SPA (RF-5.3):** Integración nativa del Paso 3 dentro de la misma aplicación (`activeTab === 'auditoria'`), compartiendo el Header institucional, el control de tema Claro/Oscuro y el botón Home de retorno, con ejecución interactiva de los 38 guardrails y las 7 pruebas sensoriales. |
+| **v2.7.0** | 2026-10-08 | Christian Vargas A. | **Disposición de Navegación Lateral (Sidebar estilo AdminLTE) en Mantenimiento (RF-5.5):** Estructura de dos columnas (panel izquierdo de menú con opciones e insignias numéricas + área de trabajo derecha) para los módulos de administración: Paso 1 (Catálogo vs Armado de Listas) y Paso 3 (Auditar el Sistema vs Arnés Sensorial). El Paso 2 (Modo Súper en tienda) se preserva deliberadamente en disposición vertical simple para manipulación con una sola mano táctil. |
+| **v2.8.0** | 2026-10-08 | Christian Vargas A. | **Modal Táctil de Confirmación Anti-dedazos en Modo Súper (RF-4.6):** Reemplazo del cuadro genérico del navegador (`window.confirm`) por una ventana modal personalizada, táctil y de alto contraste (`ConfirmModal.jsx`), con botones grandes ergonómicos para confirmar o cancelar la devolución de productos del carrito con el pulgar. |
 
 ---
 
@@ -87,7 +95,7 @@ interface ProductoLista {
 - **RF-2.4 (Eliminar Lista):** Elimina la lista y todos sus registros en `productos_listas` vinculados en cascada.
 
 ### Módulo 3: Vinculación y Armado de Lista (`ListBuilder`)
-- **RF-3.1 (Selector Rápido):** Al estar en una lista, el usuario busca en el catálogo y agrega productos con un click.
+- **RF-3.1 (Selector Visual con Checkboxes y Carga en Lote):** Al estar en una lista, el usuario visualiza directamente todos los productos del catálogo maestro disponibles con casillas de verificación (checkboxes). Permite seleccionar múltiples productos simultáneamente y agregarlos en lote mediante el botón `"Agregar a la Lista"`, además de disponer de un buscador opcional para filtrado rápido y selector global ("Seleccionar todos" / "Deseleccionar todos").
 - **RF-3.2 (Ajuste de Cantidades):** Controles `+` y `-` para subir o bajar la `cantidad` de cada ítem en la lista. Si se vuelve a agregar el mismo producto, suma la cantidad.
 - **RF-3.3 (Quitar de la Lista):** Eliminar un producto de la lista actual sin afectar el catálogo maestro.
 
@@ -100,7 +108,35 @@ interface ProductoLista {
   - **"En el Carrito":** Muestra lo que ya se depositó en el carrito (`enCarrito === true`).
 - **RF-4.4 (Barra de Progreso en Vivo):** Muestra el porcentaje y conteo: `"Llevas X de Y artículos (Z%)"`.
 - **RF-4.5 (Finalizar Compra):** Botón que marca la lista como `'completada'`.
-- **RF-4.6 (Prevención de Desmarcado Accidental - Anti-dedazos):** Si un producto ya está marcado (`enCarrito === true`) y el usuario intenta desmarcarlo, el sistema **DEBE solicitar confirmación explícita** al usuario antes de devolverlo a pendientes. Si el usuario cancela, el producto permanece en `enCarrito === true`. Si confirma, pasa a `enCarrito === false`.
+- **RF-4.6 (Prevención de Desmarcado Accidental - Anti-dedazos con Modal Táctil):** Si un producto ya está marcado (`enCarrito === true`) y el usuario intenta desmarcarlo, el sistema **DEBE solicitar confirmación explícita** al usuario antes de devolverlo a pendientes.
+  - **Experiencia de Usuario Nativa (Modal Táctil):** La confirmación se realiza mediante una ventana modal personalizada (`ConfirmModal.jsx`), con diseño accesible, botones táctiles grandes de alto contraste y soporte de temas, evitando por completo alertas genéricas del navegador (`window.confirm`).
+  - **Manejo de Respuestas:** Si el usuario pulsa `"Sí, sacar del carrito"`, el ítem pasa a `enCarrito === false`. Si pulsa `"No, mantener en carrito"`, o presiona `Escape` o fuera del modal, el producto permanece protegido en `enCarrito === true`.
+
+### Módulo 5: Pantalla Principal y Flujo de Navegación (`HomeHub`)
+- **RF-5.1 (Pantalla Principal con Flujo de 3 Módulos):** La interfaz proporciona un Centro de Control como punto de entrada organizado en tres momentos claros:
+  1. **Paso 1 · Gestión y Catálogos (En Casa):** Preparar la despensa general y planificar las listas de compras antes de salir.
+  2. **Paso 2 · ¡Vamos al Súper! (En el Pasillo):** Modo compra táctil con métricas en tiempo real y protección anti-dedazos (RF-4.6).
+  3. **Paso 3 · Laboratorio SDD y Calidad:** Acceso directo al arnés de pruebas y al panel web de guardrails para validación interactiva de contratos.
+- **RF-5.2 (Header Minimalista Estricto y Control de Tema Claro / Oscuro):**
+  - **Lado Izquierdo:** Icono de carrito, marca `"SuperCarrito"`, versión formal (`"SDD v2.5"`) y texto de detalle de lista activa.
+  - **Lado Derecho (Ventana Principal - Home):** Contiene **únicamente el botón de alternancia de Tema Claro / Oscuro** (Sol ☀️ / Luna 🌙). Se elimina cualquier saludo o texto redundante de bienvenida.
+  - **Lado Derecho (Modo Detalle / Subpantallas de Gestión y Compra):** Contiene **estrictamente dos funciones**:
+    1. Botón de alternancia de **Tema Claro / Oscuro**.
+    2. A la derecha del tema: Botón compacto con **ícono de Home / Inicio** para `Volver al Inicio` a la ventana principal.
+  - **Regla de Aislamiento de Header:** La barra superior no debe contener textos extensos, métricas ni títulos de navegación redundantes; cualquier dato adicional (como progreso de compra, filtros o subtítulos de sección) reside exclusivamente en el cuerpo interno de la ventana correspondiente.
+- **RF-5.3 (Centro Integrado de Auditoría, Guardrails y Arneses en la SPA):**
+  - La plataforma integra el Paso 3 directamente dentro de la aplicación (`activeTab === 'auditoria'`), compartiendo el Header institucional de SuperCarrito, el alternador de tema Claro / Oscuro y el botón con icono de Home para volver al inicio con un solo clic.
+  - Dentro de esta vista (`AuditoriaHub.jsx`) se ejecutan interactivamente en la misma ventana tanto los Guardrails en 5 fases (37 verificaciones) como el Arnés Sensorial de pruebas unitarias en memoria (7 casos de prueba), con opción secundaria de abrir reportes independientes (`tests/guardrails.html` y `tests/harness.html`).
+- **RF-5.4 (Centro Unificado de Gestión):**
+  - La tarjeta de inicio del Paso 1 cuenta con **un único botón de acción** denominado `"Gestionar"`.
+  - Al ingresar, despliega la interfaz unificada (`GestionHub.jsx`) que integra el Catálogo de Despensa (alta, edición, eliminación) y el Mantenimiento y Armado de Listas de compras.
+- **RF-5.5 (Disposición de Navegación Lateral estilo AdminLTE para Mantenimiento):**
+  - Para los módulos de administración y mantenimiento (**Paso 1: Gestión** y **Paso 3: Auditoría y Arneses**), la interfaz implementa un diseño de dos columnas:
+    1. **Panel Lateral Izquierdo (Sidebar):** Menú vertical con opciones claras, iconos identificativos y badges con conteo dinámico de elementos.
+       - En Paso 1: Opciones `Catálogo` y `Armado de Listas`.
+       - En Paso 3: Opciones `Auditar el Sistema` y `Ver Arnés Sensorial`.
+    2. **Área de Trabajo Derecha (Workspace):** Despliegue amplio del sub-módulo activo, maximizando el espacio para formularios, filtros y tablas.
+  - **Excepción de Ergonomía Móvil (Paso 2):** El Paso 2 (¡Vamos al Súper! en tienda) **no adopta menú lateral**; se mantiene en una sola columna vertical con tarjetas táctiles de alta densidad optimizadas para el uso en el pasillo del supermercado con una sola mano.
 
 ---
 

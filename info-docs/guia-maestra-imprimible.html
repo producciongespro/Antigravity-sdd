@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Guía Maestra: Spec-Driven Development, Arneses, Agentes y Guardrails</title>
+  <title>Guía Maestra: Spec-Driven Development, Arneses, Agentes, Guardrails, Skills y MCP</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap');
 
@@ -30,7 +30,7 @@
       line-height: 1.65;
       background: #ffffff;
       padding: 0;
-      font-size: 14px;
+      font-size: 13.5px;
     }
 
     /* Print styling rules */
@@ -77,7 +77,7 @@
       align-self: flex-start;
     }
     .cover-title {
-      font-size: 2.8rem;
+      font-size: 2.6rem;
       font-weight: 800;
       line-height: 1.15;
       color: var(--dark);
@@ -85,11 +85,11 @@
       letter-spacing: -0.03em;
     }
     .cover-subtitle {
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       color: #334155;
       font-weight: 500;
       line-height: 1.45;
-      max-width: 650px;
+      max-width: 680px;
     }
     .cover-meta {
       border-top: 2px solid #cbd5e1;
@@ -104,7 +104,7 @@
     /* Headings */
     h1, h2, h3, h4 { color: var(--dark); font-weight: 800; letter-spacing: -0.02em; }
     h2 {
-      font-size: 1.6rem;
+      font-size: 1.5rem;
       margin-top: 2.5rem;
       margin-bottom: 1rem;
       padding-bottom: 0.5rem;
@@ -115,7 +115,7 @@
       page-break-after: avoid;
     }
     h3 {
-      font-size: 1.2rem;
+      font-size: 1.15rem;
       margin-top: 1.6rem;
       margin-bottom: 0.6rem;
       page-break-after: avoid;
@@ -126,8 +126,8 @@
     /* Callout Boxes */
     .callout {
       border-radius: 12px;
-      padding: 1.2rem 1.4rem;
-      margin: 1.4rem 0;
+      padding: 1.1rem 1.3rem;
+      margin: 1.3rem 0;
       border-left: 5px solid;
       page-break-inside: avoid;
     }
@@ -141,12 +141,12 @@
     .diagram-box {
       background: #0f172a;
       color: #f8fafc;
-      padding: 1.5rem;
-      border-radius: 14px;
-      margin: 1.5rem 0;
+      padding: 1.3rem;
+      border-radius: 12px;
+      margin: 1.3rem 0;
       font-family: 'JetBrains Mono', ui-monospace, monospace;
-      font-size: 0.85rem;
-      line-height: 1.5;
+      font-size: 0.82rem;
+      line-height: 1.45;
       border: 1px solid #334155;
       page-break-inside: avoid;
       overflow-x: auto;
@@ -156,12 +156,12 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      margin: 1.4rem 0;
-      font-size: 0.85rem;
+      margin: 1.3rem 0;
+      font-size: 0.83rem;
       page-break-inside: avoid;
     }
     th, td {
-      padding: 0.75rem 0.9rem;
+      padding: 0.7rem 0.85rem;
       text-align: left;
       border-bottom: 1px solid var(--border);
     }
@@ -170,7 +170,7 @@
       color: var(--dark);
       font-weight: 700;
       text-transform: uppercase;
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       letter-spacing: 0.05em;
     }
     tr:nth-child(even) td { background: #f8fafc; }
@@ -179,33 +179,30 @@
     code {
       font-family: 'JetBrains Mono', monospace;
       background: #f1f5f9;
-      color: #0f172a;
       padding: 0.15rem 0.4rem;
-      border-radius: 4px;
-      font-size: 0.85em;
-      font-weight: 600;
+      border-radius: 5px;
+      font-size: 0.88em;
+      color: #be185d;
     }
     pre {
       background: #0f172a;
       color: #f8fafc;
-      padding: 1rem 1.25rem;
+      padding: 1rem 1.2rem;
       border-radius: 10px;
-      overflow-x: auto;
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.8rem;
-      line-height: 1.5;
+      overflow-x: auto;
       margin: 1.2rem 0;
       page-break-inside: avoid;
     }
+    pre code { background: transparent; color: inherit; padding: 0; }
 
     .page-break { page-break-after: always; }
 
-    /* Lists */
     ul, ol { margin-left: 1.5rem; margin-bottom: 1rem; color: #334155; }
-    li { margin-bottom: 0.4rem; }
+    li { margin-bottom: 0.35rem; }
     li strong { color: var(--dark); }
 
-    /* Grid cards */
     .card-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -217,10 +214,10 @@
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 1.2rem;
+      padding: 1.1rem;
     }
-    .card h4 { font-size: 0.95rem; margin-bottom: 0.4rem; color: var(--dark); }
-    .card p { font-size: 0.85rem; margin-bottom: 0; }
+    .card h4 { font-size: 0.95rem; margin-bottom: 0.35rem; color: var(--dark); }
+    .card p { font-size: 0.83rem; margin-bottom: 0; }
   </style>
 </head>
 <body>
@@ -231,16 +228,16 @@
   <div class="cover">
     <div>
       <span class="cover-badge">Laboratorio de Ingeniería con IA</span>
-      <h1 class="cover-title">Guía Maestra de Spec-Driven Development, Arneses, Agentes y Guardrails</h1>
+      <h1 class="cover-title">Guía Maestra de Spec-Driven Development, Arneses, Agentes, Guardrails, Skills y MCP</h1>
       <p class="cover-subtitle">
-        Manual integral de arquitectura moderna: desde la concepción de la especificación viva hasta el arnés automatizado de evaluación, la orquestación de agentes y los sistemas de contención.
+        Manual integral de arquitectura moderna: desde la concepción de la especificación viva hasta el arnés de evaluación sensorial, los guardrails automatizados en 5 fases, los skills de especialidad y el protocolo universal MCP.
       </p>
     </div>
 
     <div class="cover-meta">
       <div class="meta-item">
         <strong>Autor / Estudiante:</strong>
-        Christian Vargas A.
+        Chris Vargas A.
       </div>
       <div class="meta-item">
         <strong>Copiloto Técnico:</strong>
@@ -248,11 +245,11 @@
       </div>
       <div class="meta-item">
         <strong>Proyecto de Referencia:</strong>
-        SuperCart SDD (React 18 + Vite + Tailwind CSS)
+        SuperCart SDD (React 18 + Vite + Tailwind CSS v4)
       </div>
       <div class="meta-item">
         <strong>Fecha y Versión:</strong>
-        Octubre 2026 | Versión 1.0 Definitiva
+        Octubre 2026 | Versión 2.0 Definitiva y Ampliada
       </div>
     </div>
   </div>
@@ -261,33 +258,29 @@
   <h2>📖 1. ¿Qué es Spec-Driven Development (SDD)?</h2>
 
   <p>
-    El <strong>Desarrollo Guiado por Especificaciones (Spec-Driven Development o SDD)</strong> es una metodología de ingeniería de software en la cual <strong>una especificación formal, estructurada y versionada actúa como la Única Fuente de Verdad (Single Source of Truth o SSOT)</strong> antes de escribir o modificar cualquier línea de código de producción.
+    El <strong>Desarrollo Guiado por Especificaciones (Spec-Driven Development o SDD)</strong> es una metodología de ingeniería de software en la cual <strong>una especificación viva, formal y versionada actúa como la Única Fuente de Verdad (Single Source of Truth o SSOT)</strong> antes de escribir o modificar cualquier línea de código de producción.
   </p>
 
+  <div class="callout callout-info">
+    <div class="callout-title">🏠 La Analogía de la Vida Real: El Plano del Arquitecto</div>
+    Imagina que contratas albañiles para construir una casa de dos plantas. Si les dices: <em>"Constrúyanme una casa bonita"</em>, cada uno hará lo que imagine: uno pondrá una ventana donde el otro iba a pasar una tubería de agua y el techo colapsará. En la construcción profesional, <strong>nadie pega un ladrillo sin el plano aprobado por el arquitecto</strong>. Si el cliente quiere mover una pared, primero se redibuja el plano, se calculan las vigas y luego se mueve el ladrillo.
+  </div>
+
   <div class="callout callout-danger">
-    <div class="callout-title">⚠️ El Problema de la Programación Tradicional con Agentes de IA</div>
-    Cuando los desarrolladores utilizan IA pidiéndole *"hazme una pantalla de lista de compras"*, la IA recurre a sus patrones probabilísticos y **adivina** los nombres de los campos, inventa reglas de negocio, y genera código inconsistente. Esto produce el fenómeno de <em>alucinación técnica</em> y rompe el sistema ante el menor cambio.
+    <div class="callout-title">⚠️ El Problema de la Programación sin Especificación con IA</div>
+    Cuando los desarrolladores utilizan IA pidiéndole *"hazme una pantalla de lista de compras"*, la IA recurre a sus probabilidades estadísticas y **adivina** los nombres de los campos, inventa reglas de negocio cambiantes y genera código inconsistente. Esto produce el fenómeno de <em>alucinación técnica</em> ante cambios acumulativos.
   </div>
 
   <h3>La Regla de Oro del SDD</h3>
   <div class="callout callout-success">
     <div class="callout-title">💎 Ley Fundamental</div>
     <strong>"El código siempre sigue a la especificación; la especificación NUNCA persigue al código."</strong>
-    Cualquier cambio de negocio (un campo nuevo, una regla de confirmación, un cambio de idioma) se aprueba primero en la especificación, luego se refleja en el arnés, y por último se programa.
+    Cualquier cambio de negocio (un campo nuevo, confirmación anti-dedazos, nacionalización al español) se aprueba primero en la especificación, luego se diseña la prueba en el arnés, y por último se programa el código.
   </div>
-
-  <h3>Estructura Anatómica de una Especificación Profesional</h3>
-  <p>Un documento formal como <code>docs/ESPECIFICACION_PRINCIPAL.md</code> debe incluir obligatoriamente:</p>
-  <ul>
-    <li><strong>Historial de Cambios (Changelog):</strong> Control de versiones SemVer (ej: v2.0 $\rightarrow$ v2.1 $\rightarrow$ v2.2) indicando fecha, autor y razón del cambio.</li>
-    <li><strong>Modelo de Dominio / Contrato de Datos:</strong> Definición exacta de entidades, claves, tipos y valores por defecto (TypeScript / JSON Schemas).</li>
-    <li><strong>Requerimientos Funcionales (RF):</strong> Reglas operativas numeradas y delimitadas (ej: <code>RF-1.1</code>, <code>RF-4.6</code>).</li>
-    <li><strong>Requerimientos No Funcionales (RNF):</strong> Políticas de persistencia, tolerancia a fallos, recuperación de corrupción y migración retroactiva.</li>
-  </ul>
 
   <!-- ==================== CAPÍTULO 2 ==================== -->
   <div class="page-break"></div>
-  <h2>🛡️ 2. El Arnés de Pruebas (The Test Harness)</h2>
+  <h2>🛡️ 2. El Arnés de Pruebas (The Test Harness) - El Órgano Sensorial</h2>
 
   <p>
     El <strong>Arnés de Pruebas</strong> es el banco de evaluación automatizado donde se colocan los componentes de software en condiciones controladas para verificar que cumplen matemáticamente las promesas hechas en la especificación.
@@ -297,33 +290,31 @@
 ┌─────────────────────────────────────────────────────────────┐
 │                 ARQUITECTURA DEL ARNÉS                      │
 ├─────────────────────────────────────────────────────────────┤
-│                                                             │
 │   [ ESPECIFICACIÓN ] ──(Define Reglas)──> [ TEST HARNESS ]  │
 │                                                   │         │
 │                                           (Ejecuta Pruebas) │
 │                                                   ▼         │
 │   [ CÓDIGO FUENTE ] <───(Corrige)─── [ ASERCIÓN: PASS/FAIL ]│
-│                                                             │
 └─────────────────────────────────────────────────────────────┘
   </div>
 
   <h3>El Órgano Sensorial del Agente de IA</h3>
   <p>
-    Los seres humanos verificamos el código abriendo el navegador, haciendo clics e inspeccionando la pantalla. <strong>Un Agente de IA no tiene ojos humanos nativos.</strong> El arnés es el <em>órgano sensorial</em> que le permite al agente saber si su solución funciona:
+    Los seres humanos verificamos el código abriendo el navegador, haciendo clics e inspeccionando la pantalla con los ojos. <strong>Un Agente de IA no tiene ojos humanos nativos.</strong> El arnés es el <em>órgano sensorial</em> que le permite al agente saber si su solución funciona:
   </p>
   <ul>
-    <li><strong>Sin Arnés:</strong> El agente dice *"¡Listo, ya terminé!"* basándose en una corazonada. El código puede estar lleno de errores sutiles.</li>
-    <li><strong>Con Arnés:</strong> El agente ejecuta el arnés, lee el error exacto (ej: <code>"Expected 5 but received 2"</code>), corrige la línea de código precisa y vuelve a evaluar hasta obtener 100% verde.</li>
+    <li><strong>Sin Arnés:</strong> El agente dice *"¡Listo, ya terminé!"* basándose en una corazonada o alucinación.</li>
+    <li><strong>Con Arnés:</strong> El agente ejecuta el arnés, lee el error exacto (ej: <code>"Expected true but received false"</code>), corrige la línea precisa y re-evalúa hasta obtener 100% verde.</li>
   </ul>
 
   <h3>La Metáfora del Restaurante de Alta Cocina</h3>
   <div class="card-grid">
     <div class="card">
       <h4>📜 La Especificación (`SPEC.md`)</h4>
-      <p>Es la <strong>Carta y la Receta</strong>. Define exactamente los ingredientes, el sabor, las porciones y lo que el cliente final pagó por recibir.</p>
+      <p>Es la <strong>Carta y la Receta Maestra</strong>. Define exactamente los ingredientes, las porciones y lo que el cliente final pagó por recibir.</p>
     </div>
     <div class="card">
-      <h4>🤖 El Reglamento (`AGENTS.md`)</h4>
+      <h4>🤖 El Reglamento (`AGENTS.md` / `RULES.md`)</h4>
       <p>Son las <strong>Normas de la Cocina</strong>. Indica a los cocineros cómo comportarse, qué herramientas usar y qué prácticas están prohibidas.</p>
     </div>
     <div class="card">
@@ -332,22 +323,13 @@
     </div>
     <div class="card">
       <h4>🧠 La Memoria (`MEMORY.md`)</h4>
-      <p>Es la <strong>Bitácora del Chef</strong>. Anota lecciones, incidentes pasados y recetas mejoradas para no repetir errores.</p>
+      <p>Es la <strong>Bitácora del Chef</strong>. Anota lecciones aprendidas, incidentes pasados y recetas mejoradas (ADRs).</p>
     </div>
   </div>
-
-  <h3>Principios de Aislamiento: El Sandbox (MockStorage)</h3>
-  <p>
-    Un buen arnés jamás toca los datos reales del usuario. Utiliza un <code>MockStorage</code> en memoria volátil. Cada prueba arranca con una pizarra en blanco, ejecuta su lógica y se limpia, garantizando pruebas reproducibles e independientes de la red o del disco.
-  </p>
 
   <!-- ==================== CAPÍTULO 3 ==================== -->
   <div class="page-break"></div>
   <h2>🔄 3. El Ciclo de Vida: Rojo $\rightarrow$ Verde $\rightarrow$ Refactor</h2>
-
-  <p>
-    Heredado de Test-Driven Development (TDD) y perfeccionado para la era de la IA, este ciclo es la base de la máxima confiabilidad en ingeniería:
-  </p>
 
   <table>
     <thead>
@@ -374,113 +356,181 @@
       <tr>
         <td><strong>3. Refactorización</strong></td>
         <td>🔵 CLEAN</td>
-        <td>Reorganizar taxonomía, limpiar deuda técnica, optimizar variables.</td>
+        <td>Reorganizar taxonomía, limpiar deuda técnica, optimizar código.</td>
         <td>Mejorar la calidad sin miedo: el arnés garantiza que nada se rompió.</td>
       </tr>
     </tbody>
   </table>
 
-  <h3>¿Por qué es indispensable ver la prueba en Rojo?</h3>
   <div class="callout callout-warning">
     <div class="callout-title">⚠️ La Trampa de las Pruebas Falsas Positivas</div>
-    Si creas una prueba y pasa en verde de inmediato sin que hayas programado nada, <strong>la prueba no sirve</strong> (está mal formulada o no está evaluando nada). La Fase Roja es la garantía científica de que la prueba es sensible a los fallos.
+    Si creas una prueba y pasa en verde de inmediato sin que hayas programado nada, <strong>la prueba no sirve</strong>. La Fase Roja es la garantía científica de que la prueba realmente detecta la falta de la función.
   </div>
 
   <!-- ==================== CAPÍTULO 4 ==================== -->
-  <h2>🤖 4. Arquitectura de Agentes y Subagentes</h2>
+  <h2>🚧 4. Guardrails: Las Barandillas de Seguridad (Explicado para Todos)</h2>
 
   <p>
-    Al trabajar en Pair Programming con IA o con enjambres de múltiples agentes, cada actor debe tener un rol y límites perfectamente delimitados:
+    La palabra <strong>Guardrail</strong> significa literalmente la <strong>barandilla de contención</strong> metálica que ves al borde de una carretera en la montaña o en un balcón alto. Tú sabes manejar, pero si hay hielo o niebla, la barandilla <strong>físicamente te impide caer al abismo</strong>.
   </p>
 
-  <ul>
-    <li><strong>Agente Orquestador:</strong> Entiende los objetivos de alto nivel del usuario, coordina la estrategia y gestiona la bitácora en <code>MEMORY.md</code>.</li>
-    <li><strong>Subagente Programador (Coder):</strong> Lee la especificación, revisa el archivo a modificar y escribe el código correspondiente.</li>
-    <li><strong>Subagente Verificador (Tester / QA):</strong> Corre el arnés de pruebas de manera independiente y certifica si el trabajo del programador pasa o debe rechazarse.</li>
-  </ul>
+  <h3>3 Ejemplos Visuales de la Vida Real:</h3>
+  <div class="card-grid">
+    <div class="card">
+      <h4>1. La puerta del microondas</h4>
+      <p>Si abres la puerta mientras calienta, el microondas <strong>se apaga en el acto</strong>. Es un guardrail físico: no confía en que recuerdes apagarlo; bloquea el peligro por diseño.</p>
+    </div>
+    <div class="card">
+      <h4>2. Las rueditas de la bicicleta infantil</h4>
+      <p>No pedalean por el niño, pero si la bicicleta se inclina peligrosamente hacia un costado, tocan el suelo e impiden una caída grave.</p>
+    </div>
+    <div class="card">
+      <h4>3. El enchufe de 3 clavijas (con polo a tierra)</h4>
+      <p>Tiene una clavija redonda más larga que las otras dos. Es geométricamente imposible enchufarlo al revés; su propia forma actúa como guardrail.</p>
+    </div>
+    <div class="card">
+      <h4>4. El script automatizado (check:guardrails)</h4>
+      <p>Escanea 27 puntos de control en 40ms e impide que se suba código que viole el idioma español, toque storage directo o rompa aserciones.</p>
+    </div>
+  </div>
 
-  <h3>La Taxonomía Estandarizada de Pruebas</h3>
-  <p>
-    Una de las lecciones clave aprendidas hoy es que el arnés debe hablar el mismo idioma que la especificación. En lugar de identificadores genéricos (<code>test1</code>, <code>mod1</code>), cada prueba lleva el identificador contractual:
-  </p>
+  <h3>Los 4 Niveles de Guardrails en Desarrollo con IA:</h3>
   <ul>
-    <li><code>[RNF-02]</code>: Prueba de Resistencia ante JSON corrupto.</li>
-    <li><code>[RNF-03]</code>: Prueba de Migración Automática de versiones.</li>
-    <li><code>[RF-1.1]</code>: Prueba de Alta y Validación de Productos.</li>
-    <li><code>[RF-4.6]</code>: Prueba de Prevención de Desmarcado Accidental.</li>
+    <li><strong>1. Guardrails de Instrucción (`AGENTS.md`, `RULES.md`):</strong> Reglas escritas que prohíben alucinar o inventar APIs.</li>
+    <li><strong>2. Guardrails Estructurales (Scripts y CI/CD - `scripts/guardrails.js`):</strong> Verificaciones automáticas por terminal antes de compilar o hacer commit.</li>
+    <li><strong>3. Guardrails de Negocio / UX (Anti-dedazos - `RF-4.6`):</strong> Freno en pantalla: confirmación obligatoria al desmarcar un artículo del carrito.</li>
+    <li><strong>4. Guardrails de Resiliencia (Fallback - `RNF-02`):</strong> Captura de excepciones: si el storage se corrompe, reinicia tablas vacías limpias sin pantalla blanca.</li>
   </ul>
 
   <!-- ==================== CAPÍTULO 5 ==================== -->
   <div class="page-break"></div>
-  <h2>🚧 5. Guardrails: Las Barandillas de Seguridad</h2>
+  <h2>🧠 5. Skills (Habilidades): La Carpeta de Especialidad de la IA</h2>
 
   <p>
-    Los <strong>Guardrails (Barandillas de Seguridad)</strong> son restricciones, validaciones y cortafuegos diseñados para evitar que los agentes de IA o los propios usuarios cometan errores destructivos, rompan la arquitectura o provoquen pérdidas de datos.
+    Imagina que contratas a un chef profesional muy inteligente. Sabe cocinar comida internacional, pero hoy tu restaurante va a abrir una estación de <strong>Pastelería Francesa de Alta Precisión</strong>.
+  </p>
+  <p>
+    El chef tiene la capacidad cerebral, pero para no cometer errores en las temperaturas del merengue, le entregas una <strong>carpeta de especialidad</strong> con las recetas exactas, las tablas de conversión de gramos a mililitros y la lista de fallos que jamás debe cometer. <strong>Esa carpeta es un Skill.</strong>
   </p>
 
-  <div class="card-grid">
-    <div class="card">
-      <h4>1. Guardrails de Instrucción (AGENTS.md)</h4>
-      <p>Límites operativos que la IA no puede violar: <em>"Prohibido asumir requerimientos"</em>, <em>"Prohibido entregar tareas si el arnés está en rojo"</em>, <em>"Obligatorio consultar docs/ antes de codificar"</em>.</p>
-    </div>
-    <div class="card">
-      <h4>2. Guardrails Estructurales (El Arnés y CI/CD)</h4>
-      <p>Sistemas automatizados que impiden la integración de código roto: Git hooks (Husky), pruebas unitarias previas al commit y pipelines de despliegue.</p>
-    </div>
-    <div class="card">
-      <h4>3. Guardrails de Negocio / UX (Anti-dedazos)</h4>
-      <p>Validaciones en la experiencia de usuario. Ejemplo real implementado hoy (<code>RF-4.6</code>): si un producto ya está en el carrito, se exige confirmación obligatoria antes de desmarcarlo.</p>
-    </div>
-    <div class="card">
-      <h4>4. Guardrails de Resiliencia (Fallback)</h4>
-      <p>Tolerancia ante desastres. Si la base de datos local se corrompe (<code>RNF-02</code>), el sistema captura la excepción y reinicia las tablas limpias sin colapsar la aplicación.</p>
-    </div>
+  <div class="callout callout-info">
+    <div class="callout-title">💡 ¿Qué es un Skill en Sistemas de IA?</div>
+    Es un paquete modular de instrucciones avanzadas, plantillas y herramientas que le enseñan a la IA <strong>cómo realizar una tarea técnica específica al nivel de un experto</strong> (ej: automatizaciones cron, generación de UI interactiva, plugins). Evita que la IA adivine y le entrega el manual oficial de procedimientos antes de empezar.
   </div>
 
-  <h3>Implementación de Guardrails en Proyectos Reales</h3>
-  <pre><code>// Ejemplo de Guardrail de Código: Validación y Confirmación (RF-4.6)
-alternarConConfirmacion(itemId, callbackConfirmacion) {
-  const item = db.productos_listas.find(i => i.id === itemId);
-  if (!item) return false;
+  <!-- ==================== CAPÍTULO 6 ==================== -->
+  <h2>🔌 6. MCP (Model Context Protocol): El USB-C Universal de la IA</h2>
 
-  // Paso libre sin fricción hacia adelante
-  if (!item.enCarrito) {
-    item.enCarrito = true;
-    return true;
-  }
+  <p>
+    Antes de que se inventara el estándar <strong>USB-C</strong>, conectar aparatos era una pesadilla: un teléfono usaba micro-USB, una cámara mini-USB, un iPhone Lightning y una impresora USB tipo B. Había que comprar decenas de adaptadores incompatibles.
+  </p>
+  <p>
+    <strong>MCP (Model Context Protocol) es el USB-C universal de la Inteligencia Artificial:</strong>
+  </p>
+  <ul>
+    <li>Históricamente, una IA es un cerebro aislado dentro de una ventana de texto sin acceso directo a tus bases de datos, APIs o archivos.</li>
+    <li>Antes de MCP, para cada herramienta se requería programar un conector exclusivo y frágil.</li>
+    <li>Con <strong>MCP</strong>, cualquier sistema (un servidor PostgreSQL, GitHub, Jira, o tu sistema local) expone un "servidor MCP", y la IA simplemente <strong>se enchufa con un cable universal estándar</strong> para leer datos y ejecutar acciones con máxima seguridad.</li>
+  </ul>
 
-  // GUARDRAIL: Freno de seguridad antes de una acción potencialmente accidental
-  const confirmado = typeof callbackConfirmacion === 'function' ? callbackConfirmacion() : true;
-  if (confirmado) {
-    item.enCarrito = false;
-    return false;
-  }
+  <!-- ==================== CAPÍTULO 7 ==================== -->
+  <h2>👥 7. Arquitectura de Agentes, Subagentes y Pair Programming</h2>
 
-  // Si no se confirma, se mantiene protegido
-  return true;
-}</code></pre>
+  <div class="diagram-box">
+       [ CHRIS - Desarrollador & Piloto Humano (Tiene el Volante) ]
+                                  │
+                    Da instrucciones y toma decisiones
+                                  ▼
+       [ ANTIGRAVITY - Agente Orquestador Copiloto ]
+                                  │
+                  ┌───────────────┴───────────────┐
+                  ▼                               ▼
+         [ Subagente Coder ]             [ Subagente Tester ]
+         Modifica código en src/         Ejecuta arnés y guardrails
+  </div>
 
-  <!-- ==================== RESUMEN EJECUTIVO ==================== -->
+  <ul>
+    <li><strong>Humano (Chris):</strong> Conduce el proyecto, define requerimientos de negocio y aprueba las especificaciones.</li>
+    <li><strong>Agente Orquestador (Antigravity):</strong> Mantiene la visión general, conversa con el humano, actualiza <code>MEMORY.md</code> y supervisa el cumplimiento del contrato.</li>
+    <li><strong>Subagentes Especializados:</strong> Asistentes que el orquestador despierta para tareas aisladas (Investigador para leer documentación sin saturar la conversación, Tester para certificar calidad).</li>
+    <li><strong>Slash Commands (`/`):</strong> Atajos rápidos en la caja de texto (como <code>/plan</code>, <code>/goal</code>) para activar flujos de trabajo de un solo toque.</li>
+  </ul>
+
+  <!-- ==================== MATRIZ RESUMEN ==================== -->
   <div class="page-break"></div>
-  <h2>📌 6. Checklist de Buenas Prácticas (Cheat Sheet)</h2>
+  <h2>📊 8. Matriz Comparativa y Diccionario Conceptual Rápido</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Concepto</th>
+        <th>Analogía de la Vida Real</th>
+        <th>Función en el Proyecto SuperCart</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Spec-Driven Development (SDD)</strong></td>
+        <td>El plano del arquitecto antes de colocar ladrillos.</td>
+        <td><code>docs/ESPECIFICACION_PRINCIPAL.md</code> como Fuente Única de Verdad.</td>
+      </tr>
+      <tr>
+        <td><strong>Arnés de Pruebas (Harness)</strong></td>
+        <td>El banco de pruebas de choque o el inspector de cocina.</td>
+        <td><code>tests/harness.html</code> para validación sensorial matemática.</td>
+      </tr>
+      <tr>
+        <td><strong>Guardrails Duales (CLI + Web)</strong></td>
+        <td>La barandilla de autopista y el tablero de control de mando.</td>
+        <td><code>scripts/guardrails.js</code> (terminal) y <code>tests/guardrails.html</code> (web).</td>
+      </tr>
+      <tr>
+        <td><strong>Skills</strong></td>
+        <td>La carpeta de recetas de alta pastelería del chef.</td>
+        <td>Paquetes de instrucciones avanzadas para tareas expertas.</td>
+      </tr>
+      <tr>
+        <td><strong>MCP</strong></td>
+        <td>El conector universal USB-C.</td>
+        <td>Protocolo estándar para conectar la IA a bases de datos y herramientas.</td>
+      </tr>
+      <tr>
+        <td><strong>Agente Orquestador</strong></td>
+        <td>El maestro de obras que coordina con el cliente.</td>
+        <td>Antigravity coordinando y manteniendo la visión general.</td>
+      </tr>
+      <tr>
+        <td><strong>Subagentes</strong></td>
+        <td>Los especialistas (el electricista, el fontanero).</td>
+        <td>Procesos aislados para investigar código o correr pruebas de QA.</td>
+      </tr>
+      <tr>
+        <td><strong>ADRs (Architecture Decisions)</strong></td>
+        <td>El libro de actas de una junta directiva.</td>
+        <td>Registros numerados en <code>MEMORY.md</code> (ADR-01 a ADR-10).</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ==================== CHECKLIST ==================== -->
+  <h2>📋 9. Protocolo Profesional para Nuevas Funciones</h2>
 
   <div class="callout callout-info">
-    <div class="callout-title">📋 Protocolo Profesional para Desarrollar Nuevas Funcionalidades</div>
     <ol>
-      <li><strong>Definir y Acordar:</strong> Hablar con el usuario/sponsor para entender el problema real.</li>
-      <li><strong>Documentar en la Spec:</strong> Crear o editar la sección correspondiente en <code>docs/ESPECIFICACION_PRINCIPAL.md</code> y aumentar la versión.</li>
-      <li><strong>Diseñar el Caso de Prueba:</strong> Agregar la prueba en <code>tests/harness.html</code> con su código estandarizado (<code>RF-*</code>).</li>
-      <li><strong>Comprobar el Fallo Rojo:</strong> Re-ejecutar el arnés y certificar que la nueva prueba falla con la causa esperada.</li>
-      <li><strong>Escribir el Código:</strong> Modificar los servicios y componentes en <code>src/</code> para resolver la aserción.</li>
-      <li><strong>Comprobar el Éxito Verde:</strong> Re-ejecutar el arnés hasta alcanzar 100% PASS.</li>
-      <li><strong>Registrar en la Memoria:</strong> Agregar la decisión arquitectónica (ADR) en <code>MEMORY.md</code>.</li>
-      <li><strong>Commit Atómico en Git:</strong> Guardar el cambio con un mensaje semántico claro (<code>feat(...)</code>).</li>
+      <li><strong>Definir y Acordar:</strong> Entender el problema de negocio con el usuario.</li>
+      <li><strong>Documentar en la Spec:</strong> Redactar la regla en <code>docs/ESPECIFICACION_PRINCIPAL.md</code> (subir versión SemVer).</li>
+      <li><strong>Diseñar el Caso de Prueba:</strong> Agregar la aserción en <code>tests/harness.html</code> con código <code>RF-*</code>.</li>
+      <li><strong>Comprobar el Fallo Rojo:</strong> Re-ejecutar el arnés y certificar el fallo científico (Fase Roja).</li>
+      <li><strong>Escribir el Código Mínimo:</strong> Modificar los componentes y servicios en <code>src/</code> hasta lograr Verde.</li>
+      <li><strong>Ejecutar Guardrails:</strong> Correr <code>npm run check:guardrails</code> en terminal o abrir <code>tests/guardrails.html</code> en navegador.</li>
+      <li><strong>Registrar en Memoria:</strong> Guardar el ADR en <code>MEMORY.md</code>.</li>
+      <li><strong>Commit Semántico en Git:</strong> Guardar el cambio con formato <code>feat(...)</code> o <code>test(...)</code>.</li>
     </ol>
   </div>
 
   <div style="margin-top: 3rem; text-align: center; border-top: 1px solid var(--border); padding-top: 1.5rem; color: var(--text-muted); font-size: 0.85rem;">
-    <strong>SuperCart SDD - Laboratorio de Aprendizaje</strong><br>
-    Documento generado para Chris Vargas A. en colaboración con Antigravity (Google DeepMind).
+    <strong>SuperCarrito SDD - Laboratorio de Aprendizaje</strong><br>
+    Documento maestro generado para Christian Vargas A. en colaboración con Antigravity (Google DeepMind).
   </div>
 
 </div>

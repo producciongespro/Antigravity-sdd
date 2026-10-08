@@ -1,0 +1,36 @@
+#!/bin/sh
+# ==============================================================================
+# 🛡️ GIT PRE-COMMIT HOOK - GUARDRAILS MAESTROS SDD
+# ==============================================================================
+# Este hook intercepta cualquier intento de commit y ejecuta los 40 guardrails.
+# Si al menos un guardrail falla, el commit es físicamente abortado.
+
+echo ""
+echo "🛡️  [PRE-COMMIT HOOK] Interceptando commit en Git..."
+echo "🔍 Ejecutando verificación de Guardrails Maestros SDD..."
+echo "──────────────────────────────────────────────────────────────────"
+
+# Navegar al directorio de la aplicación
+if [ -d "app" ]; then
+  cd app || exit 1
+fi
+
+# Ejecutar el motor de guardrails en Node.js
+node scripts/guardrails.js
+
+EXIT_CODE=$?
+
+if [ $EXIT_CODE -ne 0 ]; then
+  echo ""
+  echo "🚫 ==============================================================="
+  echo "❌ COMMIT RECHAZADO: Se detectaron violaciones al contrato SDD."
+  echo "   Corrige los fallos reportados arriba antes de confirmar cambios."
+  echo "=================================================================="
+  echo ""
+  exit 1
+fi
+
+echo ""
+echo "✨ [PRE-COMMIT HOOK] 40/40 Guardrails en Verde 🟢. Commit autorizado."
+echo ""
+exit 0

@@ -1,17 +1,38 @@
 import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
+import HomeHub from './components/HomeHub';
 import ActiveShopping from './components/ActiveShopping';
 import ListManager from './components/ListManager';
 import ProductCatalog from './components/ProductCatalog';
+import GestionHub from './components/GestionHub';
+import AuditoriaHub from './components/AuditoriaHub';
 import { storageService } from './services/storage';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('shopping'); // 'shopping' | 'lists' | 'catalog'
+  const [activeTab, setActiveTab] = useState('home'); // 'home' | 'gestion' | 'shopping' | 'auditoria' | 'lists' | 'catalog'
   const [db, setDb] = useState(() => storageService.obtenerBaseDeDatos());
   const [activeListId, setActiveListId] = useState(() => {
     const listas = storageService.obtenerListas();
     return listas[0] ? listas[0].id : null;
   });
+
+  // --- Estado de Tema Claro / Oscuro (Dark / Light Mode) ---
+  const [theme, setTheme] = useState(() => storageService.obtenerTema());
+
+  useEffect(() => {
+    storageService.guardarTema(theme);
+    if (theme === 'light') {
+      document.documentElement.classList.add('light');
+      document.documentElement.classList.remove('dark');
+    } else {
+      document.documentElement.classList.add('dark');
+      document.documentElement.classList.remove('light');
+    }
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));
+  };
 
   // Refrescar estado global desde el servicio
   const refreshDb = () => {
@@ -67,6 +88,11 @@ export default function App() {
     refreshDb();
   };
 
+  const handleBatchAddItemsToList = (listaId, productoIds, cantidad = 1) => {
+    storageService.agregarMultiplesProductosALista(listaId, productoIds, cantidad);
+    refreshDb();
+  };
+
   const handleUpdateItemQuantity = (itemId, cantidad) => {
     storageService.actualizarItemDeLista(itemId, { cantidad });
     refreshDb();
@@ -78,10 +104,8 @@ export default function App() {
   };
 
   // RF-4.6: Prevención de desmarcado accidental con confirmación
-  const handleToggleInCart = (itemId, nombreProducto) => {
-    storageService.alternarConConfirmacion(itemId, () => {
-      return window.confirm(`¿Deseas devolver "${nombreProducto || 'este producto'}" a la lista de pendientes?`);
-    });
+  const handleToggleInCart = (itemId) => {
+    storageService.alternarConConfirmacion(itemId, () => true);
     refreshDb();
   };
 
@@ -104,10 +128,48 @@ export default function App() {
         activeTab={activeTab}
         setActiveTab={setActiveTab}
         activeListTitle={activeList ? activeList.titulo : null}
-        progress={activeListId ? stats.porcentaje : null}
+        theme={theme}
+        toggleTheme={toggleTheme}
       />
 
-      <main className="flex-1 max-w-4xl w-full mx-auto p-4 pb-16">
+      <main className="flex-1 max-w-5xl w-full mx-auto p-4 pb-16">
+        {activeTab === 'home' && (
+          <HomeHub
+            onGoToShopping={() => setActiveTab('shopping')}
+            onGoToGestion={() => setActiveTab('gestion')}
+            onGoToLists={() => setActiveTab('lists')}
+            onGoToCatalog={() => setActiveTab('catalog')}
+            onGoToAuditoria={() => setActiveTab('auditoria')}
+            activeList={activeList}
+            stats={stats}
+            db={db}
+          />
+        )}
+
+        {activeTab === 'auditoria' && (
+          <AuditoriaHub />
+        )}
+
+        {activeTab === 'gestion' && (
+          <GestionHub
+            products={db.productos || []}
+            onAddProduct={handleAddProduct}
+            onUpdateProduct={handleUpdateProduct}
+            onDeleteProduct={handleDeleteProduct}
+            lists={db.listas || []}
+            onCreateList={handleCreateList}
+            onDeleteList={handleDeleteList}
+            activeListId={activeListId}
+            setActiveListId={setActiveListId}
+            listItems={activeItems}
+            onAddItemToList={handleAddItemToList}
+            onAddMultipleItemsToList={handleBatchAddItemsToList}
+            onUpdateItemQuantity={handleUpdateItemQuantity}
+            onRemoveItemFromList={handleRemoveItemFromList}
+            onGoToShopping={() => setActiveTab('shopping')}
+          />
+        )}
+
         {activeTab === 'shopping' && (
           <ActiveShopping
             lists={db.listas || []}
@@ -117,7 +179,7 @@ export default function App() {
             onToggleInCart={handleToggleInCart}
             onClearPurchased={handleClearPurchased}
             onFinishList={handleFinishList}
-            onGoToListBuilder={() => setActiveTab('lists')}
+            onGoToListBuilder={() => setActiveTab('gestion')}
           />
         )}
 
@@ -131,6 +193,7 @@ export default function App() {
             products={db.productos || []}
             listItems={activeItems}
             onAddItemToList={handleAddItemToList}
+            onAddMultipleItemsToList={handleBatchAddItemsToList}
             onUpdateItemQuantity={handleUpdateItemQuantity}
             onRemoveItemFromList={handleRemoveItemFromList}
             onGoToShopping={() => setActiveTab('shopping')}

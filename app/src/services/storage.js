@@ -242,6 +242,34 @@ export class SupermarketStorage {
     return nuevoItem;
   }
 
+  agregarMultiplesProductosALista(listaId, productoIds = [], cantidad = 1) {
+    if (!listaId || !Array.isArray(productoIds) || productoIds.length === 0) return [];
+    const db = this.obtenerBaseDeDatos();
+    const agregados = [];
+
+    productoIds.forEach(productoId => {
+      const existente = db.productos_listas.find(i => i.listaId === listaId && i.productoId === productoId);
+      if (existente) {
+        existente.cantidad += Math.max(1, cantidad);
+        agregados.push(existente);
+      } else {
+        const nuevoItem = {
+          id: `item_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`,
+          listaId,
+          productoId,
+          cantidad: Math.max(1, cantidad),
+          enCarrito: false,
+          notas: ''
+        };
+        db.productos_listas.push(nuevoItem);
+        agregados.push(nuevoItem);
+      }
+    });
+
+    this.guardarBaseDeDatos(db);
+    return agregados;
+  }
+
   actualizarItemDeLista(itemId, updates) {
     const db = this.obtenerBaseDeDatos();
     const idx = db.productos_listas.findIndex(i => i.id === itemId);
@@ -314,6 +342,24 @@ export class SupermarketStorage {
     const porcentaje = total > 0 ? Math.round((enCarrito / total) * 100) : 0;
 
     return { total, enCarrito, pendientes, porcentaje };
+  }
+
+  // Persistencia de Preferencias de UI: Tema Claro / Oscuro
+  obtenerTema() {
+    try {
+      return this.storage.getItem('supercarrito_theme') || 'dark';
+    } catch (e) {
+      return 'dark';
+    }
+  }
+
+  guardarTema(tema) {
+    try {
+      this.storage.setItem('supercarrito_theme', tema);
+      return tema;
+    } catch (e) {
+      return tema;
+    }
   }
 
   // Métodos de compatibilidad temporal

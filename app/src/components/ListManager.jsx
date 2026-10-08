@@ -10,6 +10,7 @@ export default function ListManager({
   products,
   listItems,
   onAddItemToList,
+  onAddMultipleItemsToList,
   onUpdateItemQuantity,
   onRemoveItemFromList,
   onGoToShopping
@@ -17,6 +18,7 @@ export default function ListManager({
   const [newTitle, setNewTitle] = useState('');
   const [newDate, setNewDate] = useState(new Date().toISOString().split('T')[0]);
   const [catalogSearch, setCatalogSearch] = useState('');
+  const [selectedProductIds, setSelectedProductIds] = useState([]);
 
   const activeList = lists.find(l => l.id === activeListId);
 
@@ -37,6 +39,30 @@ export default function ListManager({
     return nombre.toLowerCase().includes(catalogSearch.toLowerCase()) ||
            categoria.toLowerCase().includes(catalogSearch.toLowerCase());
   });
+
+  const toggleSelectProduct = (productId) => {
+    setSelectedProductIds(prev =>
+      prev.includes(productId) ? prev.filter(id => id !== productId) : [...prev, productId]
+    );
+  };
+
+  const toggleSelectAll = () => {
+    if (selectedProductIds.length === filteredProducts.length) {
+      setSelectedProductIds([]);
+    } else {
+      setSelectedProductIds(filteredProducts.map(p => p.id));
+    }
+  };
+
+  const handleAddSelected = () => {
+    if (!activeList || selectedProductIds.length === 0) return;
+    if (onAddMultipleItemsToList) {
+      onAddMultipleItemsToList(activeList.id, selectedProductIds, 1);
+    } else {
+      selectedProductIds.forEach(id => onAddItemToList(activeList.id, id, 1));
+    }
+    setSelectedProductIds([]);
+  };
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -145,50 +171,110 @@ export default function ListManager({
               </button>
             </div>
 
-            {/* Selector Rápido desde Catálogo */}
-            <div className="mt-4 space-y-2">
-              <label className="text-xs font-semibold text-slate-300 block">
-                Agregar productos desde el Catálogo Maestro ({products.length} disponibles)
-              </label>
-              <input
-                type="text"
-                placeholder="Buscar en catálogo (ej: leche, arroz, queso)..."
-                value={catalogSearch}
-                onChange={(e) => setCatalogSearch(e.target.value)}
-                className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
-              />
+            {/* Selector Visual desde Catálogo con Checkboxes (RF-3.1 / v2.5.1) */}
+            <div className="mt-5 space-y-3 bg-slate-900/60 p-4 rounded-xl border border-slate-700/60">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div>
+                  <label className="text-xs font-bold text-white flex items-center gap-2">
+                    <span>📦 Catálogo de Productos Disponibles</span>
+                    <span className="text-[10px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20 font-mono">
+                      {products.length} artículos
+                    </span>
+                  </label>
+                  <p className="text-[11px] text-slate-400">
+                    Marca con las casillas los productos que deseas comprar y agrégalos con el botón.
+                  </p>
+                </div>
 
-              {catalogSearch && (
-                <div className="bg-slate-900/90 rounded-xl border border-slate-700/80 p-2 max-h-48 overflow-y-auto space-y-1">
-                  {filteredProducts.length === 0 ? (
-                    <p className="text-xs text-slate-500 p-2">No se encontró ningún producto.</p>
-                  ) : (
-                    filteredProducts.map(p => {
-                      const nombre = p.nombre || p.name;
-                      const categoria = p.categoria || p.category;
-                      const unidad = p.unidad || p.unit;
+                <button
+                  type="button"
+                  onClick={handleAddSelected}
+                  disabled={selectedProductIds.length === 0}
+                  className="px-3.5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 disabled:opacity-30 disabled:cursor-not-allowed text-slate-950 font-black text-xs flex items-center justify-center gap-1.5 transition-all shadow-md self-start sm:self-auto"
+                >
+                  <Plus className="w-4 h-4" />
+                  <span>
+                    Agregar {selectedProductIds.length > 0 ? `(${selectedProductIds.length})` : ''} a la Lista
+                  </span>
+                </button>
+              </div>
 
-                      return (
-                        <div
-                          key={p.id}
-                          className="flex items-center justify-between p-2 hover:bg-slate-800 rounded-lg text-xs"
-                        >
-                          <div>
-                            <span className="font-semibold text-white">{nombre}</span>
-                            <span className="text-slate-400 text-[11px] ml-2">({categoria} - {unidad})</span>
-                          </div>
-                          <button
-                            onClick={() => onAddItemToList(activeList.id, p.id, 1)}
-                            className="bg-emerald-500 hover:bg-emerald-600 text-slate-950 px-2.5 py-1 rounded-md font-bold transition-colors text-[11px]"
-                          >
-                            + Agregar
-                          </button>
-                        </div>
-                      );
-                    })
+              {/* Barra de Filtro Rápido y Seleccionar Todo */}
+              <div className="flex items-center gap-2">
+                <div className="relative flex-1">
+                  <input
+                    type="text"
+                    placeholder="Filtrar catálogo (ej: café, arroz, leche)..."
+                    value={catalogSearch}
+                    onChange={(e) => setCatalogSearch(e.target.value)}
+                    className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-emerald-500"
+                  />
+                  {catalogSearch && (
+                    <button
+                      type="button"
+                      onClick={() => setCatalogSearch('')}
+                      className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-xs"
+                    >
+                      ✕
+                    </button>
                   )}
                 </div>
-              )}
+
+                {filteredProducts.length > 0 && (
+                  <button
+                    type="button"
+                    onClick={toggleSelectAll}
+                    className="text-[11px] font-semibold text-slate-300 hover:text-white px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 transition-colors whitespace-nowrap"
+                  >
+                    {selectedProductIds.length === filteredProducts.length ? 'Deseleccionar todos' : 'Seleccionar todos'}
+                  </button>
+                )}
+              </div>
+
+              {/* Lista Scrolleable de Productos con Checkboxes */}
+              <div className="max-h-56 overflow-y-auto space-y-1.5 pr-1">
+                {filteredProducts.length === 0 ? (
+                  <div className="p-4 text-center text-xs text-slate-500">
+                    No se encontró ningún producto en el catálogo.
+                  </div>
+                ) : (
+                  filteredProducts.map(p => {
+                    const isSelected = selectedProductIds.includes(p.id);
+                    const nombre = p.nombre || p.name;
+                    const categoria = p.categoria || p.category || 'Otros';
+                    const unidad = p.unidad || p.unit || 'unidades';
+                    const alreadyInList = listItems.find(it => (it.productoId || it.productId) === p.id);
+
+                    return (
+                      <label
+                        key={p.id}
+                        className={`flex items-center justify-between p-2 rounded-lg border cursor-pointer transition-all ${
+                          isSelected
+                            ? 'bg-emerald-950/40 border-emerald-500/60 text-white shadow-sm'
+                            : 'bg-slate-800/60 border-slate-700/60 hover:bg-slate-800 text-slate-300'
+                        }`}
+                      >
+                        <div className="flex items-center gap-2.5 min-w-0">
+                          <input
+                            type="checkbox"
+                            checked={isSelected}
+                            onChange={() => toggleSelectProduct(p.id)}
+                            className="w-4 h-4 rounded text-emerald-500 focus:ring-emerald-500 bg-slate-900 border-slate-700 cursor-pointer accent-emerald-500"
+                          />
+                          <span className="font-semibold text-xs text-white truncate">{nombre}</span>
+                          <span className="text-[11px] text-slate-400 whitespace-nowrap">({categoria} · {unidad})</span>
+                        </div>
+
+                        {alreadyInList && (
+                          <span className="text-[10px] text-emerald-400 font-bold bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20 whitespace-nowrap ml-2">
+                            En lista ({alreadyInList.cantidad !== undefined ? alreadyInList.cantidad : alreadyInList.quantity})
+                          </span>
+                        )}
+                      </label>
+                    );
+                  })
+                )}
+              </div>
             </div>
 
             {/* Ítems vinculados a esta lista */}
