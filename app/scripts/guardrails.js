@@ -86,8 +86,8 @@ async function runGuardrails() {
   const requiredFiles = [
     { file: 'docs/ESPECIFICACION_PRINCIPAL.md', desc: 'Especificación Principal (SSOT)' },
     { file: 'AGENTS.md', desc: 'Reglamento Operativo para Agentes de IA' },
-    { file: 'MEMORY.md', desc: 'Bitácora de Memoria y Decisiones Arquitectónicas (ADRs)' },
-    { file: 'RULES.md', desc: 'Estándares de Ingeniería y Reglas de Codificación' },
+    { file: 'docs/MEMORY.md', desc: 'Bitácora de Memoria y Decisiones Arquitectónicas (ADRs)' },
+    { file: 'docs/RULES.md', desc: 'Estándares de Ingeniería y Reglas de Codificación' },
     { file: 'docs/ARCHITECTURE.md', desc: 'Documento y Diagramas de Arquitectura' },
     { file: 'tests/harness.html', desc: 'Arnés de Pruebas Visual' },
     { file: 'tests/guardrails.html', desc: 'Panel Web de Guardrails Visuales' },
@@ -187,10 +187,10 @@ async function runGuardrails() {
   // ==========================================================================
   printSection('FASE 3: Gobernanza Operativa y Bitácora de Memoria', '🧠');
 
-  const memoryPath = path.join(ROOT_DIR, 'MEMORY.md');
+  const memoryPath = path.join(ROOT_DIR, 'docs/MEMORY.md');
   const memoryContent = fs.existsSync(memoryPath) ? fs.readFileSync(memoryPath, 'utf8') : '';
 
-  check('MEMORY.md contiene registro de Decisiones Arquitectónicas (ADRs)', () => {
+  check('docs/MEMORY.md contiene registro de Decisiones Arquitectónicas (ADRs)', () => {
     const adrMatches = memoryContent.match(/###\s*ADR-\d+/g);
     if (!adrMatches || adrMatches.length < 3) {
       throw new Error(`Se esperaban al menos 3 ADRs documentadas, pero se encontraron ${adrMatches ? adrMatches.length : 0}`);
@@ -204,8 +204,8 @@ async function runGuardrails() {
     return agentsContent.includes('Spec-Driven Development') && agentsContent.includes('docs/ESPECIFICACION_PRINCIPAL.md');
   });
 
-  check('RULES.md define Criterios de Entrega (Definition of Done)', () => {
-    const rulesPath = path.join(ROOT_DIR, 'RULES.md');
+  check('docs/RULES.md define Criterios de Entrega (Definition of Done)', () => {
+    const rulesPath = path.join(ROOT_DIR, 'docs/RULES.md');
     const rulesContent = fs.existsSync(rulesPath) ? fs.readFileSync(rulesPath, 'utf8') : '';
     return rulesContent.includes('Definition of Done') && rulesContent.includes('check:guardrails');
   });

@@ -1,10 +1,23 @@
-# AGENTS.md - Reglamento Operativo para Agentes de IA
+# AGENTS.md - Reglamento Operativo y Puntero Maestro para Agentes de IA
 
-> **Propósito:** Instrucciones de comportamiento, normas de ingeniería y protocolos obligatorios para cualquier Agente de IA (o asistente de programación) que trabaje en este repositorio.
+> **Propósito:** Constitución operativa, directivas de ingeniería y puntero maestro de documentación para cualquier Agente de IA o asistente que opere en este repositorio.
 
 ---
 
-## 🎯 1. Principio Fundamental: Spec-Driven Development (SDD)
+## 🧭 1. Puntero Maestro de Documentación (Lectura Obligatoria al Iniciar)
+
+Para mantener la raíz del proyecto limpia y libre de saturación, toda la base de conocimiento técnico reside centralizada en [`docs/`](docs/). Al iniciar una sesión o comenzar cualquier tarea, el agente **DEBE CONSULTAR** los siguientes archivos en orden:
+
+| Orden | Artefacto Maestro | Ubicación | Rol y Propósito |
+| :---: | :--- | :--- | :--- |
+| **1º** | **Especificación Principal (SSOT)** | [`docs/ESPECIFICACION_PRINCIPAL.md`](docs/ESPECIFICACION_PRINCIPAL.md) | **Única Fuente de Verdad** funcional, técnica y de negocio del proyecto. |
+| **2º** | **Arquitectura del Sistema** | [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) | Diseño de componentes, modelo relacional C4 y flujo de datos. |
+| **3º** | **Estándares y Reglas de Calidad** | [`docs/RULES.md`](docs/RULES.md) | Reglas de codificación, stack y Criterios de Aceptación (*Definition of Done*). |
+| **4º** | **Bitácora de Memoria y Decisiones** | [`docs/MEMORY.md`](docs/MEMORY.md) | Registro de ADRs (Architectural Decision Records), lecciones y roadmap activo. |
+
+---
+
+## 🎯 2. Principio Fundamental: Spec-Driven Development (SDD)
 
 1. **La Única Fuente de Verdad:**  
    Antes de escribir o modificar una sola línea de código, el agente **DEBE LEER** el archivo:
@@ -16,19 +29,22 @@
 
 ---
 
-## 🛡️ 2. Protocolo de Verificación con el Arnés (*The Harness*)
+## 🛡️ 3. Protocolo de Verificación con el Arnés (*The Harness*)
 
-1. **Ubicación del Arnés:**  
+1. **Ubicación del Arnés Visual:**  
    El banco de pruebas automatizado se encuentra en:
    👉 [`tests/harness.html`](tests/harness.html) (ejecutable en `http://localhost:3000/tests/harness.html`).
-2. **Criterio de Entrega (Definition of Done):**  
-   Ninguna tarea se considera finalizada si el arnés reporta pruebas en rojo 🔴.
-3. **Bucle de Autocorrección:**  
+2. **Arnés Sensorial E2E (Vitest + JSDOM):**  
+   Suite sensorial de 6 flujos de usuario completos:
+   👉 [`tests/e2e.test.jsx`](tests/e2e.test.jsx) (ejecutable con `npm run test:e2e`).
+3. **Criterio de Entrega (Definition of Done):**  
+   Ninguna tarea se considera finalizada si el arnés o los guardrails reportan pruebas en rojo 🔴.
+4. **Bucle de Autocorrección:**  
    Si una prueba falla, el agente debe leer el mensaje exacto de aserción devuelto por el arnés, corregir el código en `src/`, y re-ejecutar hasta lograr **100% pruebas en Verde 🟢**.
 
 ---
 
-## 📐 3. Estándares Técnicos y Nomenclatura
+## 📐 4. Estándares Técnicos y Nomenclatura
 
 - **Stack Técnico:**
   - **Framework:** React 18+ (Componentes funcionales y Hooks).
@@ -44,7 +60,7 @@
 
 ---
 
-## 🧠 4. Protocolo de Memoria y Bitácora (`MEMORY.md`)
+## 🧠 5. Protocolo de Memoria y Bitácora (`docs/MEMORY.md`)
 
 - Cada vez que se tome una decisión arquitectónica (ADR) o se complete un paso del roadmap, el agente debe actualizar:
-  👉 [`MEMORY.md`](MEMORY.md).
+  👉 [`docs/MEMORY.md`](docs/MEMORY.md).

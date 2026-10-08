@@ -117,8 +117,8 @@ El repositorio cuenta con un hook de pre-commit forzoso versionado en `.githooks
 Una tarea o requerimiento solo se considera **COMPLETADO** cuando cumple con la siguiente lista de verificación:
 
 - [ ] **1. Spec:** El requerimiento está documentado con código formal (`RF-*` / `RNF-*`) en `docs/ESPECIFICACION_PRINCIPAL.md`.
-- [ ] **2. Harness:** Existe una prueba correspondiente en `tests/harness.html`.
+- [ ] **2. Harness:** Existe una prueba correspondiente en `tests/harness.html` y flujos sensoriales en `tests/e2e.test.jsx`.
 - [ ] **3. Fase Roja superada:** Se verificó que la prueba fallaba antes de la solución.
-- [ ] **4. Arnés en Verde:** 100% de las pruebas del arnés pasan exitosamente.
-- [ ] **5. Guardrails & Git Hook en Verde:** El comando `npm run check:guardrails` pasa 40/40 en verde y el Git Pre-commit Hook autoriza la confirmación.
-- [ ] **6. ADR / Memoria:** La decisión técnica y lecciones aprendidas quedan asentadas en `MEMORY.md`.
+- [ ] **4. Arnés en Verde:** 100% de las pruebas del arnés y suite E2E pasan exitosamente.
+- [ ] **5. Guardrails & Git Hook en Verde:** El comando `npm run check:guardrails` pasa 44/44 en verde y el Git Pre-commit Hook autoriza la confirmación.
+- [ ] **6. ADR / Memoria:** La decisión técnica y lecciones aprendidas quedan asentadas en `docs/MEMORY.md`.

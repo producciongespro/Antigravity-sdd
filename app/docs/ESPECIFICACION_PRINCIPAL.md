@@ -1,7 +1,7 @@
 # Especificación Principal del Sistema: SuperCarrito (SDD)
 
 > **Documento:** `docs/ESPECIFICACION_PRINCIPAL.md`  
-> **Versión:** 2.10.0  
+> **Versión:** 2.11.0  
 > **Fecha de Actualización:** 2026-10-08  
 > **Estado:** Aprobado / Fuente Única de Verdad (SSOT)  
 > **Stack Técnico:** React 18+ | JavaScript (ESModules) | Vite 6+ | Tailwind CSS v4 | LocalStorage | Vitest & Testing Library
@@ -25,6 +25,7 @@
 | **v2.8.0** | 2026-10-08 | Christian Vargas A. | **Modal Táctil de Confirmación Anti-dedazos en Modo Súper (RF-4.6):** Reemplazo del cuadro genérico del navegador (`window.confirm`) por una ventana modal personalizada, táctil y de alto contraste (`ConfirmModal.jsx`), con botones grandes ergonómicos para confirmar o cancelar la devolución de productos del carrito con el pulgar. |
 | **v2.9.0** | 2026-10-08 | Christian Vargas A. | **Tercera Opción en Auditoría: Guardrail de Acero (Git Pre-commit Hook & Terminal) (RF-5.3 / RF-5.5):** Incorporación de la 3ª opción en el panel lateral de auditoría para visualizar en la interfaz gráfica el estado de blindaje del repositorio, último commit certificado (`47b9dc6`), simulación en vivo de intercepción de commits en consola interactiva, visor web embebido (iframe) y código fuente del hook. |
 | **v2.10.0** | 2026-10-08 | Christian Vargas A. | **Arnés Sensorial End-to-End (E2E) con Vitest y Testing Library (RF-5.6):** Implementación de una suite de 6 pruebas E2E automatizadas (`tests/e2e.test.jsx`) con Vitest y JSDOM que simulan la interacción real del usuario sobre el DOM, validando navegación entre vistas, selección múltiple en lote, marcado en carrito, protección modal táctil anti-dedazos, conmutación de tema claro/oscuro y auditoría completa. Integración en `package.json` (`npm run test:e2e`). |
+| **v2.11.0** | 2026-10-08 | Christian Vargas A. | **Patrón de Puntero Maestro y Consolidación de Documentación en docs/ (RF-5.7):** Centralización de toda la base de conocimiento técnico en la carpeta `docs/` (`ESPECIFICACION_PRINCIPAL.md`, `ARCHITECTURE.md`, `RULES.md`, `MEMORY.md`), dejando `AGENTS.md` en la raíz como único punto de entrada y puntero maestro de gobernanza para agentes de IA. |
 
 ---
 
@@ -153,6 +154,11 @@ interface ProductoLista {
     6. **Centro de Auditoría y Guardrails:** Navegación por las 4 pestañas del Sidebar AdminLTE (Guardrails, Arnés Sensorial, Guardrail de Acero Git y Arnés E2E).
   - **Consola y Ejecutor Interactivo en SPA (Paso 3):** Incorpora la 4ª opción en el Sidebar de `AuditoriaHub.jsx` con botón interactivo de ejecución táctil (`▶ Ejecutar Suite E2E`), métricas de latencia, consola estilo terminal Vitest en vivo y desglose interactivo de selectores DOM de los 6 flujos.
   - Comando de ejecución: `npm run test:e2e` y verificación combinada en `npm test`.
+- **RF-5.7 (Patrón de Puntero Maestro y Consolidación de Base de Conocimiento):**
+  - Para evitar la proliferación de archivos dispersos en la raíz y mantener la máxima ergonomía estructural:
+    1. **Único Punto de Entrada en Raíz:** El archivo `AGENTS.md` reside en la raíz del proyecto como la Constitución Operativa y Puntero Maestro indiscutible para agentes de IA.
+    2. **Consolidación en `docs/`:** Todos los documentos de especificación técnica, arquitectura, estándares y bitácora viva (`ESPECIFICACION_PRINCIPAL.md`, `ARCHITECTURE.md`, `RULES.md`, `MEMORY.md`, `SPEC.md`) se alojan centralizados exclusivamente en el directorio `docs/`.
+    3. **Tabla de Enrutamiento Obligatorio:** `AGENTS.md` define formalmente la matriz de lectura obligatoria que cualquier agente debe consultar antes de procesar tareas de desarrollo.
 
 ---
 

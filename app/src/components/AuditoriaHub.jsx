@@ -31,8 +31,8 @@ const FASES_GUARDRAILS = [
     items: [
       { id: 'F1-01', desc: 'Existe Especificación Principal (SSOT) (docs/ESPECIFICACION_PRINCIPAL.md)' },
       { id: 'F1-02', desc: 'Existe Reglamento Operativo para Agentes de IA (AGENTS.md)' },
-      { id: 'F1-03', desc: 'Existe Bitácora de Memoria y Decisiones (MEMORY.md)' },
-      { id: 'F1-04', desc: 'Existe Estándares de Ingeniería y Codificación (RULES.md)' },
+      { id: 'F1-03', desc: 'Existe Bitácora de Memoria y Decisiones (docs/MEMORY.md)' },
+      { id: 'F1-04', desc: 'Existe Estándares de Ingeniería y Codificación (docs/RULES.md)' },
       { id: 'F1-05', desc: 'Existe Documento y Diagramas de Arquitectura (docs/ARCHITECTURE.md)' },
       { id: 'F1-06', desc: 'Existe Arnés de Pruebas Visual Sensorial (tests/harness.html)' },
       { id: 'F1-07', desc: 'Existe Panel Web de Guardrails Visuales (tests/guardrails.html)' },
@@ -71,9 +71,9 @@ const FASES_GUARDRAILS = [
     icono: '🧠',
     nombre: 'Gobernanza Operativa y Bitácora de Memoria',
     items: [
-      { id: 'F3-01', desc: 'MEMORY.md contiene registro de Decisiones Arquitectónicas (ADRs)' },
+      { id: 'F3-01', desc: 'docs/MEMORY.md contiene registro de Decisiones Arquitectónicas (ADRs)' },
       { id: 'F3-02', desc: 'AGENTS.md exige Spec-Driven Development (SDD) como principio fundamental' },
-      { id: 'F3-03', desc: 'RULES.md define Criterios de Entrega (Definition of Done)' }
+      { id: 'F3-03', desc: 'docs/RULES.md define Criterios de Entrega (Definition of Done)' }
     ]
   },
   {

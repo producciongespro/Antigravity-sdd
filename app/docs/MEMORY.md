@@ -137,6 +137,14 @@
   5. Incorporar en el Centro de Auditoría ([`AuditoriaHub.jsx`](src/components/AuditoriaHub.jsx)) la 4ª opción de navegación lateral ("Arnés E2E (Vitest)") con botón de re-ejecución táctil interactiva (`▶ Ejecutar Suite E2E`), consola estilo terminal Vitest en vivo y desglose de selectores DOM de los 6 flujos de usuario evaluados.
 - **Motivo:** Cerrar la brecha entre las pruebas unitarias en memoria y la interacción visual real en pantalla, otorgando al sistema un verdadero órgano sensorial interactivo que certifique la experiencia del usuario sin depender de navegadores pesados ni pruebas manuales lentas.
 
+### ADR-17: Patrón de Puntero Maestro y Consolidación de Documentación en `docs/` (v2.11.0)
+- **Decisión:**
+  1. Mantener en la raíz del proyecto exclusivamente `AGENTS.md` actuando como Constitución Operativa y **Puntero Maestro** de contexto.
+  2. Consolidar todos los archivos Markdown de conocimiento técnico, arquitectónico y estándares dentro de la carpeta `docs/` ([`docs/ESPECIFICACION_PRINCIPAL.md`](ESPECIFICACION_PRINCIPAL.md), [`docs/ARCHITECTURE.md`](ARCHITECTURE.md), [`docs/RULES.md`](RULES.md) y [`docs/MEMORY.md`](MEMORY.md)).
+  3. Estructurar en `AGENTS.md` una tabla de lectura obligatoria con orden de consulta estricto para agentes de IA al iniciar sesión.
+  4. Actualizar el script de Guardrails ([`scripts/guardrails.js`](../scripts/guardrails.js)), el Centro de Auditoría ([`AuditoriaHub.jsx`](../src/components/AuditoriaHub.jsx)) y el panel visual ([`tests/guardrails.html`](../tests/guardrails.html)) para auditar las nuevas rutas unificadas en `docs/`.
+- **Motivo:** Mantener una estructura de carpetas limpia y profesional, evitando la dispersión de documentos en la raíz y garantizando que cualquier agente de IA descubra de inmediato las directivas de comportamiento y el mapa completo del sistema.
+
 ---
 
 ## 💡 3. Lecciones Aprendidas (Knowledge Base)
@@ -160,6 +168,7 @@
 14. **El Guardrail de Acero no pide permiso, bloquea:** Un comando `npm run check:guardrails` es una recomendación si depende de que alguien lo ejecute; cuando se amarra a un Git Pre-commit Hook (`.githooks/pre-commit`), se convierte en una barandilla física inviolable que protege la rama principal de errores humanos y alucinaciones de IA.
 15. **La Observabilidad Gráfica de Git Eleva la Confianza:** Traer lo que ocurre en la terminal de Git a la interfaz gráfica del usuario con consolas interactivas y simuladores permite a perfiles de producto, QA y arquitectura presenciar y experimentar el rigor de las barandillas de seguridad sin lidiar con comandos oscuros de shell.
 16. **El Arnés Sensorial DOM Eleva la Certeza:** Las pruebas unitarias validan lógica de datos en memoria, pero el arnés sensorial E2E simula la interacción física del dedo del usuario (clics, checkboxes, modales, temas y tabs). Esto garantiza que no existan discrepancias entre el contrato del backend local y los elementos que el usuario efectivamente ve e interactúa.
+17. **El Patrón del Puntero Maestro en la Raíz:** Tener múltiples archivos Markdown dispersos en la raíz genera desorden cognitivo. Mantener únicamente `AGENTS.md` como la Constitución Operativa en la raíz y concentrar todos los documentos de conocimiento técnico en `docs/` (con un índice de lectura obligatoria) proporciona la máxima limpieza estructural y descubrimiento infalible para los agentes de IA.
 
 ---
 
@@ -173,25 +182,26 @@
 - [x] **Paso 5:** Verificar en navegador que el arnés pasa al 100% en Verde 🟢.
 - [x] **Requerimiento Adicional (RF-4.6):** Confirmación anti-dedazos (v2.2.0).
 - [x] **Refactorización de Taxonomía del Arnés:** Estandarización visual y de IDs (`RF-*` y `RNF-*`).
-- [x] **Paso 6:** Crear estándares de ingeniería y codificación ([`RULES.md`](RULES.md)).
-- [x] **Paso 7:** Diseñar y documentar la arquitectura del sistema con diagramas Mermaid ([`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)).
-- [x] **Paso 8:** Implementar el motor de Guardrails híbrido en 5 fases ([`scripts/guardrails.js`](scripts/guardrails.js)).
+- [x] **Paso 6:** Crear estándares de ingeniería y codificación ([`docs/RULES.md`](RULES.md)).
+- [x] **Paso 7:** Diseñar y documentar la arquitectura del sistema con diagramas Mermaid ([`docs/ARCHITECTURE.md`](ARCHITECTURE.md)).
+- [x] **Paso 8:** Implementar el motor de Guardrails híbrido en 5 fases ([`scripts/guardrails.js`](../scripts/guardrails.js)).
 - [x] **Paso 9:** Configurar comandos de CLI (`npm run check:guardrails` y `npm test`) logrando 27/27 verificaciones en verde 🟢.
-- [x] **Paso 10:** Documentar ADR-05 en `MEMORY.md`.
+- [x] **Paso 10:** Documentar ADR-05 en `docs/MEMORY.md`.
 - [x] **Paso 11:** Resolver conflicto peer dependency en `npm install` (Vite 6) y compilar Tailwind CSS v4.
 - [x] **Paso 12:** Evolucionar marca a **SuperCarrito** e incorporar **RF-5.1** en la especificación v2.3.0.
-- [x] **Paso 13:** Implementar componente [`HomeHub.jsx`](src/components/HomeHub.jsx) y navegación unificada en [`App.jsx`](src/App.jsx) y [`Header.jsx`](src/components/Header.jsx).
+- [x] **Paso 13:** Implementar componente [`HomeHub.jsx`](../src/components/HomeHub.jsx) y navegación unificada en [`App.jsx`](../src/App.jsx) y [`Header.jsx`](../src/components/Header.jsx).
 - [x] **Paso 14:** Extender guardrails automáticos a 29/29 verificaciones en verde 🟢 (46ms).
-- [x] **Paso 15:** Implementar Header contextual minimalista en Home con botón `← Volver al Inicio` en subpantallas ([`Header.jsx`](src/components/Header.jsx) - RF-5.2).
-- [x] **Paso 16:** Crear Panel Web de Guardrails Visuales ([`tests/guardrails.html`](tests/guardrails.html) - RF-5.3).
-- [x] **Paso 17:** Incorporar tarjeta de Laboratorio SDD en [`HomeHub.jsx`](src/components/HomeHub.jsx) e incrementar guardrails a 32/32 en verde 🟢 (34ms).
-- [x] **Paso 18:** Crear vista unificada [`GestionHub.jsx`](src/components/GestionHub.jsx) con dos secciones verticales, botón único "Gestionar" en Home (RF-5.4) e incrementar guardrails a 34/34 en verde 🟢 (57ms).
-- [x] **Paso 19:** Implementar selector de catálogo con checkboxes, carga en lote y botón 'Seleccionar todos' en [`ListManager.jsx`](src/components/ListManager.jsx) (RF-3.1), e incrementar guardrails a 36/36 en verde 🟢 (40ms).
-- [x] **Paso 20:** Implementar Modo Claro / Oscuro adaptativo, Header minimalista estricto con botón Home en detalle ([`Header.jsx`](src/components/Header.jsx) - RF-5.2) e incrementar guardrails a 37/37 en verde 🟢 (29ms).
-- [x] **Paso 21:** Integrar Centro de Auditoría nativo en la SPA ([`AuditoriaHub.jsx`](src/components/AuditoriaHub.jsx) - RF-5.3), eliminar apertura de pestañas ajenas, preservar Header y control Claro/Oscuro e incrementar guardrails a 38/38 en verde 🟢 (39ms).
-- [x] **Paso 22:** Implementar Disposición de Navegación Lateral (Sidebar estilo AdminLTE) en Paso 1 ([`GestionHub.jsx`](src/components/GestionHub.jsx)) y Paso 3 ([`AuditoriaHub.jsx`](src/components/AuditoriaHub.jsx)), preservando ergonomía vertical táctil de una sola mano en Paso 2 ([`ActiveShopping.jsx`](src/components/ActiveShopping.jsx) - RF-5.5) e incrementar guardrails a 39/39 en verde 🟢 (59ms).
-- [x] **Paso 23:** Reemplazar diálogo nativo `window.confirm` por modal táctil personalizado [`ConfirmModal.jsx`](src/components/ConfirmModal.jsx) para la regla anti-dedazos (RF-4.6), actualizar especificación v2.8.0 e incrementar guardrails a 40/40 en verde 🟢 (62ms).
-- [x] **Paso 24:** Implementar el Guardrail de Acero en Git: Hook de Pre-commit versionado ([`.githooks/pre-commit`](.githooks/pre-commit)), configuración con `core.hooksPath` y comando `npm run setup:hooks` para abortar físicamente cualquier commit que no pase los 40 guardrails al 100% en verde 🟢.
-- [x] **Paso 25:** Incorporar la 3ª Opción en Auditoría ([`AuditoriaHub.jsx`](src/components/AuditoriaHub.jsx)): Guardrail de Acero (Git), con tarjeta de commit certificado (`47b9dc6`), terminal interactiva con simulación de intercepciones, visor web embebido en iframe de `/tests/guardrails.html` y código del hook (v2.9.0).
-- [x] **Paso 26:** Implementar el Arnés Sensorial End-to-End (E2E) con Vitest y Testing Library ([`tests/e2e.test.jsx`](tests/e2e.test.jsx) - RF-5.6), con 6 pruebas automatizadas sobre el DOM real emulado, comando `npm run test:e2e` y elevación a 44 Guardrails Maestros en verde 🟢 (v2.10.0).
+- [x] **Paso 15:** Implementar Header contextual minimalista en Home con botón `← Volver al Inicio` en subpantallas ([`Header.jsx`](../src/components/Header.jsx) - RF-5.2).
+- [x] **Paso 16:** Crear Panel Web de Guardrails Visuales ([`tests/guardrails.html`](../tests/guardrails.html) - RF-5.3).
+- [x] **Paso 17:** Incorporar tarjeta de Laboratorio SDD en [`HomeHub.jsx`](../src/components/HomeHub.jsx) e incrementar guardrails a 32/32 en verde 🟢 (34ms).
+- [x] **Paso 18:** Crear vista unificada [`GestionHub.jsx`](../src/components/GestionHub.jsx) con dos secciones verticales, botón único "Gestionar" en Home (RF-5.4) e incrementar guardrails a 34/34 en verde 🟢 (57ms).
+- [x] **Paso 19:** Implementar selector de catálogo con checkboxes, carga en lote y botón 'Seleccionar todos' en [`ListManager.jsx`](../src/components/ListManager.jsx) (RF-3.1), e incrementar guardrails a 36/36 en verde 🟢 (40ms).
+- [x] **Paso 20:** Implementar Modo Claro / Oscuro adaptativo, Header minimalista estricto con botón Home en detalle ([`Header.jsx`](../src/components/Header.jsx) - RF-5.2) e incrementar guardrails a 37/37 en verde 🟢 (29ms).
+- [x] **Paso 21:** Integrar Centro de Auditoría nativo en la SPA ([`AuditoriaHub.jsx`](../src/components/AuditoriaHub.jsx) - RF-5.3), eliminar apertura de pestañas ajenas, preservar Header y control Claro/Oscuro e incrementar guardrails a 38/38 en verde 🟢 (39ms).
+- [x] **Paso 22:** Implementar Disposición de Navegación Lateral (Sidebar estilo AdminLTE) en Paso 1 ([`GestionHub.jsx`](../src/components/GestionHub.jsx)) y Paso 3 ([`AuditoriaHub.jsx`](../src/components/AuditoriaHub.jsx)), preservando ergonomía vertical táctil de una sola mano en Paso 2 ([`ActiveShopping.jsx`](../src/components/ActiveShopping.jsx) - RF-5.5) e incrementar guardrails a 39/39 en verde 🟢 (59ms).
+- [x] **Paso 23:** Reemplazar diálogo nativo `window.confirm` por modal táctil personalizado [`ConfirmModal.jsx`](../src/components/ConfirmModal.jsx) para la regla anti-dedazos (RF-4.6), actualizar especificación v2.8.0 e incrementar guardrails a 40/40 en verde 🟢 (62ms).
+- [x] **Paso 24:** Implementar el Guardrail de Acero en Git: Hook de Pre-commit versionado ([`.githooks/pre-commit`](../../.githooks/pre-commit)), configuración con `core.hooksPath` y comando `npm run setup:hooks` para abortar físicamente cualquier commit que no pase los 40 guardrails al 100% en verde 🟢.
+- [x] **Paso 25:** Incorporar la 3ª Opción en Auditoría ([`AuditoriaHub.jsx`](../src/components/AuditoriaHub.jsx)): Guardrail de Acero (Git), con tarjeta de commit certificado (`47b9dc6`), terminal interactiva con simulación de intercepciones, visor web embebido en iframe de `/tests/guardrails.html` y código del hook (v2.9.0).
+- [x] **Paso 26:** Implementar el Arnés Sensorial End-to-End (E2E) con Vitest y Testing Library ([`tests/e2e.test.jsx`](../tests/e2e.test.jsx) - RF-5.6), con 6 pruebas automatizadas sobre el DOM real emulado, comando `npm run test:e2e` y elevación a 44 Guardrails Maestros en verde 🟢 (v2.10.0).
+- [x] **Paso 27:** Implementar el Patrón del Puntero Maestro consolidando todos los archivos de conocimiento en `docs/` (`docs/MEMORY.md` y `docs/RULES.md`), dejando `AGENTS.md` como único punto de entrada en raíz (v2.11.0).
 
