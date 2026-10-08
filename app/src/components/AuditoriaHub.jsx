@@ -479,7 +479,7 @@ export default function AuditoriaHub() {
                 {activeMenu === 'git' ? 'Commit Certificado' : 'Fallidas (Rojo 🔴)'}
               </span>
               <span className="text-xl font-black text-purple-400 font-mono">
-                {activeMenu === 'git' ? '47b9dc6' : '0'}
+                {activeMenu === 'git' ? '9ae1590' : '0'}
               </span>
             </div>
             <div className="bg-slate-800 border border-slate-700 rounded-2xl p-3.5 shadow-sm text-center">
@@ -646,7 +646,7 @@ export default function AuditoriaHub() {
                     </h5>
                   </div>
                   <span className="text-[10px] font-mono font-bold text-purple-300 bg-purple-500/10 px-2 py-0.5 rounded border border-purple-500/20">
-                    Commit: 47b9dc6
+                    Commit: 9ae1590
                   </span>
                 </div>
 
