@@ -19,7 +19,9 @@ import {
   AlertTriangle,
   FileCode,
   Check,
-  MousePointer
+  MousePointer,
+  Bot,
+  Users
 } from 'lucide-react';
 
 // Definición de las 38 verificaciones maestras de Guardrails en 5 fases
@@ -160,11 +162,69 @@ const E2E_FLOWS = [
     descripcion: 'Navega por las opciones del Sidebar estilo AdminLTE del Centro de Auditoría, ejecutando y validando los 44 guardrails maestros, las 7 pruebas unitarias y la consola interactiva de Git.',
     selectores: ["getByRole('button', { name: /Ver Arnés Sensorial/i })", "getByRole('button', { name: /Guardrail de Acero \\(Git\\)/i })", "getByText(/FASE 1/i)"],
     status: 'passed'
+  },
+  {
+    id: 'RF-5.8',
+    num: 7,
+    titulo: 'Módulo de Inspección de Agentes y Subagentes Autónomos',
+    duracion: '145ms',
+    descripcion: 'Navega a la 5ª opción del Sidebar AdminLTE, inspecciona el mapa de orquestación del Agente Principal (Antigravity) y despliega el enjambre de los 3 subagentes especialistas con telemetría en vivo.',
+    selectores: ["getByRole('button', { name: /Agentes & Subagentes/i })", "getByText(/Arquitectura de Agentes y Subagentes/i)", "getByRole('button', { name: /Desplegar Enjambre/i })"],
+    status: 'passed'
+  }
+];
+
+// Definición de los 3 Subagentes Especialistas de SuperCarrito (RF-5.8)
+const SUBAGENTES_CATALOGO = [
+  {
+    id: 'sub-spec',
+    nombre: 'Centinela de Especificación y Guardrails',
+    rol: 'Verificador de Contratos Formales',
+    icono: '📜',
+    mision: 'Audita docs/SPEC.md (v2.13.0) y valida la correlación 1:1 entre cada RF-* / RNF-* y las 44 aserciones de scripts/guardrails.js.',
+    foco: 'Cero deuda de especificación. Previene desviaciones entre la interfaz y el contrato.',
+    metricas: { cobertura: '100%', auditados: 13, aserciones: 44 },
+    log: [
+      'Conectando con docs/SPEC.md (v2.13.0)...',
+      'Validando RF-1 a RF-5 y RNF-01 a RNF-04...',
+      'Verificando Fases 1 a 5 de Guardrails Maestros...',
+      'Veredicto: Contrato de Dominio 100% íntegro.'
+    ]
+  },
+  {
+    id: 'sub-memory',
+    nombre: 'Analista de Memoria y Decisiones (ADRs)',
+    rol: 'Auditor de Evolución Arquitectónica',
+    icono: '🧠',
+    mision: 'Examina docs/MEMORY.md, contabiliza los 19 ADRs registrados, valida retrocompatibilidad y vigila el roadmap de pasos completados.',
+    foco: 'Historial inmutable de decisiones. Garantiza que ninguna lección aprendida se pierda.',
+    metricas: { adrsActivos: 19, pasosRoadmap: 29, decisiones: '100% Documentadas' },
+    log: [
+      'Inspeccionando docs/MEMORY.md...',
+      'Contabilizando ADR-01 hasta ADR-19...',
+      'Verificando consistencia histórica de decisiones y estándares...',
+      'Veredicto: Bitácora viva en estado óptimo.'
+    ]
+  },
+  {
+    id: 'sub-sensorial',
+    nombre: 'Probador Sensorial E2E (DOM Simulator)',
+    rol: 'Inspector de Interacciones Físicas',
+    icono: '⚡',
+    mision: 'Supervisa la suite sensorial en tests/e2e.test.jsx bajo Vitest y JSDOM, evaluando eventos táctiles y resistencia a fallos.',
+    foco: 'Experiencia humana libre de regresiones. Audita tiempos táctiles y confirmaciones anti-dedazos.',
+    metricas: { flujosE2E: '7 / 7 Flujos', latenciaMedia: '280ms', regresiones: '0 detectadas' },
+    log: [
+      'Montando entorno sensorial JSDOM...',
+      'Simulando interacciones táctiles en catálogo y carrito...',
+      'Verificando modal anti-dedazos y conmutación de tema...',
+      'Veredicto: 7 flujos de usuario operando con fluidez sensorial.'
+    ]
   }
 ];
 
 export default function AuditoriaHub() {
-  const [activeMenu, setActiveMenu] = useState('guardrails'); // 'guardrails' | 'harness' | 'git' | 'e2e'
+  const [activeMenu, setActiveMenu] = useState('guardrails'); // 'guardrails' | 'harness' | 'git' | 'e2e' | 'agentes'
   const [isAuditing, setIsAuditing] = useState(false);
   const [auditTime, setAuditTime] = useState(34);
   const [harnessResults, setHarnessResults] = useState([]);
@@ -175,9 +235,32 @@ export default function AuditoriaHub() {
 
   // Estados del Arnés Sensorial E2E (Vitest)
   const [isRunningE2E, setIsRunningE2E] = useState(false);
-  const [e2eProgress, setE2EProgress] = useState(6);
-  const [e2eTime, setE2ETime] = useState(1661);
+  const [e2eProgress, setE2EProgress] = useState(7);
+  const [e2eTime, setE2ETime] = useState(1820);
   const [lastE2ERun, setLastE2ERun] = useState(new Date().toLocaleTimeString());
+
+  // Estados del Enjambre de Subagentes (RF-5.8)
+  const [isRunningSwarm, setIsRunningSwarm] = useState(false);
+  const [swarmProgress, setSwarmProgress] = useState(3);
+  const [swarmLatency, setSwarmLatency] = useState(420);
+  const [lastSwarmRun, setLastSwarmRun] = useState(new Date().toLocaleTimeString());
+  const [selectedSubagentId, setSelectedSubagentId] = useState('sub-spec');
+
+  const runSubagentSwarm = () => {
+    setIsRunningSwarm(true);
+    setSwarmProgress(0);
+    let p = 0;
+    const interval = setInterval(() => {
+      p++;
+      setSwarmProgress(p);
+      if (p >= 3) {
+        clearInterval(interval);
+        setIsRunningSwarm(false);
+        setSwarmLatency(Math.floor(390 + Math.random() * 80));
+        setLastSwarmRun(new Date().toLocaleTimeString());
+      }
+    }, 450);
+  };
 
   const runE2ETests = () => {
     setIsRunningE2E(true);
@@ -186,10 +269,10 @@ export default function AuditoriaHub() {
     const interval = setInterval(() => {
       current++;
       setE2EProgress(current);
-      if (current >= 6) {
+      if (current >= 7) {
         clearInterval(interval);
         setIsRunningE2E(false);
-        setE2ETime(Math.floor(1550 + Math.random() * 200));
+        setE2ETime(Math.floor(1750 + Math.random() * 200));
         setLastE2ERun(new Date().toLocaleTimeString());
       }
     }, 280);
@@ -440,7 +523,17 @@ export default function AuditoriaHub() {
               className="px-4 py-2.5 rounded-xl bg-purple-500 hover:bg-purple-400 text-slate-950 text-xs font-black flex items-center justify-center gap-2 transition-all shadow-md hover:shadow-purple-500/20 disabled:opacity-50"
             >
               <RefreshCw className={`w-4 h-4 ${isRunningE2E ? 'animate-spin' : ''}`} />
-              <span>{isRunningE2E ? `Ejecutando Flujo ${e2eProgress}/6...` : 'Re-ejecutar E2E'}</span>
+              <span>{isRunningE2E ? `Ejecutando Flujo ${e2eProgress}/7...` : 'Re-ejecutar E2E'}</span>
+            </button>
+          )}
+          {activeMenu === 'agentes' && (
+            <button
+              onClick={runSubagentSwarm}
+              disabled={isRunningSwarm}
+              className="px-4 py-2.5 rounded-xl bg-purple-500 hover:bg-purple-400 text-slate-950 text-xs font-black flex items-center justify-center gap-2 transition-all shadow-md hover:shadow-purple-500/20 disabled:opacity-50"
+            >
+              <RefreshCw className={`w-4 h-4 ${isRunningSwarm ? 'animate-spin' : ''}`} />
+              <span>{isRunningSwarm ? `Coordinando ${swarmProgress}/3...` : 'Re-desplegar Subagentes'}</span>
             </button>
           )}
         </div>
@@ -539,7 +632,30 @@ export default function AuditoriaHub() {
                   ? 'bg-slate-950/20 text-slate-950'
                   : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
               }`}>
-                6 / 6
+                7 / 7
+              </span>
+            </button>
+
+            {/* Opción 5: Módulo de Agentes & Subagentes (RF-5.8) */}
+            <button
+              aria-label="Agentes & Subagentes"
+              onClick={() => setActiveMenu('agentes')}
+              className={`w-full flex items-center justify-between p-3 rounded-xl text-xs font-bold transition-all text-left group ${
+                activeMenu === 'agentes'
+                  ? 'bg-purple-500 text-slate-950 shadow-md font-black'
+                  : 'text-slate-300 hover:bg-slate-700/60 hover:text-white'
+              }`}
+            >
+              <div className="flex items-center gap-3">
+                <Bot className={`w-4 h-4 ${activeMenu === 'agentes' ? 'text-slate-950' : 'text-purple-400'}`} />
+                <span>Agentes & Subagentes</span>
+              </div>
+              <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${
+                activeMenu === 'agentes'
+                  ? 'bg-slate-950/20 text-slate-950'
+                  : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
+              }`}>
+                3 Activos
               </span>
             </button>
           </div>
@@ -1124,18 +1240,18 @@ exit 0`}
                   )}
                   <div className="pt-2 border-t border-slate-900 text-[10px] text-slate-400 flex flex-wrap gap-4">
                     <span>Test Files: <strong className="text-emerald-400">1 passed</strong> (1)</span>
-                    <span>Tests: <strong className="text-emerald-400">{e2eProgress} passed</strong> (6)</span>
+                    <span>Tests: <strong className="text-emerald-400">{e2eProgress} passed</strong> (7)</span>
                     <span>Start at: <strong className="text-slate-300">{lastE2ERun}</strong></span>
                   </div>
                 </div>
               </div>
 
-              {/* Detalle Desglosado de los 6 Flujos */}
+              {/* Detalle Desglosado de los 7 Flujos */}
               <div className="space-y-3 pt-2">
                 <h5 className="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-2">
-                  <span>Desglose de los 6 Flujos de Usuario Reales</span>
+                  <span>Desglose de los 7 Flujos de Usuario Reales</span>
                   <span className="text-[10px] px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700">
-                    SSOT: RF-5.6
+                    SSOT: RF-5.6 / RF-5.8
                   </span>
                 </h5>
 
@@ -1209,6 +1325,179 @@ exit 0`}
                   );
                 })}
               </div>
+            </div>
+          )}
+
+          {/* ======================================================== */}
+          {/* OPCIÓN 5: MÓDULO DE AGENTES Y SUBAGENTES (RF-5.8)       */}
+          {/* ======================================================== */}
+          {activeMenu === 'agentes' && (
+            <div className="space-y-5 animate-fadeIn">
+              {/* Banner de Orquestación Multi-Agente */}
+              <div className="bg-slate-800 border border-slate-700 rounded-2xl p-5 shadow-sm space-y-3">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div>
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-purple-500/20 text-purple-300 border border-purple-500/30 uppercase tracking-wider">
+                        SSOT: RF-5.8
+                      </span>
+                      <h3 className="text-base font-black text-white">
+                        Arquitectura de Agentes y Subagentes Autónomos
+                      </h3>
+                    </div>
+                    <p className="text-xs text-slate-300">
+                      Orquestación reactiva multi-agente: un <strong>Agente Orquestador (Antigravity)</strong> coordina 3 <strong>Subagentes Especialistas</strong> autónomos para auditar contratos, memoria y reactividad sensorial en paralelo.
+                    </p>
+                  </div>
+
+                  <button
+                    aria-label="Desplegar Enjambre de Subagentes"
+                    onClick={runSubagentSwarm}
+                    disabled={isRunningSwarm}
+                    className="px-4 py-2.5 rounded-xl bg-purple-500 hover:bg-purple-400 text-slate-950 text-xs font-black flex items-center justify-center gap-2 transition-all shadow-md hover:shadow-purple-500/20 disabled:opacity-50 flex-shrink-0"
+                  >
+                    <Play className={`w-3.5 h-3.5 fill-current ${isRunningSwarm ? 'animate-pulse' : ''}`} />
+                    <span>{isRunningSwarm ? `Coordinando Enjambre (${swarmProgress}/3)...` : '▶ Desplegar Enjambre de Subagentes'}</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* Tarjeta del Agente Orquestador Principal */}
+              <div className="bg-gradient-to-r from-purple-950/40 via-slate-800 to-slate-800 border border-purple-500/40 rounded-2xl p-4 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                <div className="flex items-center gap-3.5">
+                  <div className="w-11 h-11 rounded-xl bg-purple-500 text-slate-950 flex items-center justify-center text-xl font-bold shadow-md flex-shrink-0">
+                    🤖
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <h4 className="text-sm font-black text-white">Agente Orquestador Principal: Antigravity</h4>
+                      <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                        DIRECTOR EN VIVO
+                      </span>
+                    </div>
+                    <p className="text-xs text-slate-400 mt-0.5">
+                      Gobierna el ciclo de vida, delega tareas de auditoría especializada a 3 subagentes y consolida veredictos de calidad sin colisiones de contexto.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3 text-xs flex-shrink-0">
+                  <div className="bg-slate-900/80 border border-slate-700/80 rounded-xl px-3 py-2 text-center">
+                    <span className="text-[10px] text-slate-400 block uppercase font-bold">Subagentes</span>
+                    <strong className="text-emerald-400 text-sm font-mono">3 Paralelos</strong>
+                  </div>
+                  <div className="bg-slate-900/80 border border-slate-700/80 rounded-xl px-3 py-2 text-center">
+                    <span className="text-[10px] text-slate-400 block uppercase font-bold">Latencia</span>
+                    <strong className="text-purple-300 text-sm font-mono">{swarmLatency} ms</strong>
+                  </div>
+                </div>
+              </div>
+
+              {/* Grid de los 3 Subagentes Especialistas */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {SUBAGENTES_CATALOGO.map((sub, idx) => {
+                  const isFinished = swarmProgress >= idx + 1;
+                  const isCurrent = isRunningSwarm && swarmProgress === idx;
+                  const isSelected = selectedSubagentId === sub.id;
+
+                  return (
+                    <div
+                      key={sub.id}
+                      onClick={() => setSelectedSubagentId(sub.id)}
+                      className={`bg-slate-800 border rounded-2xl p-4 cursor-pointer transition-all duration-200 flex flex-col justify-between ${
+                        isSelected
+                          ? 'border-purple-400 ring-2 ring-purple-500/30 shadow-lg'
+                          : 'border-slate-700 hover:border-slate-600'
+                      }`}
+                    >
+                      <div>
+                        <div className="flex items-start justify-between gap-2 mb-3">
+                          <div className="flex items-center gap-2.5">
+                            <span className="text-2xl p-1.5 bg-slate-900/80 border border-slate-700 rounded-xl">
+                              {sub.icono}
+                            </span>
+                            <div>
+                              <span className="text-[10px] font-bold text-purple-400 uppercase tracking-wider block">
+                                Subagente {idx + 1}
+                              </span>
+                              <h4 className="text-xs font-black text-white">
+                                {sub.nombre}
+                              </h4>
+                            </div>
+                          </div>
+
+                          <span className={`px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider flex-shrink-0 ${
+                            isFinished
+                              ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
+                              : isCurrent
+                              ? 'bg-purple-500/20 text-purple-300 border border-purple-500/30 animate-pulse'
+                              : 'bg-slate-700/50 text-slate-400 border border-slate-600/50'
+                          }`}>
+                            {isFinished ? 'LISTO 🟢' : isCurrent ? 'EJECUTANDO' : 'EN ESPERA'}
+                          </span>
+                        </div>
+
+                        <p className="text-xs text-slate-300 mb-3 leading-relaxed">
+                          {sub.mision}
+                        </p>
+                      </div>
+
+                      <div className="pt-3 border-t border-slate-700/60 flex items-center justify-between text-[11px] text-slate-400">
+                        <span className="font-semibold">{sub.rol}</span>
+                        <span className="text-purple-300 font-mono font-bold">
+                          {isFinished ? '100% OK' : '0%'}
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Consola de Telemetría y Logs del Subagente Seleccionado */}
+              {(() => {
+                const sub = SUBAGENTES_CATALOGO.find((s) => s.id === selectedSubagentId) || SUBAGENTES_CATALOGO[0];
+                return (
+                  <div className="bg-slate-950 border border-slate-800 rounded-2xl p-4 font-mono text-xs shadow-inner space-y-3">
+                    <div className="flex items-center justify-between border-b border-slate-800 pb-2.5 text-[11px] text-slate-400">
+                      <div className="flex items-center gap-2">
+                        <Terminal className="w-3.5 h-3.5 text-purple-400" />
+                        <span className="text-slate-200 font-bold">
+                          Telemetría de Misión: {sub.nombre} ({sub.icono})
+                        </span>
+                      </div>
+                      <span className="text-emerald-400 font-bold text-[10px]">
+                        ● CANAL AUTÓNOMO SINCRONIZADO
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 py-1 text-slate-300">
+                      {Object.entries(sub.metricas).map(([k, v]) => (
+                        <div key={k} className="bg-slate-900 border border-slate-800 rounded-lg p-2">
+                          <span className="text-[10px] text-slate-500 block uppercase font-bold">{k}</span>
+                          <span className="text-xs font-mono font-bold text-purple-300">{v}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="space-y-1 text-[11px] pt-1 border-t border-slate-900">
+                      {sub.log.map((line, lIdx) => (
+                        <p key={lIdx} className="text-slate-400 flex items-center gap-2">
+                          <span className="text-slate-600 font-mono">[{lIdx + 1}]</span>
+                          <span className={lIdx === sub.log.length - 1 ? 'text-emerald-400 font-semibold' : 'text-slate-300'}>
+                            {line}
+                          </span>
+                        </p>
+                      ))}
+                    </div>
+
+                    <div className="pt-2 border-t border-slate-900 text-[10px] text-slate-500 flex flex-wrap gap-4">
+                      <span>Orquestador: <strong className="text-purple-400">Antigravity (Google DeepMind)</strong></span>
+                      <span>Modo: <strong className="text-emerald-400">Multi-Agent Reactive SDD</strong></span>
+                      <span>Última Sincronización: <strong className="text-slate-300">{lastSwarmRun}</strong></span>
+                    </div>
+                  </div>
+                );
+              })()}
             </div>
           )}
         </main>

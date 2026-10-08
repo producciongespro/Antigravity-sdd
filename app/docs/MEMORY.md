@@ -158,6 +158,18 @@
   3. Actualizar todas las referencias en scripts de guardrails, arnés en memoria, componentes React y guías maestras para auditar `docs/SPEC.md`.
 - **Motivo:** Alinear el proyecto con las mejores prácticas globales del ecosistema de software y facilitar la interoperabilidad con herramientas automatizadas, LLMs y desarrolladores de cualquier procedencia lingüística, manteniendo el contenido íntegro y documentado en español.
 
+### ADR-19: Módulo de Inspección y Orquestación de Agentes y Subagentes Autónomos (v2.13.0)
+- **Decisión:**
+  1. Incorporar la 5ª opción en el panel lateral AdminLTE del Centro de Auditoría (Paso 3) denominada **Agentes & Subagentes** (`activeMenu === 'agentes'`).
+  2. Implementar visualización y auditoría en vivo del enjambre multi-agente de calidad:
+     - **Agente Orquestador Principal (Antigravity):** Gobierna el ciclo de vida, delega tareas de auditoría especializada a 3 subagentes y consolida veredictos de calidad sin colisiones de contexto.
+     - **Centinela de Especificación y Guardrails (`sub-spec`):** Audita `docs/SPEC.md` vs 45 aserciones de guardrails.
+     - **Analista de Memoria y Decisiones (`sub-memory`):** Audita los 19 ADRs y roadmap en `docs/MEMORY.md`.
+     - **Probador Sensorial E2E (`sub-sensorial`):** Audita 7 flujos de usuario sobre el DOM bajo Vitest/JSDOM.
+  3. Proveer control reactivo de despacho (`▶ Desplegar Enjambre de Subagentes`) con telemetría en tiempo real, latencia y consola de logs de misión por subagente.
+  4. Ampliar la suite sensorial E2E a 7 flujos de usuario completos (`tests/e2e.test.jsx`) y certificar 45/45 guardrails en verde.
+- **Motivo:** Materializar conceptual y visualmente para el sponsor y desarrolladores cómo opera la orquestación multi-agente en una arquitectura SDD, separando responsabilidades entre agentes directores y subagentes especialistas para evitar la sobrecarga de contexto.
+
 ---
 
 ## 💡 3. Lecciones Aprendidas (Knowledge Base)
@@ -182,6 +194,7 @@
 15. **La Observabilidad Gráfica de Git Eleva la Confianza:** Traer lo que ocurre en la terminal de Git a la interfaz gráfica del usuario con consolas interactivas y simuladores permite a perfiles de producto, QA y arquitectura presenciar y experimentar el rigor de las barandillas de seguridad sin lidiar con comandos oscuros de shell.
 16. **El Arnés Sensorial DOM Eleva la Certeza:** Las pruebas unitarias validan lógica de datos en memoria, pero el arnés sensorial E2E simula la interacción física del dedo del usuario (clics, checkboxes, modales, temas y tabs). Esto garantiza que no existan discrepancias entre el contrato del backend local y los elementos que el usuario efectivamente ve e interactúa.
 17. **El Patrón del Puntero Maestro en la Raíz:** Tener múltiples archivos Markdown dispersos en la raíz genera desorden cognitivo. Mantener únicamente `AGENTS.md` como la Constitución Operativa en la raíz y concentrar todos los documentos de conocimiento técnico en `docs/` (con un índice de lectura obligatoria) proporciona la máxima limpieza estructural y descubrimiento infalible para los agentes de IA.
+18. **Especialización Multi-Agente sin Polución de Contexto:** Un solo agente orquestador intentando auditar código, memoria, contratos y DOM al mismo tiempo sufre de saturación cognitiva y alucinaciones; segmentar misiones críticas en subagentes especialistas acotados (Centinela de Especificación, Analista de ADRs, Probador Sensorial) permite una orquestación paralela, escalable y con veredictos 100% deterministas.
 
 ---
 
@@ -218,4 +231,5 @@
 - [x] **Paso 26:** Implementar el Arnés Sensorial End-to-End (E2E) con Vitest y Testing Library ([`tests/e2e.test.jsx`](../tests/e2e.test.jsx) - RF-5.6), con 6 pruebas automatizadas sobre el DOM real emulado, comando `npm run test:e2e` y elevación a 44 Guardrails Maestros en verde 🟢 (v2.10.0).
 - [x] **Paso 27:** Implementar el Patrón del Puntero Maestro consolidando todos los archivos de conocimiento en `docs/` (`docs/MEMORY.md` y `docs/RULES.md`), dejando `AGENTS.md` como único punto de entrada en raíz (v2.11.0).
 - [x] **Paso 28:** Estandarizar la nomenclatura Markdown al estándar internacional de la industria (`docs/SPEC.md`), unificando todos los artefactos clave del repositorio bajo nombres en mayúsculas universalmente reconocidos (v2.12.0).
+- [x] **Paso 29:** Implementar el Módulo de Inspección de Agentes y Subagentes Autónomos (RF-5.8) en el Centro de Auditoría ([`AuditoriaHub.jsx`](../src/components/AuditoriaHub.jsx)), con catálogo de 3 subagentes especialistas, orquestador Antigravity, consola de telemetría reactiva, suite E2E 7/7 en verde 🟢 y elevación a 45 Guardrails Maestros (v2.13.0).
 

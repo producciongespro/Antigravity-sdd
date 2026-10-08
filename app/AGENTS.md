@@ -35,7 +35,7 @@ Para mantener la raíz del proyecto limpia y libre de saturación, toda la base 
    El banco de pruebas automatizado se encuentra en:
    👉 [`tests/harness.html`](tests/harness.html) (ejecutable en `http://localhost:3000/tests/harness.html`).
 2. **Arnés Sensorial E2E (Vitest + JSDOM):**  
-   Suite sensorial de 6 flujos de usuario completos:
+   Suite sensorial de 7 flujos de usuario completos:
    👉 [`tests/e2e.test.jsx`](tests/e2e.test.jsx) (ejecutable con `npm run test:e2e`).
 3. **Criterio de Entrega (Definition of Done):**  
    Ninguna tarea se considera finalizada si el arnés o los guardrails reportan pruebas en rojo 🔴.

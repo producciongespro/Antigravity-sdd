@@ -213,7 +213,33 @@ describe('🧪 Arnés Sensorial End-to-End (E2E) - SuperCarrito SDD', () => {
 
     await waitFor(() => {
       expect(screen.getByText(/Consola Sensorial Vitest/i)).toBeDefined();
-      expect(screen.getByText(/Desglose de los 6 Flujos de Usuario Reales/i)).toBeDefined();
+      expect(screen.getByText(/Desglose de los 7 Flujos de Usuario Reales/i)).toBeDefined();
+    });
+  });
+
+  it('7. [RF-5.8] Módulo de Inspección de Agentes y Subagentes Autónomos en Auditoría', async () => {
+    render(<App />);
+
+    // Entrar al Paso 3 · Auditoría y Arneses
+    const btnAuditoria = screen.getByRole('button', { name: /Auditar Sistema/i });
+    fireEvent.click(btnAuditoria);
+
+    // Verificar que despliega el Sidebar con la 5ª opción de Agentes & Subagentes
+    await waitFor(() => {
+      expect(screen.getByRole('button', { name: /Agentes & Subagentes/i })).toBeDefined();
+    });
+
+    // Probar la Opción 5: Agentes & Subagentes
+    const btnAgentes = screen.getByRole('button', { name: /Agentes & Subagentes/i });
+    fireEvent.click(btnAgentes);
+
+    await waitFor(() => {
+      expect(screen.getByRole('heading', { name: /Arquitectura de Agentes/i })).toBeDefined();
+      expect(screen.getByRole('heading', { name: /Centinela de Especificación/i })).toBeDefined();
+      expect(screen.getByRole('heading', { name: /Analista de Memoria/i })).toBeDefined();
+      expect(screen.getByRole('heading', { name: /Probador Sensorial E2E/i })).toBeDefined();
+      expect(screen.getByRole('button', { name: /Desplegar Enjambre de Subagentes/i })).toBeDefined();
+      expect(screen.getAllByText(/Antigravity/i).length).toBeGreaterThan(0);
     });
   });
 });

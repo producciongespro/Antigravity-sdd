@@ -1,7 +1,7 @@
 # SPEC.md - Especificación Principal del Sistema: SuperCarrito (SDD)
 
 > **Documento:** `docs/SPEC.md`  
-> **Versión:** 2.12.0  
+> **Versión:** 2.13.0  
 > **Fecha de Actualización:** 2026-10-08  
 > **Estado:** Aprobado / Fuente Única de Verdad (SSOT)  
 > **Stack Técnico:** React 18+ | JavaScript (ESModules) | Vite 6+ | Tailwind CSS v4 | LocalStorage | Vitest & Testing Library
@@ -27,6 +27,7 @@
 | **v2.10.0** | 2026-10-08 | Christian Vargas A. | **Arnés Sensorial E2E con Vitest y JSDOM (RF-5.6):** Suite sensorial automatizada simulando la interacción física completa del usuario sobre el DOM, con ejecución integrada en la pestaña 4 del Centro de Auditoría. |
 | **v2.11.0** | 2026-10-08 | Christian Vargas A. | **Patrón del Puntero Maestro (RF-5.7):** Consolidación de toda la documentación técnica dentro del directorio `docs/` y establecimiento de `AGENTS.md` en la raíz como único puntero operativo para agentes de IA. |
 | **v2.12.0** | 2026-10-08 | Christian Vargas A. | **Estandarización Internacional de Nombres Markdown:** Consolidación de la especificación como `docs/SPEC.md` según los estándares internacionales de la industria y la comunidad de agentes SDD. |
+| **v2.13.0** | 2026-10-08 | Christian Vargas A. | **Módulo de Inspección de Agentes y Subagentes Autónomos (RF-5.8):** Incorporación de la 5ª opción en el panel lateral AdminLTE del Centro de Auditoría (Paso 3) para visualizar, auditar y desplegar la orquestación en tiempo real de 3 subagentes especialistas (Centinela de Especificación, Analista de Memoria/ADRs y Probador Sensorial DOM). |
 
 ---
 
@@ -160,6 +161,17 @@ interface ProductoLista {
     1. **Único Punto de Entrada en Raíz:** El archivo `AGENTS.md` reside en la raíz del proyecto como la Constitución Operativa y Puntero Maestro indiscutible para agentes de IA.
     2. **Consolidación en `docs/`:** Todos los documentos de especificación técnica, arquitectura, estándares y bitácora viva (`SPEC.md`, `ARCHITECTURE.md`, `RULES.md`, `MEMORY.md`) se alojan centralizados exclusivamente en el directorio `docs/` con nomenclatura estándar internacional.
     3. **Tabla de Enrutamiento Obligatorio:** `AGENTS.md` define formalmente la matriz de lectura obligatoria que cualquier agente debe consultar antes de procesar tareas de desarrollo.
+- **RF-5.8 (Módulo de Inspección de Agentes y Subagentes Autónomos en Auditoría):**
+  - La plataforma incorpora en el Centro de Auditoría (`AuditoriaHub.jsx`) una **5ª opción en el panel lateral AdminLTE** denominada `🤖 Agentes & Subagentes`.
+  - **Jerarquía de Orquestación Multi-Agente:**
+    1. **Agente Orquestador (Antigravity):** Actúa como el cerebro director que gobierna el ciclo de vida, delega tareas especializadas y consolida los veredictos de calidad.
+    2. **Subagente 1 · Centinela de Especificación y Guardrails:** Inspecciona la consistencia del contrato (`SPEC.md`), verificando que cada requerimiento funcional cuente con guardrails asociados y cobertura en el arnés.
+    3. **Subagente 2 · Analista de Memoria y Decisiones (ADRs):** Audita `docs/MEMORY.md`, calcula el balance histórico de ADRs registrados, estado del roadmap y lecciones aprendidas.
+    4. **Subagente 3 · Probador Sensorial E2E (DOM Simulator):** Monitorea la salud de la suite E2E de Vitest, la reactividad de selectores DOM y la tolerancia a fallos de persistencia.
+  - **Ejecución Interactiva en Vivo:**
+    - Botón táctil interactivo: `▶ Desplegar Enjambre de Subagentes`.
+    - Simulación reactiva del ciclo de vida con estados visuales: `Inactivo` $\rightarrow$ `Desplegando en Paralelo` $\rightarrow$ `Completado 100% Verde`.
+    - Tarjetas de diagnóstico con barras de progreso, telemetría de latencia, insignias de estado y reporte consolidado de salud arquitectónica.
 
 ---
 
