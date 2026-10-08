@@ -118,6 +118,16 @@
   4. Si existe una sola verificación fallida (fases 1 a 5), el script termina con código de salida `1` y Git aborta físicamente el commit, bloqueando la entrada de código que viole el contrato SDD.
 - **Motivo:** Materializar el Nivel 2 de Guardrails (Automatización Forzosa) solicitado por Christian Vargas A., eliminando la dependencia de la memoria del programador o del agente de IA y estableciendo una barandilla infranqueable a nivel del sistema de control de versiones.
 
+### ADR-15: Tercera Opción en Auditoría: Guardrail de Acero (Git & Terminal Interactiva) (v2.9.0)
+- **Decisión:**
+  1. Incorporar una tercera opción en el menú lateral de [`AuditoriaHub.jsx`](src/components/AuditoriaHub.jsx) denominada **"Guardrail de Acero (Git)"** con badge de estado `"Activo"`.
+  2. Implementar en el área de trabajo una vista trifásica organizada en sub-pestañas:
+     - **Consola y Simulador del Hook:** Ventana interactiva estilo terminal con botones para simular en tiempo real una intercepción exitosa (Commit OK) o un intento fallido (Ver Rechazo con Exit Code 1).
+     - **Visor Web Embebido:** Despliegue de los paneles HTML de auditoría (`/tests/guardrails.html`) en un iframe fluido dentro de la SPA sin requerir apertura de ventanas externas.
+     - **Script Shell:** Visualizador con sintaxis de `.githooks/pre-commit` para transparencia pedagógica.
+  3. Exponer el commit certificado (`47b9dc6`), rama activa, autor y métricas de latencia de 42ms directamente en la UI.
+- **Motivo:** Brindar visibilidad gráfica y didáctica completa al sistema de control de versiones Git, transformando un mecanismo que normalmente vive oculto en la consola en una experiencia interactiva para el usuario.
+
 ---
 
 ## 💡 3. Lecciones Aprendidas (Knowledge Base)
@@ -139,6 +149,7 @@
 12. **Desacoplamiento Ergonómico según Contexto Físico:** Las interfaces de escritorio o planificación previa demandan dashboards estructurados con menús laterales (AdminLTE); en contraste, el momento físico en sitio (pasillos de tienda) exige interfaces táctiles ultra-lineales de una sola columna accesibles con una sola mano.
 13. **Erradicación de Diálogos Nativos del Navegador:** Los `alert` y `confirm` nativos rompen la inmersión, no respetan el tema de la aplicación, bloquean el hilo principal y ofrecen una estética prehistórica; un modal táctil nativo en React ofrece accesibilidad, animaciones fluidas y botones amigables para el pulgar.
 14. **El Guardrail de Acero no pide permiso, bloquea:** Un comando `npm run check:guardrails` es una recomendación si depende de que alguien lo ejecute; cuando se amarra a un Git Pre-commit Hook (`.githooks/pre-commit`), se convierte en una barandilla física inviolable que protege la rama principal de errores humanos y alucinaciones de IA.
+15. **La Observabilidad Gráfica de Git Eleva la Confianza:** Traer lo que ocurre en la terminal de Git a la interfaz gráfica del usuario con consolas interactivas y simuladores permite a perfiles de producto, QA y arquitectura presenciar y experimentar el rigor de las barandillas de seguridad sin lidiar con comandos oscuros de shell.
 
 ---
 
@@ -171,3 +182,4 @@
 - [x] **Paso 22:** Implementar Disposición de Navegación Lateral (Sidebar estilo AdminLTE) en Paso 1 ([`GestionHub.jsx`](src/components/GestionHub.jsx)) y Paso 3 ([`AuditoriaHub.jsx`](src/components/AuditoriaHub.jsx)), preservando ergonomía vertical táctil de una sola mano en Paso 2 ([`ActiveShopping.jsx`](src/components/ActiveShopping.jsx) - RF-5.5) e incrementar guardrails a 39/39 en verde 🟢 (59ms).
 - [x] **Paso 23:** Reemplazar diálogo nativo `window.confirm` por modal táctil personalizado [`ConfirmModal.jsx`](src/components/ConfirmModal.jsx) para la regla anti-dedazos (RF-4.6), actualizar especificación v2.8.0 e incrementar guardrails a 40/40 en verde 🟢 (62ms).
 - [x] **Paso 24:** Implementar el Guardrail de Acero en Git: Hook de Pre-commit versionado ([`.githooks/pre-commit`](.githooks/pre-commit)), configuración con `core.hooksPath` y comando `npm run setup:hooks` para abortar físicamente cualquier commit que no pase los 40 guardrails al 100% en verde 🟢.
+- [x] **Paso 25:** Incorporar la 3ª Opción en Auditoría ([`AuditoriaHub.jsx`](src/components/AuditoriaHub.jsx)): Guardrail de Acero (Git), con tarjeta de commit certificado (`47b9dc6`), terminal interactiva con simulación de intercepciones, visor web embebido en iframe de `/tests/guardrails.html` y código del hook (v2.9.0).

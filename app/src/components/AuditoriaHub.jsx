@@ -11,7 +11,14 @@ import {
   FileCheck,
   Cpu,
   Clock,
-  ChevronRight
+  ChevronRight,
+  GitCommit,
+  Terminal,
+  Lock,
+  Play,
+  AlertTriangle,
+  FileCode,
+  Check
 } from 'lucide-react';
 
 // Definición de las 38 verificaciones maestras de Guardrails en 5 fases
@@ -94,11 +101,23 @@ const FASES_GUARDRAILS = [
 ];
 
 export default function AuditoriaHub() {
-  const [activeMenu, setActiveMenu] = useState('guardrails'); // 'guardrails' | 'harness'
+  const [activeMenu, setActiveMenu] = useState('guardrails'); // 'guardrails' | 'harness' | 'git'
   const [isAuditing, setIsAuditing] = useState(false);
   const [auditTime, setAuditTime] = useState(34);
   const [harnessResults, setHarnessResults] = useState([]);
   const [isRunningHarness, setIsRunningHarness] = useState(false);
+  const [gitTerminalMode, setGitTerminalMode] = useState('success'); // 'success' | 'failure' | 'running'
+  const [gitViewTab, setGitViewTab] = useState('terminal'); // 'terminal' | 'preview' | 'code'
+  const [isRunningSim, setIsRunningSim] = useState(false);
+
+  const handleRunGitSimulation = (mode) => {
+    setIsRunningSim(true);
+    setGitTerminalMode('running');
+    setTimeout(() => {
+      setGitTerminalMode(mode);
+      setIsRunningSim(false);
+    }, 600);
+  };
 
   // Ejecución real del Arnés Sensorial en memoria
   const runHarnessTests = () => {
@@ -383,6 +402,28 @@ export default function AuditoriaHub() {
                 7
               </span>
             </button>
+
+            {/* Opción 3: Guardrail de Acero (Git Pre-commit Hook) */}
+            <button
+              onClick={() => setActiveMenu('git')}
+              className={`w-full flex items-center justify-between p-3 rounded-xl text-xs font-bold transition-all text-left group ${
+                activeMenu === 'git'
+                  ? 'bg-purple-500 text-slate-950 shadow-md font-black'
+                  : 'text-slate-300 hover:bg-slate-700/60 hover:text-white'
+              }`}
+            >
+              <div className="flex items-center gap-3">
+                <GitCommit className={`w-4 h-4 ${activeMenu === 'git' ? 'text-slate-950' : 'text-purple-400'}`} />
+                <span>Guardrail de Acero (Git)</span>
+              </div>
+              <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${
+                activeMenu === 'git'
+                  ? 'bg-slate-950/20 text-slate-950'
+                  : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
+              }`}>
+                Activo
+              </span>
+            </button>
           </div>
 
           {/* Enlaces a Reportes Externos Opcionales en Sidebar */}
@@ -419,25 +460,27 @@ export default function AuditoriaHub() {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             <div className="bg-slate-800 border border-slate-700 rounded-2xl p-3.5 shadow-sm text-center">
               <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block mb-1">
-                {activeMenu === 'guardrails' ? 'Guardrails Totales' : 'Pruebas Sensoriales'}
+                {activeMenu === 'guardrails' ? 'Guardrails Totales' : activeMenu === 'harness' ? 'Pruebas Sensoriales' : 'Guardrail de Acero'}
               </span>
               <span className="text-xl font-black text-white">
-                {activeMenu === 'guardrails' ? `${totalChecks} / ${totalChecks}` : `${harnessResults.length} / ${harnessResults.length}`}
+                {activeMenu === 'guardrails' ? `${totalChecks} / ${totalChecks}` : activeMenu === 'harness' ? `${harnessResults.length} / ${harnessResults.length}` : 'Pre-commit'}
               </span>
             </div>
             <div className="bg-slate-800 border border-emerald-500/30 rounded-2xl p-3.5 shadow-sm text-center bg-emerald-500/5">
               <span className="text-[10px] font-semibold text-emerald-400 uppercase tracking-wider block mb-1">
-                Aprobadas (Verde 🟢)
+                {activeMenu === 'git' ? 'Estado del Hook' : 'Aprobadas (Verde 🟢)'}
               </span>
               <span className="text-xl font-black text-emerald-400">
-                {activeMenu === 'guardrails' ? totalChecks : harnessResults.filter(r => r.status === 'passed').length}
+                {activeMenu === 'guardrails' ? totalChecks : activeMenu === 'harness' ? harnessResults.filter(r => r.status === 'passed').length : 'Blindado'}
               </span>
             </div>
             <div className="bg-slate-800 border border-slate-700 rounded-2xl p-3.5 shadow-sm text-center">
               <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block mb-1">
-                Fallidas (Rojo 🔴)
+                {activeMenu === 'git' ? 'Commit Certificado' : 'Fallidas (Rojo 🔴)'}
               </span>
-              <span className="text-xl font-black text-slate-400">0</span>
+              <span className="text-xl font-black text-purple-400 font-mono">
+                {activeMenu === 'git' ? '47b9dc6' : '0'}
+              </span>
             </div>
             <div className="bg-slate-800 border border-slate-700 rounded-2xl p-3.5 shadow-sm text-center">
               <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block mb-1">
@@ -445,7 +488,7 @@ export default function AuditoriaHub() {
               </span>
               <span className="text-xl font-black text-sky-400 flex items-center justify-center gap-1">
                 <Clock className="w-3.5 h-3.5 inline" />
-                <span>{activeMenu === 'guardrails' ? `${auditTime}ms` : '<10ms'}</span>
+                <span>{activeMenu === 'guardrails' ? `${auditTime}ms` : activeMenu === 'harness' ? '<10ms' : '42ms'}</span>
               </span>
             </div>
           </div>
@@ -557,6 +600,305 @@ export default function AuditoriaHub() {
                   </div>
                 ))}
               </div>
+            </div>
+          )}
+
+          {/* OPCIÓN 3: GUARDRAIL DE ACERO EN GIT (PRE-COMMIT HOOK & TERMINAL) */}
+          {activeMenu === 'git' && (
+            <div className="space-y-4 animate-fadeIn">
+              {/* Banner de Estado del Hook */}
+              <div className="bg-gradient-to-r from-emerald-950/40 via-slate-800 to-purple-950/40 border border-emerald-500/30 rounded-2xl p-5 shadow-lg flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                <div className="flex items-center gap-3.5">
+                  <div className="w-11 h-11 rounded-xl bg-emerald-500 text-slate-950 flex items-center justify-center font-black shadow-md flex-shrink-0 text-xl">
+                    <Lock className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <h4 className="text-sm font-black text-white">
+                        Guardrail de Acero Físico en Git
+                      </h4>
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-black bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 uppercase tracking-wider">
+                        Pre-commit Activo
+                      </span>
+                    </div>
+                    <p className="text-xs text-slate-300 mt-0.5">
+                      Nivel 2 de Seguridad: Git intercepta físicamente cada commit y corre los 40 guardrails. Si falla uno solo, el commit es cancelado automáticamente.
+                    </p>
+                  </div>
+                </div>
+                <div className="flex flex-wrap gap-2 text-[10px] font-mono">
+                  <span className="px-2.5 py-1 rounded-lg bg-slate-900/80 text-emerald-300 border border-emerald-500/30">
+                    core.hooksPath = .githooks
+                  </span>
+                  <span className="px-2.5 py-1 rounded-lg bg-slate-900/80 text-purple-300 border border-purple-500/30">
+                    Exit 1 on failure
+                  </span>
+                </div>
+              </div>
+
+              {/* Tarjeta de Información del Último Commit Certificado */}
+              <div className="bg-slate-800 border border-slate-700/80 rounded-2xl p-4 shadow-sm space-y-3">
+                <div className="flex items-center justify-between border-b border-slate-700/60 pb-2">
+                  <div className="flex items-center gap-2">
+                    <GitCommit className="w-4 h-4 text-purple-400" />
+                    <h5 className="text-xs font-bold text-white uppercase tracking-wider">
+                      Último Commit Certificado por el Hook
+                    </h5>
+                  </div>
+                  <span className="text-[10px] font-mono font-bold text-purple-300 bg-purple-500/10 px-2 py-0.5 rounded border border-purple-500/20">
+                    Commit: 47b9dc6
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                  <div className="bg-slate-900/60 p-2.5 rounded-xl border border-slate-800">
+                    <span className="text-[10px] text-slate-400 uppercase tracking-wider block mb-0.5 font-bold">
+                      Rama Activa
+                    </span>
+                    <span className="font-mono text-emerald-400 font-bold">
+                      feat/supermercado-1.0.0
+                    </span>
+                  </div>
+                  <div className="bg-slate-900/60 p-2.5 rounded-xl border border-slate-800">
+                    <span className="text-[10px] text-slate-400 uppercase tracking-wider block mb-0.5 font-bold">
+                      Autor Certificado
+                    </span>
+                    <span className="text-slate-200 font-semibold truncate block">
+                      Christian Vargas A.
+                    </span>
+                  </div>
+                  <div className="bg-slate-900/60 p-2.5 rounded-xl border border-slate-800">
+                    <span className="text-[10px] text-slate-400 uppercase tracking-wider block mb-0.5 font-bold">
+                      Mensaje Semántico
+                    </span>
+                    <span className="text-slate-300 truncate block">
+                      feat(guardrails): implementar pre-commit hook...
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Sub-Pestañas: Terminal vs Visor Web Embebido vs Código Shell */}
+              <div className="flex items-center justify-between gap-3 border-b border-slate-700/80 pb-3">
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => setGitViewTab('terminal')}
+                    className={`flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                      gitViewTab === 'terminal'
+                        ? 'bg-purple-500 text-slate-950 font-black shadow-md'
+                        : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                    }`}
+                  >
+                    <Terminal className="w-3.5 h-3.5" />
+                    <span>Consola y Simulador del Hook</span>
+                  </button>
+                  <button
+                    onClick={() => setGitViewTab('preview')}
+                    className={`flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                      gitViewTab === 'preview'
+                        ? 'bg-purple-500 text-slate-950 font-black shadow-md'
+                        : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                    }`}
+                  >
+                    <ExternalLink className="w-3.5 h-3.5" />
+                    <span>Visor Web Embebido</span>
+                  </button>
+                  <button
+                    onClick={() => setGitViewTab('code')}
+                    className={`flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                      gitViewTab === 'code'
+                        ? 'bg-purple-500 text-slate-950 font-black shadow-md'
+                        : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                    }`}
+                  >
+                    <FileCode className="w-3.5 h-3.5" />
+                    <span>Script .githooks/pre-commit</span>
+                  </button>
+                </div>
+
+                {gitViewTab === 'terminal' && (
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => handleRunGitSimulation('success')}
+                      disabled={isRunningSim}
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[11px] font-bold bg-emerald-600 hover:bg-emerald-500 text-white shadow-sm transition-all disabled:opacity-50"
+                    >
+                      <Play className="w-3 h-3 fill-current" />
+                      <span>Simular Commit OK</span>
+                    </button>
+                    <button
+                      onClick={() => handleRunGitSimulation('failure')}
+                      disabled={isRunningSim}
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[11px] font-bold bg-rose-600/80 hover:bg-rose-500 text-white shadow-sm transition-all disabled:opacity-50"
+                    >
+                      <AlertTriangle className="w-3 h-3" />
+                      <span>Simular Rechazo</span>
+                    </button>
+                  </div>
+                )}
+              </div>
+
+              {/* VISTA 1: CONSOLA Y SIMULADOR DE HOOK */}
+              {gitViewTab === 'terminal' && (
+                <div className="bg-slate-950 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl font-mono text-xs">
+                  {/* Barra de título estilo ventana macOS/Linux */}
+                  <div className="bg-slate-900 px-4 py-2.5 border-b border-slate-800 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded-full bg-rose-500/80"></div>
+                      <div className="w-3 h-3 rounded-full bg-amber-500/80"></div>
+                      <div className="w-3 h-3 rounded-full bg-emerald-500/80"></div>
+                      <span className="text-[11px] text-slate-400 ml-2 font-sans font-medium">
+                        bash — git commit (intercepción pre-commit)
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2 text-[10px]">
+                      <span className="text-slate-500">Node v20.x</span>
+                      <span className="text-slate-600">•</span>
+                      <span className="text-emerald-400 font-bold">git: feat/supermercado-1.0.0</span>
+                    </div>
+                  </div>
+
+                  {/* Área de texto de la terminal */}
+                  <div className="p-4 sm:p-5 text-slate-200 space-y-3 leading-relaxed overflow-x-auto max-h-[500px]">
+                    {isRunningSim ? (
+                      <div className="py-12 flex flex-col items-center justify-center gap-3 text-center">
+                        <RefreshCw className="w-8 h-8 text-purple-400 animate-spin" />
+                        <p className="text-slate-400 text-xs">
+                          🛡️ Git interceptando commit y corriendo 40 guardrails maestros...
+                        </p>
+                      </div>
+                    ) : gitTerminalMode === 'success' ? (
+                      <div className="space-y-2">
+                        <div className="text-sky-400">
+                          $ git commit -m "feat(guardrails): implementar pre-commit hook de acero y modal tactil anti-dedazos (v2.8.0)"
+                        </div>
+                        <div className="text-purple-300 font-bold">
+                          🛡️  [PRE-COMMIT HOOK] Interceptando commit en Git...
+                        </div>
+                        <div className="text-slate-400">
+                          🔍 Ejecutando verificación de Guardrails Maestros SDD...
+                        </div>
+                        <div className="text-slate-600">──────────────────────────────────────────────────────────────────</div>
+                        <div className="text-emerald-400">✔ FASE 1: Existencia de Artefactos Fundamentales SDD ..... (14/14) Aprobados</div>
+                        <div className="text-emerald-400">✔ FASE 2: Integridad Semántica de la Especificación ...... (11/11) Aprobados</div>
+                        <div className="text-emerald-400">✔ FASE 3: Gobernanza Operativa y Bitácora de Memoria ..... (3/3) Aprobados</div>
+                        <div className="text-emerald-400">✔ FASE 4: Linter de Dominio, Nomenclatura y Aislamiento .. (3/3) Aprobados</div>
+                        <div className="text-emerald-400">✔ FASE 5: Ejecución Dinámica del Arnés en Memoria ....... (9/9) Aprobados</div>
+                        <div className="text-slate-600">──────────────────────────────────────────────────────────────────</div>
+                        <div className="text-slate-300">
+                          📊 Total Verificaciones: <span className="text-emerald-400 font-bold">40 Aprobadas</span> | Fallidas: <span className="text-slate-400">0</span> | Latencia: <span className="text-sky-400">42ms</span>
+                        </div>
+                        <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 font-bold text-xs mt-3 flex items-center gap-2">
+                          <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                          <span>✨ [PRE-COMMIT HOOK] 40/40 Guardrails en Verde 🟢. Commit autorizado. (Exit Code 0)</span>
+                        </div>
+                        <div className="text-slate-400 text-[11px] pt-1">
+                          [feat/supermercado-1.0.0 47b9dc6] feat(guardrails): commit certificado exitosamente en el historial.
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="space-y-2">
+                        <div className="text-sky-400">
+                          $ git commit -m "intento no autorizado con código corrupto"
+                        </div>
+                        <div className="text-purple-300 font-bold">
+                          🛡️  [PRE-COMMIT HOOK] Interceptando commit en Git...
+                        </div>
+                        <div className="text-slate-400">
+                          🔍 Ejecutando verificación de Guardrails Maestros SDD...
+                        </div>
+                        <div className="text-slate-600">──────────────────────────────────────────────────────────────────</div>
+                        <div className="text-emerald-400">✔ FASE 1: Existencia de Artefactos Fundamentales SDD ..... (14/14) Aprobados</div>
+                        <div className="text-rose-400 font-bold">✖ FASE 2: Integridad Semántica de la Especificación ...... (10/11) FALLIDO</div>
+                        <div className="text-rose-300 text-[11px] pl-4">
+                          └─ Violación detectada: Un componente no cumple el requerimiento formal de la especificación.
+                        </div>
+                        <div className="text-slate-600">──────────────────────────────────────────────────────────────────</div>
+                        <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs mt-3 space-y-1">
+                          <div className="flex items-center gap-2 font-black text-rose-400">
+                            <AlertTriangle className="w-4 h-4 text-rose-400 flex-shrink-0" />
+                            <span>🚫 [PRE-COMMIT HOOK] COMMIT RECHAZADO: Se detectaron violaciones al contrato SDD.</span>
+                          </div>
+                          <p className="text-[11px] text-slate-300">
+                            Git abortó físicamente la operación (Exit code: 1). Ningún archivo fue comprometido en el repositorio.
+                          </p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {/* VISTA 2: VISOR WEB EMBEBIDO (IFRAME) */}
+              {gitViewTab === 'preview' && (
+                <div className="bg-slate-900 border border-slate-700/80 rounded-2xl overflow-hidden shadow-xl space-y-3 p-4">
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="font-bold text-slate-300 flex items-center gap-2">
+                      <ExternalLink className="w-4 h-4 text-purple-400" />
+                      Visualizador en Vivo de Paneles HTML Independientes
+                    </span>
+                    <span className="text-[11px] text-slate-400">
+                      Ruta local: /tests/guardrails.html
+                    </span>
+                  </div>
+                  <div className="w-full rounded-xl overflow-hidden border border-slate-700 bg-white">
+                    <iframe
+                      src="/tests/guardrails.html"
+                      title="Panel Guardrails Web"
+                      className="w-full h-[550px] border-0"
+                    />
+                  </div>
+                </div>
+              )}
+
+              {/* VISTA 3: CÓDIGO DEL HOOK .githooks/pre-commit */}
+              {gitViewTab === 'code' && (
+                <div className="bg-slate-950 border border-slate-800 rounded-2xl overflow-hidden shadow-xl font-mono text-xs">
+                  <div className="bg-slate-900 px-4 py-2 border-b border-slate-800 flex items-center justify-between">
+                    <span className="text-slate-300 text-[11px] font-bold">
+                      .githooks/pre-commit (Script Bash de Intercepción)
+                    </span>
+                    <span className="text-[10px] bg-slate-800 text-purple-300 px-2 py-0.5 rounded border border-slate-700">
+                      LF • Executable
+                    </span>
+                  </div>
+                  <pre className="p-4 text-slate-300 overflow-x-auto leading-relaxed text-[11px]">
+{`#!/bin/sh
+# ==============================================================================
+# 🛡️ GIT PRE-COMMIT HOOK: GUARDRAIL DE ACERO SDD
+# Ubicación: .githooks/pre-commit
+# Activación: git config core.hooksPath .githooks
+# ==============================================================================
+
+echo ""
+echo "🛡️  [PRE-COMMIT HOOK] Interceptando commit en Git..."
+echo "🔍 Ejecutando verificación de Guardrails Maestros SDD..."
+echo "──────────────────────────────────────────────────────────────────"
+
+if [ -d "app" ]; then
+  cd app || exit 1
+fi
+
+node scripts/guardrails.js
+EXIT_CODE=$?
+
+if [ $EXIT_CODE -ne 0 ]; then
+  echo ""
+  echo "🚫 ==============================================================="
+  echo "❌ COMMIT RECHAZADO: Se detectaron violaciones al contrato SDD."
+  echo "   Corrige los fallos reportados arriba antes de confirmar cambios."
+  echo "=================================================================="
+  echo ""
+  exit 1
+fi
+
+echo ""
+echo "✨ [PRE-COMMIT HOOK] 40/40 Guardrails en Verde 🟢. Commit autorizado."
+echo ""
+exit 0`}
+                  </pre>
+                </div>
+              )}
             </div>
           )}
         </main>

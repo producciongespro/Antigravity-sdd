@@ -1,7 +1,7 @@
 # Especificación Principal del Sistema: SuperCarrito (SDD)
 
 > **Documento:** `docs/ESPECIFICACION_PRINCIPAL.md`  
-> **Versión:** 2.8.0  
+> **Versión:** 2.9.0  
 > **Fecha de Actualización:** 2026-10-08  
 > **Estado:** Aprobado / Fuente Única de Verdad (SSOT)  
 > **Stack Técnico:** React 18+ | JavaScript (ESModules) | Vite 6+ | Tailwind CSS v4 | LocalStorage
@@ -23,6 +23,7 @@
 | **v2.6.0** | 2026-10-08 | Christian Vargas A. | **Centro Integrado de Auditoría, Guardrails y Arneses en la SPA (RF-5.3):** Integración nativa del Paso 3 dentro de la misma aplicación (`activeTab === 'auditoria'`), compartiendo el Header institucional, el control de tema Claro/Oscuro y el botón Home de retorno, con ejecución interactiva de los 38 guardrails y las 7 pruebas sensoriales. |
 | **v2.7.0** | 2026-10-08 | Christian Vargas A. | **Disposición de Navegación Lateral (Sidebar estilo AdminLTE) en Mantenimiento (RF-5.5):** Estructura de dos columnas (panel izquierdo de menú con opciones e insignias numéricas + área de trabajo derecha) para los módulos de administración: Paso 1 (Catálogo vs Armado de Listas) y Paso 3 (Auditar el Sistema vs Arnés Sensorial). El Paso 2 (Modo Súper en tienda) se preserva deliberadamente en disposición vertical simple para manipulación con una sola mano táctil. |
 | **v2.8.0** | 2026-10-08 | Christian Vargas A. | **Modal Táctil de Confirmación Anti-dedazos en Modo Súper (RF-4.6):** Reemplazo del cuadro genérico del navegador (`window.confirm`) por una ventana modal personalizada, táctil y de alto contraste (`ConfirmModal.jsx`), con botones grandes ergonómicos para confirmar o cancelar la devolución de productos del carrito con el pulgar. |
+| **v2.9.0** | 2026-10-08 | Christian Vargas A. | **Tercera Opción en Auditoría: Guardrail de Acero (Git Pre-commit Hook & Terminal) (RF-5.3 / RF-5.5):** Incorporación de la 3ª opción en el panel lateral de auditoría para visualizar en la interfaz gráfica el estado de blindaje del repositorio, último commit certificado (`47b9dc6`), simulación en vivo de intercepción de commits en consola interactiva, visor web embebido (iframe) y código fuente del hook. |
 
 ---
 
@@ -126,7 +127,11 @@ interface ProductoLista {
   - **Regla de Aislamiento de Header:** La barra superior no debe contener textos extensos, métricas ni títulos de navegación redundantes; cualquier dato adicional (como progreso de compra, filtros o subtítulos de sección) reside exclusivamente en el cuerpo interno de la ventana correspondiente.
 - **RF-5.3 (Centro Integrado de Auditoría, Guardrails y Arneses en la SPA):**
   - La plataforma integra el Paso 3 directamente dentro de la aplicación (`activeTab === 'auditoria'`), compartiendo el Header institucional de SuperCarrito, el alternador de tema Claro / Oscuro y el botón con icono de Home para volver al inicio con un solo clic.
-  - Dentro de esta vista (`AuditoriaHub.jsx`) se ejecutan interactivamente en la misma ventana tanto los Guardrails en 5 fases (37 verificaciones) como el Arnés Sensorial de pruebas unitarias en memoria (7 casos de prueba), con opción secundaria de abrir reportes independientes (`tests/guardrails.html` y `tests/harness.html`).
+  - Dentro de esta vista (`AuditoriaHub.jsx`) se presentan tres opciones operativas:
+    1. **Auditar el Sistema:** Ejecución en memoria de los 40 Guardrails Maestros en 5 fases.
+    2. **Ver Arnés Sensorial:** Ejecución instantánea de las 7 pruebas unitarias contra el motor relacional.
+    3. **Guardrail de Acero (Git):** Visualización del estado del Pre-commit Hook, commit certificado (`47b9dc6`), consola interactiva para simular autorizaciones y bloqueos físicos en tiempo real, visor web embebido (iframe) y código del script `.githooks/pre-commit`.
+  - Enlaces secundarios a reportes web independientes (`tests/guardrails.html` y `tests/harness.html`).
 - **RF-5.4 (Centro Unificado de Gestión):**
   - La tarjeta de inicio del Paso 1 cuenta con **un único botón de acción** denominado `"Gestionar"`.
   - Al ingresar, despliega la interfaz unificada (`GestionHub.jsx`) que integra el Catálogo de Despensa (alta, edición, eliminación) y el Mantenimiento y Armado de Listas de compras.
@@ -134,8 +139,8 @@ interface ProductoLista {
   - Para los módulos de administración y mantenimiento (**Paso 1: Gestión** y **Paso 3: Auditoría y Arneses**), la interfaz implementa un diseño de dos columnas:
     1. **Panel Lateral Izquierdo (Sidebar):** Menú vertical con opciones claras, iconos identificativos y badges con conteo dinámico de elementos.
        - En Paso 1: Opciones `Catálogo` y `Armado de Listas`.
-       - En Paso 3: Opciones `Auditar el Sistema` y `Ver Arnés Sensorial`.
-    2. **Área de Trabajo Derecha (Workspace):** Despliegue amplio del sub-módulo activo, maximizando el espacio para formularios, filtros y tablas.
+       - En Paso 3: Opciones `Auditar el Sistema`, `Ver Arnés Sensorial` y `Guardrail de Acero (Git)`.
+    2. **Área de Trabajo Derecha (Workspace):** Despliegue amplio del sub-módulo activo, maximizando el espacio para formularios, filtros, tablas y terminal interactiva.
   - **Excepción de Ergonomía Móvil (Paso 2):** El Paso 2 (¡Vamos al Súper! en tienda) **no adopta menú lateral**; se mantiene en una sola columna vertical con tarjetas táctiles de alta densidad optimizadas para el uso en el pasillo del supermercado con una sola mano.
 
 ---
