@@ -249,7 +249,7 @@
       </div>
       <div class="meta-item">
         <strong>Fecha y Versión:</strong>
-        Octubre 2026 | Versión 3.0 Definitiva, Modular y con Banco Q&A
+        Octubre 2026 | Versión 3.5 Definitiva, Ilustrada con Diagramas y Banco Extendido de 20 Q&A
       </div>
     </div>
   </div>
@@ -558,6 +558,54 @@
     </div>
   </div>
 
+  <h3>📐 Diagrama de Capas del Sistema (C4 Component Diagram)</h3>
+  <div class="diagram-box">
+┌────────────────────────────────────────────────────────────────────────┐
+│             CAPA DE PRESENTACIÓN (React 18 + Tailwind v4)              │
+│  App.jsx (Orquestador de Vistas)                                       │
+│  ├── HomeHub.jsx        (Portada con flujo cronológico en 3 pasos)     │
+│  ├── GestionHub.jsx     (AdminLTE: Catálogo y Listas con Checkboxes)   │
+│  ├── ActiveShopping.jsx (Modo Súper Táctil de 1 columna)               │
+│  │   └── ConfirmModal   (Guardrail de UX Anti-dedazos - RF-4.6)        │
+│  └── AuditoriaHub.jsx   (Centro Integrado de Calidad y Git Hook)       │
+└──────────────────────────────────┬─────────────────────────────────────┘
+                                   │ Invocaciones desacopladas (CRUD / Toggle)
+                                   ▼
+┌────────────────────────────────────────────────────────────────────────┐
+│                      CAPA DE DOMINIO Y SERVICIO                        │
+│  SupermarketStorage (src/services/storage.js)                          │
+│  - Reglas de negocio e integridad referencial en cascada               │
+│  - Tolerancia a JSON corrupto (RNF-02)                                 │
+│  - Migración silenciosa al vuelo v2.0 -> v2.1 (RNF-03)                 │
+└──────────────────────────────────┬─────────────────────────────────────┘
+                                   │ Persistencia aislada
+                                   ▼
+┌────────────────────────────────────────────────────────────────────────┐
+│                          CAPA DE PERSISTENCIA                          │
+│  localStorage ('supermarket_app_db_v2') [Navegador]                    │
+│  MockStorage (Sandbox en memoria para Guardrails y Vitest)             │
+└────────────────────────────────────────────────────────────────────────┘
+  </div>
+
+  <h3>🛡️ Diagrama del Guardrail de Acero (Git Pre-commit Hook)</h3>
+  <div class="diagram-box">
+  [ Desarrollador / Copiloto IA ejecuta "git commit" ]
+                         │
+                         ▼
+  [ .githooks/pre-commit intercepta la acción físicamente ]
+                         │
+                         ▼
+  [ node scripts/guardrails.js (44 Verificaciones en <50ms) ]
+                         │
+           ┌─────────────┴─────────────┐
+           ▼                           ▼
+    ¿Todo 100% Verde?           ¿Algún fallo o regla rota?
+           │                           │
+           ▼                           ▼
+  ✅ Commit AUTORIZADO         ❌ Git ABORTA la operación
+  (Código certificado)         (Imposible subir código roto)
+  </div>
+
   <!-- ==================== CHECKLIST ==================== -->
   <h2>📋 10. Protocolo Profesional para Nuevas Funciones</h2>
 
@@ -576,8 +624,8 @@
 
   <!-- ==================== PREGUNTAS Y RESPUESTAS ==================== -->
   <div class="page-break"></div>
-  <h2>💡 11. Preguntas y Respuestas Frecuentes (Banco de Repaso y Consultas Clave)</h2>
-  <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Compilación pedagógica de las consultas clave planteadas por Chris durante nuestras sesiones de laboratorio, con las respuestas conceptuales y prácticas que sustentan la arquitectura.</p>
+  <h2>💡 11. Preguntas y Respuestas Frecuentes (Banco Extendido de Repaso - 20 Consultas Clave)</h2>
+  <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Compilación exhaustiva de las consultas reales planteadas por Chris durante nuestras sesiones de laboratorio, con las explicaciones conceptuales y prácticas que sustentan la arquitectura.</p>
 
   <div style="display: flex; flex-direction: column; gap: 1.25rem;">
 
@@ -698,6 +746,86 @@
       </h4>
       <p style="font-size: 0.9rem; color: #334155; line-height: 1.6;">
         En SDD, una tarea no termina cuando el código compila. Según <code>docs/RULES.md</code>, requiere: 1. Requerimiento formal en la Spec, 2. Prueba en el arnés, 3. Certificación de Fase Roja superada, 4. Arnés 100% en verde, 5. Guardrails 44/44 aprobados y Git hook autorizando el commit, y 6. Registro de la decisión en la bitácora de memoria.
+      </p>
+    </div>
+
+    <div style="background: #ffffff; border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+      <h4 style="color: var(--dark); font-size: 0.95rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+        <span style="background: var(--primary-light); color: var(--primary); padding: 0.2rem 0.5rem; border-radius: 6px; font-size: 0.8rem; font-weight: 700;">P13</span>
+        ¿Cómo garantizamos la resiliencia y tolerancia ante JSON corrupto en localStorage (RNF-02)?
+      </h4>
+      <p style="font-size: 0.9rem; color: #334155; line-height: 1.6;">
+        Mediante un bloque defensivo <code>try/catch</code> en <code>storage.js</code>. Si los datos locales se corrompen o reciben texto inválido, el sistema captura el error y reinicia automáticamente una base de datos limpia con arreglos vacíos (<code>{ productos: [], listas: [], productos_listas: [] }</code>), evitando caídas catastróficas o pantallas en blanco.
+      </p>
+    </div>
+
+    <div style="background: #ffffff; border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+      <h4 style="color: var(--dark); font-size: 0.95rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+        <span style="background: var(--primary-light); color: var(--primary); padding: 0.2rem 0.5rem; border-radius: 6px; font-size: 0.8rem; font-weight: 700;">P14</span>
+        ¿Cómo funciona la migración automática de datos existentes de inglés a español sin pérdida (RNF-03)?
+      </h4>
+      <p style="font-size: 0.9rem; color: #334155; line-height: 1.6;">
+        Al invocar <code>obtenerBaseDeDatos()</code>, el servicio verifica si existen claves heredadas en inglés (<code>products</code>, <code>lists</code>, <code>items</code>). Si las encuentra, mapea cada registro al esquema español (<code>productos</code>, <code>listas</code>, <code>productos_listas</code>), traduciendo atributos como <code>inCart</code> a <code>enCarrito</code> y guardando el nuevo formato de inmediato sin que el usuario note interrupción alguna.
+      </p>
+    </div>
+
+    <div style="background: #ffffff; border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+      <h4 style="color: var(--dark); font-size: 0.95rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+        <span style="background: var(--primary-light); color: var(--primary); padding: 0.2rem 0.5rem; border-radius: 6px; font-size: 0.8rem; font-weight: 700;">P15</span>
+        ¿Por qué prohibimos que los componentes de la interfaz accedan directamente a localStorage?
+      </h4>
+      <p style="font-size: 0.9rem; color: #334155; line-height: 1.6;">
+        El acceso directo desde componentes React acopla la vista al navegador e impide correr pruebas sin navegador. Además, duplicaría reglas como borrado en cascada o validaciones en múltiples archivos. Al centralizar todo en <code>SupermarketStorage</code>, la UI solo dibuja la pantalla y el servicio garantiza la integridad referencial. La Fase 4 de guardrails audita que ningún componente llame a <code>localStorage</code>.
+      </p>
+    </div>
+
+    <div style="background: #ffffff; border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+      <h4 style="color: var(--dark); font-size: 0.95rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+        <span style="background: var(--primary-light); color: var(--primary); padding: 0.2rem 0.5rem; border-radius: 6px; font-size: 0.8rem; font-weight: 700;">P16</span>
+        ¿Por qué usamos un selector con casillas de verificación (checkboxes) y carga en lote al armar una lista?
+      </h4>
+      <p style="font-size: 0.9rem; color: #334155; line-height: 1.6;">
+        Escribir productos manualmente cada semana produce errores tipográficos y es engorroso. Con casillas de verificación, el usuario ve su despensa completa, selecciona con un toque los productos requeridos y los agrega en lote con un solo clic. El motor acumula cantidades si ya existían, manteniendo una taxonomía limpia y ahorrando tiempo.
+      </p>
+    </div>
+
+    <div style="background: #ffffff; border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+      <h4 style="color: var(--dark); font-size: 0.95rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+        <span style="background: var(--primary-light); color: var(--primary); padding: 0.2rem 0.5rem; border-radius: 6px; font-size: 0.8rem; font-weight: 700;">P17</span>
+        ¿Por qué integramos el Centro de Auditoría (Guardrails, Arneses y Git) directamente dentro de la SPA?
+      </h4>
+      <p style="font-size: 0.9rem; color: #334155; line-height: 1.6;">
+        Para democratizar la visibilidad de la calidad del software. Dejar las validaciones solo en la consola limita su acceso al programador. Al integrarlo en <code>AuditoriaHub.jsx</code>, cualquier miembro del equipo, cliente o evaluador puede pulsar un botón, ver la corrida en vivo de los 44 guardrails, revisar los selectores DOM del arnés E2E y certificar el hash de commit de Git sin abrir una terminal.
+      </p>
+    </div>
+
+    <div style="background: #ffffff; border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+      <h4 style="color: var(--dark); font-size: 0.95rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+        <span style="background: var(--primary-light); color: var(--primary); padding: 0.2rem 0.5rem; border-radius: 6px; font-size: 0.8rem; font-weight: 700;">P18</span>
+        ¿Cómo se configuran los ganchos de Git mediante .githooks y core.hooksPath para trabajar en equipo?
+      </h4>
+      <p style="font-size: 0.9rem; color: #334155; line-height: 1.6;">
+        La carpeta <code>.git/hooks/</code> no se versiona en Git. Al crear la carpeta versionada <code>.githooks/</code> con el ejecutable <code>pre-commit</code> y ejecutar <code>git config core.hooksPath .githooks</code> (mediante <code>npm run setup:hooks</code>), el "Guardrail de Acero" se comparte con todo el equipo, forzando la evaluación de los 44 guardrails en cualquier máquina que clone el proyecto.
+      </p>
+    </div>
+
+    <div style="background: #ffffff; border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+      <h4 style="color: var(--dark); font-size: 0.95rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+        <span style="background: var(--primary-light); color: var(--primary); padding: 0.2rem 0.5rem; border-radius: 6px; font-size: 0.8rem; font-weight: 700;">P19</span>
+        ¿Cómo logra Vitest + JSDOM ejecutar las pruebas E2E en 1.8 segundos sin navegadores pesados?
+      </h4>
+      <p style="font-size: 0.9rem; color: #334155; line-height: 1.6;">
+        En lugar de levantar navegadores Chromium reales (como Cypress o Selenium) que tardan decenas de segundos, <strong>JSDOM</strong> emula toda la API del DOM puramente en memoria dentro de Node.js. Al combinarse con React Testing Library, simula eventos táctiles, clics y cambios de vista con fidelidad absoluta a la velocidad de la CPU en milisegundos.
+      </p>
+    </div>
+
+    <div style="background: #ffffff; border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+      <h4 style="color: var(--dark); font-size: 0.95rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+        <span style="background: var(--primary-light); color: var(--primary); padding: 0.2rem 0.5rem; border-radius: 6px; font-size: 0.8rem; font-weight: 700;">P20</span>
+        ¿Por qué organizamos la aplicación en un flujo cronológico de 3 momentos (En casa, En tienda, Laboratorio)?
+      </h4>
+      <p style="font-size: 0.9rem; color: #334155; line-height: 1.6;">
+        Porque el software debe alinearse con la psicología humana y no con la estructura de sus tablas relacionales. El usuario vive 3 momentos claros: 1. Planificar la compra en casa (Paso 1: Gestión), 2. Hacer las compras caminando en tienda (Paso 2: Modo Súper Táctil) y 3. Auditar la calidad del sistema (Paso 3: Laboratorio SDD). Esta arquitectura mental elimina fricción y maximiza la usabilidad.
       </p>
     </div>
 
