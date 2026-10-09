@@ -150,7 +150,7 @@ export default function HomeHub({
                 </h4>
               </div>
               <p className="text-xs text-slate-300 max-w-lg leading-relaxed">
-                Verifica la integridad de la especificación directamente en el navegador: ejecuta las 7 pruebas del arnés sensorial y la auditoría completa de los 37 Guardrails en tiempo real dentro de la misma aplicación.
+                Verifica la integridad de la especificación directamente en el navegador: ejecuta los 9 flujos del arnés sensorial y la auditoría completa de los 47 Guardrails en tiempo real dentro de la misma aplicación.
               </p>
             </div>
           </div>
@@ -175,7 +175,7 @@ export default function HomeHub({
       <div className="bg-slate-900/60 border border-slate-700/60 rounded-xl p-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400">
         <div className="flex items-center gap-2">
           <ShieldCheck className="w-5 h-5 text-emerald-400 flex-shrink-0" />
-          <span>Gobernanza SDD: <strong>29 Guardrails activos</strong> y contratos validados al 100%.</span>
+          <span>Gobernanza SDD: <strong>47 Guardrails activos</strong> y contratos validados al 100%.</span>
         </div>
         <div className="flex items-center gap-3">
           <span className="font-mono text-[11px] text-slate-500">npm run check:guardrails</span>

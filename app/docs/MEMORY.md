@@ -201,6 +201,18 @@
   6. Ampliar la suite sensorial E2E a 9 flujos de usuario completos (`tests/e2e.test.jsx`) y certificar 47/47 guardrails en verde.
 - **Motivo:** Dotar a SuperCarrito de resiliencia activa comprobada mediante principios de Chaos Engineering, garantizando que el sistema sea inmune a fallos en caliente y validando empíricamente la robustez de las compuertas de defensa arquitectónicas.
 
+### ADR-22: Armonización Ergonómica de Contraste y Tokens Adaptativos en Modos Claro y Oscuro (WCAG AAA)
+- **Fecha:** 2026-10-08
+- **Contexto:** Al alternar al Modo Claro, los usuarios reportaron deficiencias visuales y de contraste severas ("colores feos y poco idóneos"). La causa raíz se debió a: 1. Selectores destructivos globales (`html.light .text-white { color: #0f172a !important; }`) que oscurecían el texto sobre botones primarios y badges de fondos saturados; 2. Degradados inline oscuros de Tailwind v4 (`from-slate-800 to-emerald-950/20`) que no se neutralizaban en modo claro; 3. Textos y badges con colores pastel diseñados para fondo negro (`text-emerald-400`, `text-sky-300`, `text-purple-300`, `text-amber-300`) que sobre fondo blanco o gris claro tenían ratios de contraste inferiores a 2:1 (incumpliendo WCAG AA); 4. Falta de tratamiento de superficies intermedias (`bg-slate-700`).
+- **Decisión:**
+  1. Refactorizar completamente `app/src/index.css` estableciendo una arquitectura de diseño con tokens adaptativos de alto contraste para ambos modos.
+  2. En Modo Claro: forzar superficies limpias de fondo blanco puro (`#ffffff`) o slate-50 (`#f8fafc`) con bordes nítidos (`#e2e8f0` / `#cbd5e1`), y neutralizar TODOS los degradados oscuros de Tailwind (`from-slate-800`, `from-purple-950`, `from-sky-950`, `from-emerald-950`, `from-rose-950`) hacia tarjetas luminosas con tinte pastel suave (`#ffffff` a `#faf5ff`, `#f0f9ff`, `#f0fdf4`), resolviendo la ilegibilidad de los contenedores de encabezado en Paso 3 y del banner de Cuadro de Mando Ejecutivo (Power BI).
+  3. Mapear todos los textos de acento en modo claro a la escala 700/800 de Tailwind (`emerald-700`, `sky-700`, `purple-700`, `amber-700`, `rose-700`, `indigo-700`) garantizando ratios de luminancia superiores a 7:1 (cumplimiento estricto WCAG AAA).
+  4. Proteger de forma categórica todos los botones de acción con fondos coloreados (`bg-indigo-600`, `bg-purple-600`, `bg-rose-600`, `bg-emerald-600`, `bg-sky-600`) para que preserven su texto en blanco inmaculado (`#ffffff`).
+  5. Mantener las consolas de telemetría y terminales Git con estética obsidian developer (`#0b0f19`) en ambos temas, preservando la autenticidad y contraste de los logs de ingeniería.
+  6. En Modo Oscuro: profundizar el fondo midnight slate (`#090d16`) y superficies slate-900 (`#131b2e`) con bordes de acero (`#1e293b`).
+- **Motivo:** Garantizar ergonomía visual, belleza estética y accesibilidad universal certificada tanto en la luz del día como en entornos oscuros.
+
 ---
 
 ## 💡 3. Lecciones Aprendidas (Knowledge Base)
@@ -228,6 +240,7 @@
 18. **Especialización Multi-Agente sin Polución de Contexto:** Un solo agente orquestador intentando auditar código, memoria, contratos y DOM al mismo tiempo sufre de saturación cognitiva y alucinaciones; segmentar misiones críticas en subagentes especialistas acotados (Centinela de Especificación, Analista de ADRs, Probador Sensorial) permite una orquestación paralela, escalable y con veredictos 100% deterministas.
 19. **Paneles Ejecutivos 360° con Drill-Down Reducen la Fatiga Analítica:** Agrupar múltiples fuentes de telemetría especializada (contratos, arneses sensoriales, barandillas de Git y orquestación multi-agente) en un cuadro de mando ejecutivo estilo Power BI otorga a directores y desarrolladores un veredicto instantáneo de salud sistémica, habilitando a la vez navegación por profundidad (drill-down) hacia la evidencia técnica granular con un solo clic.
 20. **El Aislamiento Estricto de Persistencia también Aplica a la Inyección de Fallos:** Ni siquiera los arneses de caos o laboratorios de estrés deben manipular `localStorage` directamente desde los componentes React de UI. Encapsular la inyección de fallos controlados en métodos dedicados del servicio de dominio (`storageService.inyectarCorrupcionJson()`) mantiene las reglas de arquitectura y la frontera de capas 100% inviolables ante el linter estático.
+21. **La Trampa de los Selectores de Inversión Global en CSS:** Aplicar reglas globales como `html.light .text-white { color: #0f172a !important; }` es una trampa mortal en sistemas de diseño con botones primarios oscuros o coloreados, porque vuelve invisibles los textos de los botones sobre fondos esmeralda, índigo o púrpura. El diseño adaptativo debe usar tokens semánticos o reglas de excepción explícitas para botones y badges de alto contraste (WCAG AAA).
 
 ---
 
@@ -267,5 +280,7 @@
 - [x] **Paso 29:** Implementar el Módulo de Inspección de Agentes y Subagentes Autónomos (RF-5.8) en el Centro de Auditoría ([`AuditoriaHub.jsx`](../src/components/AuditoriaHub.jsx)), con catálogo de 3 subagentes especialistas, orquestador Antigravity, consola de telemetría reactiva, suite E2E 7/7 en verde 🟢 y elevación a 45 Guardrails Maestros (v2.13.0).
 - [x] **Paso 30:** Implementar el Panel Ejecutivo 360° Estilo Power BI en el Centro de Auditoría ([`AuditoriaHub.jsx`](../src/components/AuditoriaHub.jsx) - RF-5.9), con 4 KPIs estratégicas, 4 widgets gráficos interactivos con navegación drill-down, suite sensorial E2E ampliada a 8/8 flujos en verde 🟢 y elevación a 46 Guardrails Maestros certificados (v2.14.0).
 - [x] **Paso 31:** Implementar el Arnés de Caos e Inyección de Mutaciones SDD (RF-5.10) en el Centro de Auditoría ([`AuditoriaHub.jsx`](../src/components/AuditoriaHub.jsx)), con 4 vectores de estrés (RNF-02, huérfanos relacionales, violación de contrato RF-1.1 y commit corrupto), consola de telemetría de resiliencia con métricas de auto-recuperación, suite sensorial E2E ampliada a 9/9 flujos en verde 🟢 y elevación a 47 Guardrails Maestros certificados (v2.15.0).
+- [x] **Paso 32:** Refactorización integral del Sistema de Contrastes y Armonización Visual Adaptativa en Modos Claro y Oscuro (WCAG AAA - v2.16.0), neutralizando degradados oscuros en modo claro, adaptando acentos de color con ratios > 7:1, protegiendo botones primarios saturados y certificando 47/47 guardrails y 9/9 flujos E2E en verde 🟢.
+
 
 

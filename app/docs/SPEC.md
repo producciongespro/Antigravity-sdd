@@ -1,7 +1,7 @@
 # SPEC.md - Especificación Principal del Sistema: SuperCarrito (SDD)
 
 > **Documento:** `docs/SPEC.md`  
-> **Versión:** 2.15.0  
+> **Versión:** 2.16.0  
 > **Fecha de Actualización:** 2026-10-08  
 > **Estado:** Aprobado / Fuente Única de Verdad (SSOT)  
 > **Stack Técnico:** React 18+ | JavaScript (ESModules) | Vite 6+ | Tailwind CSS v4 | LocalStorage | Vitest & Testing Library
@@ -30,6 +30,7 @@
 | **v2.13.0** | 2026-10-08 | Christian Vargas A. | **Módulo de Inspección de Agentes y Subagentes Autónomos (RF-5.8):** Incorporación de la 5ª opción en el panel lateral AdminLTE del Centro de Auditoría (Paso 3) para visualizar, auditar y desplegar la orquestación en tiempo real de 3 subagentes especialistas (Centinela de Especificación, Analista de Memoria/ADRs y Probador Sensorial DOM). |
 | **v2.14.0** | 2026-10-08 | Christian Vargas A. | **Panel Ejecutivo 360° Estilo Power BI en Auditoría (RF-5.9):** Incorporación de la vista inicial unificada de mando ejecutivo (Posición 0 en Sidebar AdminLTE) con 4 tarjetas KPI estratégicas, 4 widgets gráficos de telemetría (desglose de fases, enjambre de agentes, pipeline funnel y gobernanza viva) y navegación interactiva con drill-down a cada módulo técnico. |
 | **v2.15.0** | 2026-10-08 | Christian Vargas A. | **Arnés de Caos e Inyección de Mutaciones SDD (RF-5.10):** Incorporación del Laboratorio de Caos en el Centro de Auditoría (Opción 6 en Sidebar AdminLTE) con 4 vectores de mutación hostil en caliente (corrupción de JSON, huérfanos relacionales, ataques de contrato y commit corrupto), verificación empírica de auto-recuperación sin caídas y telemetría de resiliencia en vivo. |
+| **v2.16.0** | 2026-10-08 | Christian Vargas A. | **Sistema de Contrastes y Armonización Visual Adaptativa (WCAG AAA):** Refactorización integral de tokens de color, neutralización de degradados oscuros en modo claro, adaptación de acentos esmeralda/cielo/púrpura/ámbar/rosa a ratios de contraste superiores a 7:1 en fondos claros, preservación de texto blanco en botones de acción saturados y aislamiento de terminales en modo obsidian developer. |
 
 ---
 
@@ -131,6 +132,11 @@ interface ProductoLista {
     1. Botón de alternancia de **Tema Claro / Oscuro**.
     2. A la derecha del tema: Botón compacto con **ícono de Home / Inicio** para `Volver al Inicio` a la ventana principal.
   - **Regla de Aislamiento de Header:** La barra superior no debe contener textos extensos, métricas ni títulos de navegación redundantes; cualquier dato adicional (como progreso de compra, filtros o subtítulos de sección) reside exclusivamente en el cuerpo interno de la ventana correspondiente.
+  - **Sistema de Contrastes y Ergonomía Visual Adaptativa (WCAG AAA):**
+    1. **Modo Claro:** Tarjetas y contenedores con fondo blanco puro (`#ffffff`) o gris suave (`#f8fafc`), bordes nítidos (`#e2e8f0` / `#cbd5e1`), anulación completa de degradados oscuros de Tailwind v4 (`from-slate-800`, `from-purple-950`, `from-sky-950`, `from-emerald-950`, `from-rose-950`), convirtiendo los encabezados y banners ejecutivos (como el Paso 3 y el Cuadro de Mando Power BI) en superficies luminosas con tinte pastel suave (`#ffffff` $\rightarrow$ `#faf5ff`) y bordes nítidos (`#e9d5ff`), y mapeo de textos y badges a escalas saturadas de alto contraste (`emerald-700`, `sky-700`, `purple-700`, `amber-700`, `rose-700`) con ratios de luminancia superiores a 7:1 (WCAG AAA).
+    2. **Protección de Botones Primarios:** Los elementos interactivos con fondos saturados oscuros (`bg-indigo-600`, `bg-purple-600`, `bg-rose-600`, `bg-emerald-600`, `bg-sky-600`) preservan estrictamente su tipografía en blanco puro (`#ffffff`), previniendo la inversión involuntaria a texto oscuro.
+    3. **Modo Oscuro Profundo (Dark Luxury):** Fondos midnight slate (`#090d16`), tarjetas slate-900 con bordes de acero sutiles (`#1e293b`), y acentos luminosos vibrantes.
+    4. **Consolas y Terminales Developer:** Tanto en modo claro como oscuro, las consolas de telemetría de resiliencia y terminales Git preservan su identidad obsidian developer (`#0b0f19`) garantizando contraste inmaculado para la sintaxis de logs coloreados.
 - **RF-5.3 (Centro Integrado de Auditoría, Guardrails y Arneses en la SPA):**
   - La plataforma integra el Paso 3 directamente dentro de la aplicación (`activeTab === 'auditoria'`), compartiendo el Header institucional de SuperCarrito, el alternador de tema Claro / Oscuro y el botón con icono de Home para volver al inicio con un solo clic.
   - Dentro de esta vista (`AuditoriaHub.jsx`) se presentan tres opciones operativas:

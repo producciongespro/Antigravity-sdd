@@ -168,7 +168,7 @@ const E2E_FLOWS = [
     num: 6,
     titulo: 'Centro de Auditoría: Explora Guardrails, Arnés y Guardrail de Acero (Git)',
     duracion: '454ms',
-    descripcion: 'Navega por las opciones del Sidebar estilo AdminLTE del Centro de Auditoría, ejecutando y validando los 44 guardrails maestros, las 7 pruebas unitarias y la consola interactiva de Git.',
+    descripcion: 'Navega por las opciones del Sidebar estilo AdminLTE del Centro de Auditoría, ejecutando y validando los 47 guardrails maestros, las 7 aserciones dinámicas y la consola interactiva de Git.',
     selectores: ["getByRole('button', { name: /Ver Arnés Sensorial/i })", "getByRole('button', { name: /Guardrail de Acero \\(Git\\)/i })", "getByText(/FASE 1/i)"],
     status: 'passed'
   },
@@ -1143,7 +1143,7 @@ export default function AuditoriaHub() {
                           Desglose de Cobertura por Fase
                         </h4>
                         <p className="text-[11px] text-slate-400">
-                          Distribución de las 45 aserciones de Guardrails Maestros
+                          Distribución de las {totalChecks} aserciones de Guardrails Maestros
                         </p>
                       </div>
                     </div>
