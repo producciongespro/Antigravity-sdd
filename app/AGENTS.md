@@ -1,5 +1,8 @@
 # AGENTS.md - Reglamento Operativo y Puntero Maestro para Agentes de IA
 
+> **Laboratorio SDD:** SuperCarrito  
+> **Sponsor y Desarrollador Líder:** Christian Vargas A.  
+> **Copiloto AI:** Antigravity (Google DeepMind)  
 > **Propósito:** Constitución operativa, directivas de ingeniería y puntero maestro de documentación para cualquier Agente de IA o asistente que opere en este repositorio.
 
 ---
@@ -10,10 +13,16 @@ Para mantener la raíz del proyecto limpia y libre de saturación, toda la base 
 
 | Orden | Artefacto Maestro | Ubicación | Rol y Propósito |
 | :---: | :--- | :--- | :--- |
-| **1º** | **Especificación Principal (SSOT)** | [`docs/SPEC.md`](docs/SPEC.md) | **Única Fuente de Verdad** funcional, técnica y de negocio del proyecto. |
+| **1º** | **Especificación Principal (SSOT)** | [`docs/SPEC.md`](docs/SPEC.md) | **Única Fuente de Verdad** funcional, técnica y de negocio del proyecto (v2.16.0). |
 | **2º** | **Arquitectura del Sistema** | [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) | Diseño de componentes, modelo relacional C4 y flujo de datos. |
 | **3º** | **Estándares y Reglas de Calidad** | [`docs/RULES.md`](docs/RULES.md) | Reglas de codificación, stack y Criterios de Aceptación (*Definition of Done*). |
 | **4º** | **Bitácora de Memoria y Decisiones** | [`docs/MEMORY.md`](docs/MEMORY.md) | Registro de ADRs (Architectural Decision Records), lecciones y roadmap activo. |
+
+### ⚡ Comandos Rápidos de Verificación
+Desde el directorio de la aplicación (`app/`):
+- **Guardrails Maestros:** `npm run check:guardrails` (47/47 verificaciones en verde).
+- **Arnés Sensorial E2E:** `npm run test:e2e` (9/9 flujos de usuario completos).
+- **Arnés Visual en Navegador:** `http://localhost:3000/tests/harness.html`.
 
 ---
 
@@ -35,7 +44,7 @@ Para mantener la raíz del proyecto limpia y libre de saturación, toda la base 
    El banco de pruebas automatizado se encuentra en:
    👉 [`tests/harness.html`](tests/harness.html) (ejecutable en `http://localhost:3000/tests/harness.html`).
 2. **Arnés Sensorial E2E (Vitest + JSDOM):**  
-   Suite sensorial de 7 flujos de usuario completos:
+   Suite sensorial de 9 flujos de usuario completos:
    👉 [`tests/e2e.test.jsx`](tests/e2e.test.jsx) (ejecutable con `npm run test:e2e`).
 3. **Criterio de Entrega (Definition of Done):**  
    Ninguna tarea se considera finalizada si el arnés o los guardrails reportan pruebas en rojo 🔴.

@@ -3,7 +3,7 @@
 > **Autor / Estudiante:** Christian Vargas A.  
 > **Copiloto de IA:** Antigravity (Google DeepMind)  
 > **Proyecto de Referencia:** SuperCarrito SDD  
-> **Versión:** 3.5 Definitiva, Ilustrada con Diagramas y Banco Extendido de 20 Preguntas & Respuestas | Octubre 2026  
+> **Versión:** 4.0 Consolidada, Catálogo Maestro de Artefactos Markdown y Banco Extendido de 21 Consultas Clave | Octubre 2026  
 > **Ubicación:** `info-docs/GUIA_MAESTRA_SDD_AGENTES_ARNESES.md`
 
 ---
@@ -20,7 +20,8 @@
 8. [Matriz Comparativa y Diccionario Conceptual Rápido](#8-matriz-comparativa-y-diccionario-conceptual-rápido)
 9. [Caso de Estudio Real: SuperCarrito SDD (Arquitectura Módulo a Módulo y Diagramas C4)](#9-caso-de-estudio-real-supercarrito-sdd-arquitectura-módulo-a-módulo-y-diagramas-c4)
 10. [Checklist Profesional y Protocolo de Trabajo Definitivo](#10-checklist-profesional-y-protocolo-de-trabajo-definitivo)
-11. [Preguntas y Respuestas Frecuentes (Banco Extendido de Repaso - 20 Consultas Clave)](#11-preguntas-y-respuestas-frecuentes-banco-extendido-de-repaso---20-consultas-clave)
+11. [Catálogo Maestro de Archivos Markdown (*.md) del Proyecto: Ubicación, Descripción y Función](#11-catálogo-maestro-de-archivos-markdown-md-del-proyecto-ubicación-descripción-y-función)
+12. [Preguntas y Respuestas Frecuentes (Banco Extendido de Repaso - 21 Consultas Clave)](#12-preguntas-y-respuestas-frecuentes-banco-extendido-de-repaso---21-consultas-clave)
 
 ---
 
@@ -83,7 +84,7 @@ El **Arnés de Pruebas** es un banco de evaluación automatizado donde se coloca
 flowchart TD
     FASE_ROJA["🔴 FASE ROJA (FAIL)\nDiseñar la prueba antes del código.\nVerificar que falle de forma científica."] --> FASE_VERDE["🟢 FASE VERDE (PASS)\nProgramar código mínimo en src/.\nVerificar que la prueba pase a verde."]
     FASE_VERDE --> FASE_REFACTOR["🔵 REFACTOR (CLEAN)\nMejorar legibilidad y desacoplamiento.\nEl arnés garantiza que nada se rompió."]
-    FASE_REFACTOR --> GUARDRAILS["🛡️ GUARDRAILS & GIT HOOK\n44 verificaciones automáticas.\nCommit autorizado."]
+    FASE_REFACTOR --> GUARDRAILS["🛡️ GUARDRAILS & GIT HOOK\n47 verificaciones automáticas.\nCommit autorizado."]
     GUARDRAILS -.->|Nuevo Requerimiento| FASE_ROJA
 ```
 
@@ -209,17 +210,20 @@ Son atajos rápidos que el usuario escribe en la caja de texto (como `/plan`, `/
 
 | Concepto | Analogía de la Vida Real | Función en el Proyecto SuperCarrito |
 | :--- | :--- | :--- |
-| **Spec-Driven Development (SDD)** | El plano del arquitecto antes de colocar ladrillos. | [`app/docs/SPEC.md`](file:///c:/xampp/htdocs/Antigravity-sdd/app/docs/SPEC.md) como Única Fuente de Verdad. |
-| **Arnés de Pruebas (Harness)** | El banco de pruebas del laboratorio o el catador de cocina. | [`app/tests/harness.html`](file:///c:/xampp/htdocs/Antigravity-sdd/app/tests/harness.html) para validación sensorial objetiva (7/7 verde). |
-| **Guardrails Duales (CLI + Web)** | La barandilla de la autopista y el tablero de control de mando. | [`app/scripts/guardrails.js`](file:///c:/xampp/htdocs/Antigravity-sdd/app/scripts/guardrails.js) en terminal y [`app/tests/guardrails.html`](file:///c:/xampp/htdocs/Antigravity-sdd/app/tests/guardrails.html) en navegador. |
-| **Guardrail de Acero (Git)** | La barrera física de un peaje que no abre sin ticket. | `.githooks/pre-commit` impidiendo físicamente commits con guardrails rotos. |
-| **Arnés Sensorial E2E** | El dedo del usuario tocando la pantalla real. | `tests/e2e.test.jsx` con Vitest y JSDOM simulando interacción física con el DOM. |
-| **Patrón del Puntero Maestro** | El índice maestro de una biblioteca clasificada. | `AGENTS.md` en raíz guiando a agentes hacia la documentación en `docs/`. |
-| **Skills** | La carpeta de recetas secretas del chef pastelero. | Conjuntos de instrucciones especializadas para capacitar a la IA en un tema. |
-| **MCP** | El conector universal USB-C. | Protocolo estándar para conectar la IA a herramientas, APIs y bases de datos. |
-| **Agente Orquestador** | El maestro de obras. | Antigravity conversando y guiando el proceso general del proyecto. |
-| **Subagentes** | Los especialistas (el electricista, el fontanero). | Procesos paralelos delegados para tareas específicas de análisis o pruebas. |
-| **ADR (Architecture Decision Record)** | El libro de actas de una junta directiva. | Registros numerados en [`docs/MEMORY.md`](file:///c:/xampp/htdocs/Antigravity-sdd/app/docs/MEMORY.md) (ADR-01 a ADR-17). |
+| **Spec-Driven Development (SDD)** | El plano del arquitecto antes de colocar ladrillos. | [`app/docs/SPEC.md`](file:///c:/xampp/htdocs/Antigravity-sdd/app/docs/SPEC.md) como Única Fuente de Verdad (`v2.16.0`). |
+| **Arnés de Pruebas (Harness)** | El banco de pruebas del laboratorio o el catador de cocina. | [`app/tests/harness.html`](file:///c:/xampp/htdocs/Antigravity-sdd/app/tests/harness.html) para validación sensorial objetiva (7/7 verde en memoria). |
+| **Guardrails Duales (CLI + Web)** | La barandilla de la autopista y el tablero de control de mando. | [`app/scripts/guardrails.js`](file:///c:/xampp/htdocs/Antigravity-sdd/app/scripts/guardrails.js) en terminal y [`app/tests/guardrails.html`](file:///c:/xampp/htdocs/Antigravity-sdd/app/tests/guardrails.html) en navegador (47/47 verificaciones en 5 fases). |
+| **Guardrail de Acero (Git)** | La barrera física de un peaje que no abre sin ticket. | `.githooks/pre-commit` impidiendo físicamente commits si un solo guardrail falla (commit certificado `4638a0a`). |
+| **Arnés Sensorial E2E** | El dedo del usuario tocando la pantalla real. | `tests/e2e.test.jsx` con Vitest y JSDOM simulando interacción física con el DOM (9 flujos completos de usuario). |
+| **Patrón del Puntero Maestro** | El índice maestro de una biblioteca clasificada. | [`app/AGENTS.md`](file:///c:/xampp/htdocs/Antigravity-sdd/app/AGENTS.md) guiando a agentes hacia la documentación en `docs/` en orden estricto (SPEC $\rightarrow$ ARCH $\rightarrow$ RULES $\rightarrow$ MEMORY). |
+| **Skills** | La carpeta de recetas secretas del chef pastelero. | Conjuntos de instrucciones especializadas para capacitar a la IA en un tema (`generative_ui`, `automation`, `plugin`). |
+| **MCP** | El conector universal USB-C. | Protocolo estándar para conectar la IA a herramientas, APIs y bases de datos sin conectores propietarios. |
+| **Agente Orquestador** | El maestro de obras. | Antigravity conversando, coordinando fases de trabajo y supervisando la adherencia al contrato SDD. |
+| **Subagentes / Enjambre** | Los especialistas (el electricista, el fontanero). | Procesos paralelos especializados (`sub-spec`, `sub-memory`, `sub-sensorial`) supervisados desde `AuditoriaHub.jsx` (`RF-5.8`). |
+| **Cuadro de Mando Ejecutivo (360° SDD)** | El tablero de instrumentos de un avión de combate. | Panel visual estilo Power BI con 4 KPIs dinámicos, embudo de 5 compuertas y navegación drill-down (`RF-5.9`). |
+| **Laboratorio de Caos e Inmunidad** | El simulacro de terremotos o prueba de choque automotriz. | Inyección de mutaciones en caliente que certifica la auto-recuperación de `storage.js` ante JSON corrupto (`RF-5.10` / `RNF-02`). |
+| **Contrastes Adaptativos (WCAG AAA)** | Lentes polarizados de alto contraste para día y noche. | Normalización de gradientes y tokens adaptativos en `src/index.css` con ratios > 7:1 en modo claro y oscuro (`RF-5.2` / `ADR-22`). |
+| **ADR (Architecture Decision Record)** | El libro de actas de una junta directiva. | Registros numerados en [`docs/MEMORY.md`](file:///c:/xampp/htdocs/Antigravity-sdd/app/docs/MEMORY.md) (22 ADRs formales y 32 pasos de Roadmap). |
 
 ---
 
@@ -237,7 +241,7 @@ flowchart TD
         GESTION["GestionHub.jsx (Módulo 2: AdminLTE - Catálogo y Listas con Checkboxes)"]
         SHOPPING["ActiveShopping.jsx (Módulo 3: Modo Súper Táctil)"]
         MODAL["ConfirmModal.jsx (Guardrail UX Anti-dedazos)"]
-        AUDITORIA["AuditoriaHub.jsx (Módulo 4: Panel AdminLTE de Calidad y Git)"]
+        AUDITORIA["AuditoriaHub.jsx (Módulo 4: Dashboard 360° Power BI, 47 Guardrails, Arnés E2E, Enjambre y Chaos Lab)"]
     end
 
     subgraph SERVICE ["Capa de Dominio y Servicio"]
@@ -370,25 +374,37 @@ flowchart TD
 
 ---
 
-### Módulo 4: Centro Integrado de Auditoría SPA ([`AuditoriaHub.jsx`](file:///c:/xampp/htdocs/Antigravity-sdd/app/src/components/AuditoriaHub.jsx) - RF-5.3 / RF-5.6)
-- Panel lateral AdminLTE de 4 opciones:
-  1. **Auditar el Sistema:** Ejecución en vivo de los 44 Guardrails Maestros con barras de progreso y tarjetas por fase.
-  2. **Ver Arnés Sensorial:** Banco de pruebas interactivo con los 7 contratos de dominio y tiempos de respuesta.
-  3. **Guardrail de Acero (Git):** Tarjeta del último commit certificado, visor de código del hook pre-commit y consola interactiva con simulador de intercepciones y rechazos.
-  4. **Arnés Sensorial E2E (Vitest):** Suite sensorial automatizada sobre el DOM, consola interactiva estilo terminal Vitest y desglose de los selectores DOM de los 6 flujos de usuario.
+### Módulo 4: Centro Integrado de Auditoría SPA ([`AuditoriaHub.jsx`](file:///c:/xampp/htdocs/Antigravity-sdd/app/src/components/AuditoriaHub.jsx) - RF-5.3 a RF-5.10)
+- Panel lateral AdminLTE con 7 opciones operativas de misión crítica:
+  1. **Cuadro de Mando Ejecutivo (360° SDD) (RF-5.9):** Tablero visual estilo Power BI con 4 KPIs en tiempo real (Salud Global SDD, Guardrails Maestros, Arnés Sensorial E2E, Enjambre Multi-Agente), gráfica de distribución por fase, embudo de seguridad de 5 compuertas y navegación drill-down con un solo clic.
+  2. **Auditar el Sistema (RF-5.3):** Ejecución en memoria de los 47 Guardrails Maestros en 5 fases, con barras de progreso y tarjetas detalladas de diagnóstico.
+  3. **Ver Arnés Sensorial:** Banco de pruebas interactivo con los 7 contratos fundamentales de lógica pura (`storage.js`).
+  4. **Guardrail de Acero (Git):** Tarjeta del último commit certificado (`4638a0a`), visor de código del hook pre-commit y consola interactiva con simulador de intercepciones y rechazos.
+  5. **Arnés Sensorial E2E (Vitest + JSDOM) (RF-5.6):** Suite sensorial automatizada sobre el DOM virtual con 9 flujos de usuario completos y telemetría en milisegundos.
+  6. **Enjambre Multi-Agente Autónomo (RF-5.8):** Consola de supervisión del orquestador principal y 3 subagentes autónomos especializados (`sub-spec`, `sub-memory`, `sub-sensorial`).
+  7. **Laboratorio de Caos e Inyección de Mutaciones (RF-5.10):** Simulador de fallos en caliente (JSON corrupto, tipos nulos, sobreescritura de claves) que valida en tiempo real la auto-recuperación del servicio (RNF-02).
 
 ```mermaid
 flowchart TD
     GIT_COMMIT["💻 Desarrollador / IA ejecuta git commit"] --> HOOK[".githooks/pre-commit (Intercepta la acción)"]
-    HOOK --> RUN_GUARDRAILS["node scripts/guardrails.js (44 Verificaciones)"]
-    RUN_GUARDRAILS --> EVAL{¿Pasan las 44 verificaciones al 100%?}
+    HOOK --> RUN_GUARDRAILS["node scripts/guardrails.js (47 Verificaciones)"]
+    RUN_GUARDRAILS --> EVAL{¿Pasan las 47 verificaciones al 100%?}
     EVAL -- SÍ 🟢 --> ALLOW["✅ Commit AUTORIZADO\n(Código certificado entra al historial)"]
     EVAL -- NO 🔴 --> ABORT["❌ Git ABORTA la operación\n(Imposible subir código roto o fuera de spec)"]
 ```
 
 ---
 
-### Módulo 5: Patrón del Puntero Maestro y Consolidación de Documentación ([`AGENTS.md`](file:///c:/xampp/htdocs/Antigravity-sdd/app/AGENTS.md) - RF-5.7)
+### Módulo 5: Sistema de Contrastes Adaptativos y Tokens Ergonómicos WCAG AAA ([`src/index.css`](file:///c:/xampp/htdocs/Antigravity-sdd/app/src/index.css) - RF-5.2 / ADR-22)
+- Reingeniería completa de diseño y color para garantizar contraste absoluto y belleza visual en ambos modos (Claro y Oscuro):
+  - **Normalización de Contenedores y Encabezados:** Los degradados oscuros de Tailwind v4 (`from-purple-950`, `from-sky-950`, `from-emerald-950`, `from-rose-950`, `from-slate-800`) se transforman automáticamente en Modo Claro en lienzos luminosos con tinte pastel sutil (`#ffffff` a `#faf5ff`, `#f0f9ff`, `#f0fdf4`) y bordes nítidos (`#e9d5ff`, `#bae6fd`, `#a7f3d0`), resolviendo la falta de legibilidad en los encabezados de Paso 3 y el banner del Cuadro de Mando Ejecutivo.
+  - **Ratios WCAG AAA:** Textos principales (`#0f172a`), secundarios (`#334155`) y badges saturados alcanzan ratios de contraste entre 7.2:1 y 16.5:1.
+  - **Protección de Botones Primarios:** Los elementos interactivos con fondos saturados (`bg-indigo-600`, `bg-purple-600`, etc.) preservan estrictamente su texto en blanco puro (`#ffffff !important`).
+  - **Consolas Obsidian Developer:** Tanto en modo claro como oscuro, las consolas de telemetría y terminales Git preservan su identidad obsidian developer (`#0b0f19`) para una lectura nítida de logs.
+
+---
+
+### Módulo 6: Patrón del Puntero Maestro y Consolidación de Documentación ([`AGENTS.md`](file:///c:/xampp/htdocs/Antigravity-sdd/app/AGENTS.md) - RF-5.7)
 
 ```mermaid
 flowchart TD
@@ -423,14 +439,144 @@ Cada vez que vayas a construir una nueva función en cualquier proyecto futuro:
 [ ] 3. Escribir la prueba unitaria en tests/harness.html o tests/e2e.test.jsx con ID formal (RF-* / RNF-*).
 [ ] 4. Ejecutar el arnés y verificar el FALLO CIENTÍFICO EN ROJO 🔴 (Fase Roja).
 [ ] 5. Implementar el código mínimo en src/ hasta lograr ÉXITO EN VERDE 🟢 (Fase Verde).
-[ ] 6. Ejecutar los guardrails automáticos en terminal (npm run check:guardrails) o panel web (AuditoriaHub).
+[ ] 6. Ejecutar los guardrails automáticos en terminal (npm run check:guardrails - 47/47 en verde) y la suite sensorial E2E (npm run test:e2e - 9/9 flujos).
 [ ] 7. Registrar la decisión y lecciones aprendidas en docs/MEMORY.md (ADR).
 [ ] 8. Ejecutar commit atómico en Git validado por el Pre-commit Hook siguiendo Conventional Commits.
 ```
 
 ---
 
-## 11. Preguntas y Respuestas Frecuentes (Banco Extendido de Repaso - 21 Consultas Clave)
+## 11. Catálogo Maestro de Archivos Markdown (*.md) del Proyecto: Ubicación, Descripción y Función
+
+En una arquitectura gobernada por **Spec-Driven Development (SDD)**, los archivos Markdown (`*.md`) no son simples notas informativas o documentación pasiva que se redacta al final del proyecto. Son **artefactos ejecutables de gobernanza, contratos de verdad y compuertas de seguridad** que dictan el comportamiento estricto tanto del equipo humano como de los agentes de Inteligencia Artificial.
+
+El proyecto **SuperCarrito SDD** organiza sus archivos Markdown bajo el **Patrón del Puntero Maestro (`Master Pointer Pattern`)**: la raíz del proyecto permanece limpia y libre de saturación, mientras que la base de conocimiento técnico se clasifica jerárquicamente por responsabilidades y niveles de criticidad.
+
+---
+
+### 🗺️ Tabla Sinóptica de Artefactos Markdown del Repositorio
+
+A continuación se presenta el catálogo consolidado de los **7 archivos Markdown** presentes en el proyecto, ordenados por su jerarquía de consulta operativa:
+
+| Orden | Archivo | Ubicación en el Repositorio | Rol Arquitectónico | Audiencia Principal | Criticidad |
+| :---: | :--- | :--- | :--- | :--- | :---: |
+| **0º** | [`app/AGENTS.md`](file:///c:/xampp/htdocs/Antigravity-sdd/app/AGENTS.md) | `app/AGENTS.md` | Constitución Operativa y Puntero Maestro | Agentes de IA | 🔴 Innegociable |
+| **1º** | [`app/docs/SPEC.md`](file:///c:/xampp/htdocs/Antigravity-sdd/app/docs/SPEC.md) | `app/docs/SPEC.md` | **Única Fuente de Verdad (SSOT)** | Sponsor, IA y QA | 🔴 Suprema |
+| **2º** | [`app/docs/ARCHITECTURE.md`](file:///c:/xampp/htdocs/Antigravity-sdd/app/docs/ARCHITECTURE.md) | `app/docs/ARCHITECTURE.md` | Arquitectura de Software y Diagramas C4 | Arquitectos, IA e Ingenieros | 🟠 Alta |
+| **3º** | [`app/docs/RULES.md`](file:///c:/xampp/htdocs/Antigravity-sdd/app/docs/RULES.md) | `app/docs/RULES.md` | Estándares de Código y Definition of Done | Desarrolladores e IA | 🔴 Innegociable |
+| **4º** | [`app/docs/MEMORY.md`](file:///c:/xampp/htdocs/Antigravity-sdd/app/docs/MEMORY.md) | `app/docs/MEMORY.md` | Bitácora de Memoria, ADRs y Roadmap | IA Orquestador y Equipo | 🟠 Alta |
+| **Infra** | [`app/README.md`](file:///c:/xampp/htdocs/Antigravity-sdd/app/README.md) | `app/README.md` | Portada Técnica y Guía de Despliegue | Nuevos Desarrolladores y Evaluadores | 🟡 Media |
+| **Docs** | [`info-docs/GUIA_MAESTRA_SDD_AGENTES_ARNESES.md`](file:///c:/xampp/htdocs/Antigravity-sdd/info-docs/GUIA_MAESTRA_SDD_AGENTES_ARNESES.md) | `info-docs/GUIA_MAESTRA_SDD_AGENTES_ARNESES.md` | Guía Maestra Pedagógica y Conceptual | Estudiantes, Líderes y Sponsors | 🟢 Formativa |
+
+---
+
+### 🧬 Diagrama de Flujo y Jerarquía Documental
+
+```mermaid
+flowchart TD
+    subgraph APP_LEVEL ["Nivel 0: Entrada y Constitución de la App (app/)"]
+        APP_AGENTS["0º app/AGENTS.md\nConstitución Operativa y Puntero Maestro"]
+        APP_README["app/README.md\nFicha Técnica y Guía de Comandos"]
+    end
+
+    subgraph SSOT_LEVEL ["Nivel 1: Base de Conocimiento Centralizada (app/docs/)"]
+        SPEC["1º SPEC.md (SSOT)\nRequerimientos RF/RNF y Contratos"]
+        ARCH["2º ARCHITECTURE.md\nDiagramas C4 y Flujos"]
+        RULES["3º RULES.md\nEstándares y DoD"]
+        MEM["4º MEMORY.md\nADRs 01-22 y Roadmap Activo"]
+    end
+
+    subgraph PEDAGOGICAL_LEVEL ["Nivel 2: Formación y Pedagogía (info-docs/)"]
+        GUIA["GUIA_MAESTRA_SDD_AGENTES_ARNESES.md\nManual de Estudio y Banco de Preguntas"]
+    end
+
+    APP_AGENTS -->|Mapea orden de lectura obligatorio| SSOT_LEVEL
+    APP_AGENTS -->|Obliga lectura previa de| SPEC
+    SPEC -->|Estructura documentada en| ARCH
+    SPEC -->|Calidad regulada por| RULES
+    SPEC -->|Decisiones asentadas en| MEM
+    SSOT_LEVEL -.->|Sintetizado pedagógicamente en| GUIA
+```
+
+---
+
+### 📋 Desglose Exhaustivo Archivo por Archivo
+
+#### 1. [`app/AGENTS.md`](file:///c:/xampp/htdocs/Antigravity-sdd/app/AGENTS.md) (Constitución Operativa y Puntero Maestro)
+- **Ubicación:** `c:\xampp\htdocs\Antigravity-sdd\app\AGENTS.md`
+- **Descripción:** Constitución Operativa, Puntero Maestro de Enrutamiento y Reglamento Técnico para Agentes de Inteligencia Artificial.
+- **Función en el proyecto:**
+  - Es el artefacto de **orden 0º**. Cuando cualquier asistente de IA (como Antigravity) inicia sesión o abre el workspace, este archivo intercepta su foco atencional de forma inmediata.
+  - Le indica que toda la base de conocimiento técnico reside en [`docs/`](file:///c:/xampp/htdocs/Antigravity-sdd/app/docs/) y que debe seguir una secuencia estricta de lectura de cuatro pasos (`SPEC.md` $\rightarrow$ `ARCHITECTURE.md` $\rightarrow$ `RULES.md` $\rightarrow$ `MEMORY.md`).
+  - Provee los comandos rápidos de verificación (`npm run check:guardrails` para los 47 guardrails y `npm run test:e2e` para los 9 flujos sensoriales), garantizando que ningún agente empiece a escribir código sin conocer el estado de salud del sistema.
+  - Define las normas de ingeniería innegociables: exige el principio rector de Spec-Driven Development, establece el protocolo sensorial con los arneses de pruebas (`tests/harness.html` y `tests/e2e.test.jsx`) y dicta la prohibición absoluta de utilizar `localStorage` directamente en componentes de UI.
+
+#### 2. [`app/README.md`](file:///c:/xampp/htdocs/Antigravity-sdd/app/README.md) (Ficha Técnica y Despliegue)
+- **Ubicación:** `c:\xampp\htdocs\Antigravity-sdd\app\README.md`
+- **Descripción:** Portada técnica, resumen ejecutivo del proyecto y guía rápida de puesta en marcha para humanos.
+- **Función en el proyecto:**
+  - Actúa como la carta de bienvenida para cualquier desarrollador, líder técnico o evaluador humano que clona el repositorio.
+  - Explica en forma sintética qué es SuperCarrito SDD, qué tecnologías utiliza (React 18, Vite 6, Tailwind CSS v4, Vitest, JSDOM) y cuál es el árbol de directorios de `app/`.
+  - Proporciona las instrucciones exactas de terminal para ejecutar los guardrails (`npm run check:guardrails`), levantar el servidor de desarrollo (`npm run dev`) y acceder a las interfaces principales en el navegador (`http://localhost:3000/` y `http://localhost:3000/tests/harness.html`).
+
+#### 3. [`app/docs/SPEC.md`](file:///c:/xampp/htdocs/Antigravity-sdd/app/docs/SPEC.md) (Especificación Principal - SSOT)
+- **Ubicación:** `c:\xampp\htdocs\Antigravity-sdd\app\docs\SPEC.md`
+- **Descripción:** Especificación Principal de Requerimientos Funcionales y No Funcionales (**Single Source of Truth - Única Fuente de Verdad**).
+- **Función en el proyecto:**
+  - Es el **artefacto más importante de todo el ecosistema SDD (Orden 1º)**. Si una regla de negocio no está escrita aquí, **no existe para el sistema**.
+  - Mantiene el número de versión formal SemVer (`v2.16.0`) y el historial detallado de cambios (Changelog).
+  - Define formalmente el modelo relacional en español (`productos`, `listas`, `productos_listas`) con tipos de datos, llaves primarias y foráneas.
+  - Detalla todos los requerimientos funcionales (`RF-1.1` a `RF-5.10`):
+    - `RF-1`: Catálogo de Despensa.
+    - `RF-2`: Mantenimiento y borrado en cascada de Listas.
+    - `RF-3`: Selector con checkboxes, carga en lote y acumulación de cantidades.
+    - `RF-4`: Modo Compra Táctil en tienda y regla anti-dedazos (`RF-4.6`).
+    - `RF-5`: Ergonomía visual en 3 momentos, navegación lateral AdminLTE, suite sensorial E2E (`RF-5.6`), enjambre multi-agente (`RF-5.8`), panel ejecutivo 360° estilo Power BI (`RF-5.9`), laboratorio de caos (`RF-5.10`) y sistema de contrastes adaptativos WCAG AAA (`RF-5.2`).
+  - Establece los requerimientos no funcionales (`RNF-01` a `RNF-04`): tolerancia a fallos ante JSON corrupto (`RNF-02`), migración transparente v2.0 a v2.1 (`RNF-03`) y persistencia pura sin backend.
+
+#### 4. [`app/docs/ARCHITECTURE.md`](file:///c:/xampp/htdocs/Antigravity-sdd/app/docs/ARCHITECTURE.md) (Arquitectura y Diagramas C4)
+- **Ubicación:** `c:\xampp\htdocs\Antigravity-sdd\app\docs\ARCHITECTURE.md`
+- **Descripción:** Documento de Arquitectura de Software, Diagramas de Contenedores C4, Flujos de Secuencia y Topología de Agentes.
+- **Función en el proyecto:**
+  - Es el artefacto de **orden 2º**. Modela formalmente cómo interactúan las piezas del software entre sí a través del modelo C4:
+    - **C1 (Contexto):** Relación entre el Usuario Comprador, el Auditor SDD y el sistema SuperCarrito.
+    - **C2 (Contenedores):** Navegador Web (SPA React), Motor de Persistencia (Storage Service) y Web Storage.
+    - **C3 (Componentes):** Interacción entre `HomeHub`, `GestionHub`, `ActiveShopping`, `ConfirmModal`, `AuditoriaHub` y `storage.js`.
+    - **C4 (Código y Entidades):** Esquema relacional con integridad referencial.
+  - Modela mediante diagramas Mermaid los flujos de secuencia críticos: el circuito del modal táctil anti-dedazos (`ConfirmModal.jsx`), el algoritmo de migración y auto-recuperación ante JSON corrupto, la topología del enjambre de subagentes (`sub-spec`, `sub-memory`, `sub-sensorial`) y el embudo de seguridad de 5 compuertas del Dashboard 360°.
+
+#### 5. [`app/docs/RULES.md`](file:///c:/xampp/htdocs/Antigravity-sdd/app/docs/RULES.md) (Estándares y Definition of Done)
+- **Ubicación:** `c:\xampp\htdocs\Antigravity-sdd\app\docs\RULES.md`
+- **Descripción:** Estándares de Ingeniería de Software, Reglas de Codificación y Criterios de Aceptación (*Definition of Done*).
+- **Función en el proyecto:**
+  - Es el artefacto de **orden 3º**. Actúa como el código penal y manual de estilo de ingeniería del proyecto.
+  - Fija la nomenclatura obligatoria: entidades y variables de negocio exclusivamente en español (`productos`, `enCarrito`, `listas`).
+  - Impone el aislamiento estricto de la persistencia: los componentes de UI tienen terminantemente prohibido llamar a `localStorage` de forma directa (regla verificada automáticamente por la Fase 4 de Guardrails).
+  - Define el stack tecnológico aprobado y la política de commits (Conventional Commits: `feat:`, `fix:`, `style:`, `docs:`, `test:`).
+  - Establece la **Definición de Terminado (DoD)**: una tarea jamás se considera lista si no tiene código en `SPEC.md`, prueba en el arnés, fase roja superada, 47 guardrails en verde, 9 flujos E2E aprobados y registro de decisión arquitectónica en `MEMORY.md`.
+
+#### 6. [`app/docs/MEMORY.md`](file:///c:/xampp/htdocs/Antigravity-sdd/app/docs/MEMORY.md) (Bitácora de Decisiones, ADRs y Roadmap)
+- **Ubicación:** `c:\xampp\htdocs\Antigravity-sdd\app\docs\MEMORY.md`
+- **Descripción:** Bitácora Viva de Registro de Decisiones Arquitectónicas (ADRs), Base de Conocimiento de Lecciones Aprendidas y Roadmap Activo.
+- **Función en el proyecto:**
+  - Es el artefacto de **orden 4º**. Representa la **memoria a largo plazo** del proyecto. Los modelos de lenguaje pierden su memoria inmediata al cerrar una sesión; este archivo garantiza continuidad absoluta entre sesiones de trabajo.
+  - Alberga **22 ADRs formales (ADR-01 a ADR-22)** que documentan la fecha, contexto, decisión y consecuencias de cada hito (desde la elección de React y Tailwind v4 hasta el arnés de caos, el dashboard Power BI y la armonización de contrastes WCAG AAA).
+  - Registra **21 Lecciones Aprendidas** de ingeniería práctica, previniendo la repetición de errores pasados (como la trampa de los selectores destructivos globales de CSS o los falsos positivos en pruebas).
+  - Mantiene el **Roadmap de Evolución** con sus 32 pasos completados y la visión futura del sistema.
+
+#### 7. [`info-docs/GUIA_MAESTRA_SDD_AGENTES_ARNESES.md`](file:///c:/xampp/htdocs/Antigravity-sdd/info-docs/GUIA_MAESTRA_SDD_AGENTES_ARNESES.md) (Guía Pedagógica y Conceptual)
+- **Ubicación:** `c:\xampp\htdocs\Antigravity-sdd\info-docs\GUIA_MAESTRA_SDD_AGENTES_ARNESES.md`
+- **Descripción:** Guía Maestra Pedagógica y Conceptual sobre Spec-Driven Development, Arneses de Prueba, Agentes de IA, Guardrails, Skills y Protocolo MCP.
+- **Función en el proyecto:**
+  - Es el **libro de texto integral y manual de transferencia de conocimiento** para Christian Vargas A. y cualquier profesional que busque dominar el desarrollo asistido por IA de clase mundial.
+  - Explica conceptos abstractos de alta ingeniería mediante metáforas y analogías de la vida real (el plano del arquitecto, la cocina gourmet, el conector USB-C, la barandilla de autopista).
+  - Analiza a fondo el caso de estudio de SuperCarrito módulo por módulo con diagramas C4 y de secuencia.
+  - Provee el checklist profesional definitivo para futuros desarrollos.
+  - Incluye este catálogo exhaustivo de artefactos Markdown y un banco extendido de **21 preguntas y respuestas clave** para repasar y dominar los fundamentos teóricos y prácticos.
+
+---
+
+## 12. Preguntas y Respuestas Frecuentes (Banco Extendido de Repaso - 21 Consultas Clave)
 
 Compilación exhaustiva de las consultas reales planteadas por Chris durante nuestras sesiones de laboratorio, organizadas con explicaciones pedagógicas de alto valor técnico.
 
@@ -473,7 +619,7 @@ Un **Guardrail (Barandilla de Seguridad)** es una restricción arquitectónica g
 ### ❓ P5: ¿Por qué implementamos un "Guardrail de Acero" a nivel de Git Pre-commit Hook en lugar de confiar solo en el comando de npm?
 **Respuesta:**  
 Porque un script como `npm run check:guardrails` es solo una **sugerencia voluntaria**: si el desarrollador tiene prisa o la IA se salta un paso, cualquiera puede hacer `git commit` y subir código roto o fuera de especificación al repositorio remoto.  
-Al instalar el hook en `.githooks/pre-commit` y activarlo con `git config core.hooksPath .githooks`, el guardrail se convierte en una **barrera física e inviolable**: cada vez que se teclea `git commit`, Git congela la operación y corre automáticamente los 44 guardrails maestros. Si una sola verificación falla, Git aborta físicamente el commit. Ningún código no certificado puede ingresar jamás al historial.
+Al instalar el hook en `.githooks/pre-commit` y activarlo con `git config core.hooksPath .githooks`, el guardrail se convierte en una **barrera física e inviolable**: cada vez que se teclea `git commit`, Git congela la operación y corre automáticamente los 47 guardrails maestros. Si una sola verificación falla, Git aborta físicamente el commit. Ningún código no certificado puede ingresar jamás al historial (como lo evidencia el commit formal certificado `4638a0a`).
 
 ---
 
@@ -524,7 +670,7 @@ El **Patrón del Puntero Maestro** resuelve esto con una jerarquía limpia:
 ### ❓ P11: ¿Qué es un ADR (Architecture Decision Record) y por qué los registramos en `docs/MEMORY.md`?
 **Respuesta:**  
 Un **ADR (Registro de Decisión Arquitectónica)** es un documento breve y fechado que registra una decisión técnica importante, el contexto que la motivó, las alternativas consideradas y sus consecuencias.  
-En el desarrollo de software convencional, los equipos cambian arquitecturas y meses después nadie recuerda *por qué* se tomó una decisión. Al registrar cada decisión numerada (`ADR-01` a `ADR-17`) en [`docs/MEMORY.md`](file:///c:/xampp/htdocs/Antigravity-sdd/app/docs/MEMORY.md), creamos una memoria histórica viva que evita que el equipo o la IA repitan errores del pasado o deshagan decisiones previamente aprobadas por el sponsor.
+En el desarrollo de software convencional, los equipos cambian arquitecturas y meses después nadie recuerda *por qué* se tomó una decisión. Al registrar cada decisión numerada (`ADR-01` a `ADR-22`) en [`docs/MEMORY.md`](file:///c:/xampp/htdocs/Antigravity-sdd/app/docs/MEMORY.md), creamos una memoria histórica viva que evita que el equipo o la IA repitan errores del pasado o deshagan decisiones previamente aprobadas por el sponsor.
 
 ---
 
@@ -536,7 +682,7 @@ Según nuestro [`docs/RULES.md`](file:///c:/xampp/htdocs/Antigravity-sdd/app/doc
 2. **Harness:** Existe una prueba en el arnés correspondiente.
 3. **Fase Roja superada:** Se verificó que la prueba fallaba antes de escribir la solución.
 4. **Arnés en Verde:** 100% de las pruebas pasan con éxito.
-5. **Guardrails en Verde:** 44/44 guardrails pasan en verde en terminal y el Git Pre-commit Hook autoriza la confirmación.
+5. **Guardrails en Verde:** 47/47 guardrails pasan en verde en terminal y 9/9 flujos sensoriales en Vitest, autorizando el Git Pre-commit Hook.
 6. **ADR y Memoria:** La decisión y lecciones aprendidas quedan asentadas en `docs/MEMORY.md`.
 
 ---
@@ -573,7 +719,7 @@ Con el selector con casillas de verificación, el usuario ve de inmediato todos 
 ### ❓ P17: ¿Por qué integramos el Centro de Auditoría (Guardrails, Arneses y Git) directamente dentro de la SPA en vez de dejarlo como comandos de consola aislados?
 **Respuesta:**  
 Porque una de las premisas del **Laboratorio SDD** es la democratización visual de la ingeniería de calidad. Dejar los guardrails únicamente en la terminal de Node.js limita su visibilidad al desarrollador técnico.  
-Al integrarlo en [`AuditoriaHub.jsx`](file:///c:/xampp/htdocs/Antigravity-sdd/app/src/components/AuditoriaHub.jsx) dentro de la propia aplicación web, cualquier miembro del equipo, cliente o evaluador puede abrir la pestaña de Auditoría, hacer clic en *"Re-ejecutar Guardrails"* o *"Ejecutar Suite E2E"*, y ver en vivo cómo se evalúan las 44 reglas, inspeccionar los selectores del DOM y comprobar el commit certificado por Git sin necesidad de abrir una consola de comandos.
+Al integrarlo en [`AuditoriaHub.jsx`](file:///c:/xampp/htdocs/Antigravity-sdd/app/src/components/AuditoriaHub.jsx) dentro de la propia aplicación web, cualquier miembro del equipo, cliente o evaluador puede abrir la pestaña de Auditoría, hacer clic en *"Re-ejecutar Guardrails"* o *"Ejecutar Suite E2E"*, y ver en vivo cómo se evalúan las 47 reglas, inspeccionar los selectores del DOM y comprobar el commit certificado por Git sin necesidad de abrir una consola de comandos.
 
 ---
 
@@ -587,10 +733,10 @@ De esta manera, Git sabe que debe buscar los hooks en esa carpeta versionada, ga
 
 ---
 
-### ❓ P19: ¿Cómo ejecuta Vitest con Testing Library y JSDOM las pruebas E2E en apenas 1.8 segundos sin levantar navegadores pesados tipo Selenium o Cypress?
+### ❓ P19: ¿Cómo ejecuta Vitest con Testing Library y JSDOM las pruebas E2E en apenas 2 segundos sin levantar navegadores pesados tipo Selenium o Cypress?
 **Respuesta:**  
 Herramientas como Cypress o Selenium levantan instancias completas de Google Chrome o Firefox en segundo plano, consumiendo cientos de megabytes de memoria y tardando entre 15 y 45 segundos por corrida.  
-**Vitest + JSDOM** simulan el árbol completo de la API del DOM (`document`, `window`, eventos táctiles y clics) puramente en memoria dentro de Node.js. Al combinarse con React Testing Library, renderizan los componentes reales de React y ejecutan las interacciones del usuario en milisegundos, permitiendo verificar los 6 flujos E2E de inicio a fin en menos de 2 segundos.
+**Vitest + JSDOM** simulan el árbol completo de la API del DOM (`document`, `window`, eventos táctiles y clics) puramente en memoria dentro de Node.js. Al combinarse con React Testing Library, renderizan los componentes reales de React y ejecutan las interacciones del usuario en milisegundos, permitiendo verificar los 9 flujos E2E de inicio a fin en apenas 2 segundos.
 
 ---
 
