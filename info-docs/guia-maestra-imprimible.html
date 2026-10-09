@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Guía Maestra: Spec-Driven Development, Arneses, Agentes, Guardrails, Skills y MCP</title>
+  <title>Guía Maestra: Spec-Driven Development, Arneses, Agentes, Guardrails, Skills y MCP - v4.0</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap');
 
@@ -30,36 +30,35 @@
       line-height: 1.65;
       background: #ffffff;
       padding: 0;
-      font-size: 13.5px;
+      font-size: 13px;
     }
 
-    /* Print styling rules */
     @page {
       size: A4 portrait;
-      margin: 1.8cm 1.5cm 2cm 1.5cm;
+      margin: 1.6cm 1.4cm 1.8cm 1.4cm;
       @bottom-right {
         content: counter(page);
         font-family: 'Plus Jakarta Sans', sans-serif;
-        font-size: 9pt;
+        font-size: 8.5pt;
         color: #94a3b8;
       }
     }
 
     .container {
-      max-width: 850px;
+      max-width: 880px;
       margin: 0 auto;
-      padding: 2rem;
+      padding: 1.5rem;
     }
 
     /* Cover Page */
     .cover {
       page-break-after: always;
-      min-height: 90vh;
+      min-height: 92vh;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       border: 3px solid #0f172a;
-      padding: 3.5rem 2.5rem;
+      padding: 3rem 2.2rem;
       border-radius: 20px;
       background: linear-gradient(135deg, #f8fafc 0%, #ecfdf5 100%);
       margin-bottom: 2rem;
@@ -68,7 +67,7 @@
       display: inline-block;
       background: var(--dark);
       color: #6ee7b7;
-      padding: 0.4rem 1rem;
+      padding: 0.4rem 1.1rem;
       border-radius: 999px;
       font-weight: 700;
       font-size: 0.85rem;
@@ -77,57 +76,57 @@
       align-self: flex-start;
     }
     .cover-title {
-      font-size: 2.6rem;
+      font-size: 2.35rem;
       font-weight: 800;
-      line-height: 1.15;
+      line-height: 1.18;
       color: var(--dark);
       margin: 1.5rem 0 1rem;
       letter-spacing: -0.03em;
     }
     .cover-subtitle {
-      font-size: 1.2rem;
+      font-size: 1.12rem;
       color: #334155;
       font-weight: 500;
-      line-height: 1.45;
-      max-width: 680px;
+      line-height: 1.5;
+      max-width: 720px;
     }
     .cover-meta {
       border-top: 2px solid #cbd5e1;
       padding-top: 1.5rem;
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 1.5rem;
-      font-size: 0.9rem;
+      gap: 1.2rem;
+      font-size: 0.88rem;
     }
     .meta-item strong { display: block; color: var(--dark); font-weight: 700; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.2rem; }
 
     /* Headings */
     h1, h2, h3, h4 { color: var(--dark); font-weight: 800; letter-spacing: -0.02em; }
     h2 {
-      font-size: 1.5rem;
-      margin-top: 2.5rem;
-      margin-bottom: 1rem;
-      padding-bottom: 0.5rem;
+      font-size: 1.4rem;
+      margin-top: 2.2rem;
+      margin-bottom: 0.9rem;
+      padding-bottom: 0.45rem;
       border-bottom: 2px solid var(--border);
       display: flex;
       align-items: center;
-      gap: 0.6rem;
+      gap: 0.5rem;
       page-break-after: avoid;
     }
     h3 {
-      font-size: 1.15rem;
-      margin-top: 1.6rem;
-      margin-bottom: 0.6rem;
+      font-size: 1.08rem;
+      margin-top: 1.4rem;
+      margin-bottom: 0.55rem;
       page-break-after: avoid;
     }
 
-    p { margin-bottom: 1rem; color: #334155; text-align: justify; }
+    p { margin-bottom: 0.9rem; color: #334155; text-align: justify; }
 
     /* Callout Boxes */
     .callout {
       border-radius: 12px;
-      padding: 1.1rem 1.3rem;
-      margin: 1.3rem 0;
+      padding: 1rem 1.25rem;
+      margin: 1.2rem 0;
       border-left: 5px solid;
       page-break-inside: avoid;
     }
@@ -139,15 +138,15 @@
 
     /* Diagram / Visual box */
     .diagram-box {
-      background: #0f172a;
+      background: #0b0f19;
       color: #f8fafc;
-      padding: 1.3rem;
+      padding: 1.15rem;
       border-radius: 12px;
-      margin: 1.3rem 0;
+      margin: 1.2rem 0;
       font-family: 'JetBrains Mono', ui-monospace, monospace;
-      font-size: 0.82rem;
-      line-height: 1.45;
-      border: 1px solid #334155;
+      font-size: 0.78rem;
+      line-height: 1.42;
+      border: 1px solid #1e293b;
       page-break-inside: avoid;
       overflow-x: auto;
     }
@@ -156,12 +155,12 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      margin: 1.3rem 0;
-      font-size: 0.83rem;
+      margin: 1.2rem 0;
+      font-size: 0.82rem;
       page-break-inside: avoid;
     }
     th, td {
-      padding: 0.7rem 0.85rem;
+      padding: 0.65rem 0.8rem;
       text-align: left;
       border-bottom: 1px solid var(--border);
     }
@@ -179,45 +178,65 @@
     code {
       font-family: 'JetBrains Mono', monospace;
       background: #f1f5f9;
-      padding: 0.15rem 0.4rem;
-      border-radius: 5px;
+      padding: 0.15rem 0.35rem;
+      border-radius: 4px;
       font-size: 0.88em;
       color: #be185d;
     }
     pre {
-      background: #0f172a;
+      background: #0b0f19;
       color: #f8fafc;
-      padding: 1rem 1.2rem;
+      padding: 0.95rem 1.15rem;
       border-radius: 10px;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       overflow-x: auto;
-      margin: 1.2rem 0;
+      margin: 1.1rem 0;
       page-break-inside: avoid;
     }
     pre code { background: transparent; color: inherit; padding: 0; }
 
     .page-break { page-break-after: always; }
 
-    ul, ol { margin-left: 1.5rem; margin-bottom: 1rem; color: #334155; }
-    li { margin-bottom: 0.35rem; }
+    ul, ol { margin-left: 1.5rem; margin-bottom: 0.9rem; color: #334155; }
+    li { margin-bottom: 0.3rem; }
     li strong { color: var(--dark); }
 
     .card-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
-      margin: 1.2rem 0;
+      gap: 0.9rem;
+      margin: 1.1rem 0;
       page-break-inside: avoid;
     }
     .card {
       background: var(--card-bg);
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.1rem;
+      border-radius: 10px;
+      padding: 0.95rem;
     }
-    .card h4 { font-size: 0.95rem; margin-bottom: 0.35rem; color: var(--dark); }
-    .card p { font-size: 0.83rem; margin-bottom: 0; }
+    .card h4 { font-size: 0.92rem; margin-bottom: 0.3rem; color: var(--dark); }
+    .card p { font-size: 0.81rem; margin-bottom: 0; }
+
+    .qa-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.05rem 1.2rem;
+      margin-bottom: 0.85rem;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+      page-break-inside: avoid;
+    }
+    .qa-badge {
+      background: var(--primary-light);
+      color: var(--primary);
+      padding: 0.15rem 0.45rem;
+      border-radius: 5px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      display: inline-block;
+      margin-right: 0.4rem;
+    }
   </style>
 </head>
 <body>
@@ -230,17 +249,17 @@
       <span class="cover-badge">Laboratorio de Ingeniería con IA</span>
       <h1 class="cover-title">Guía Maestra de Spec-Driven Development, Arneses, Agentes, Guardrails, Skills y MCP</h1>
       <p class="cover-subtitle">
-        Manual integral de arquitectura moderna: desde la concepción de la especificación viva hasta el arnés de evaluación sensorial, los guardrails automatizados en 5 fases, los skills de especialidad y el protocolo universal MCP.
+        Manual integral de arquitectura moderna y gobernanza algorítmica: desde la especificación viva como única fuente de verdad (SSOT) hasta el arnés sensorial de evaluación, los guardrails automatizados en 5 fases, el enjambre multi-agente, los skills especializados y el protocolo universal MCP.
       </p>
     </div>
 
     <div class="cover-meta">
       <div class="meta-item">
-        <strong>Autor / Estudiante:</strong>
-        Chris Vargas A.
+        <strong>Autor / Sponsor & Desarrollador Líder:</strong>
+        Christian Vargas A.
       </div>
       <div class="meta-item">
-        <strong>Copiloto Técnico:</strong>
+        <strong>Copiloto Técnico AI:</strong>
         Antigravity (Google DeepMind)
       </div>
       <div class="meta-item">
@@ -249,87 +268,83 @@
       </div>
       <div class="meta-item">
         <strong>Fecha y Versión:</strong>
-        Octubre 2026 | Versión 3.5 Definitiva, Ilustrada con Diagramas y Banco Extendido de 20 Q&A
+        Octubre 2026 | Versión 4.0 Consolidada (47 Guardrails, 9 Tests E2E, 22 ADRs, Catálogo de 7 Markdowns y 21 Q&A)
       </div>
     </div>
   </div>
 
   <!-- ==================== CAPÍTULO 1 ==================== -->
   <h2>📖 1. ¿Qué es Spec-Driven Development (SDD)?</h2>
-
   <p>
-    El <strong>Desarrollo Guiado por Especificaciones (Spec-Driven Development o SDD)</strong> es una metodología de ingeniería de software en la cual <strong>una especificación viva, formal y versionada actúa como la Única Fuente de Verdad (Single Source of Truth o SSOT)</strong> antes de escribir o modificar cualquier línea de código de producción.
+    El <strong>Desarrollo Guiado por Especificaciones (SDD)</strong> es una metodología de ingeniería de software en la cual <strong>una especificación viva, formal y versionada actúa como la Única Fuente de Verdad (Single Source of Truth - SSOT)</strong> antes de escribir o modificar una sola línea de código de producción.
   </p>
-
-  <div class="callout callout-info">
-    <div class="callout-title">🏠 La Analogía de la Vida Real: El Plano del Arquitecto</div>
-    Imagina que contratas albañiles para construir una casa de dos plantas. Si les dices: <em>"Constrúyanme una casa bonita"</em>, cada uno hará lo que imagine: uno pondrá una ventana donde el otro iba a pasar una tubería de agua y el techo colapsará. En la construcción profesional, <strong>nadie pega un ladrillo sin el plano aprobado por el arquitecto</strong>. Si el cliente quiere mover una pared, primero se redibuja el plano, se calculan las vigas y luego se mueve el ladrillo.
-  </div>
-
-  <div class="callout callout-danger">
-    <div class="callout-title">⚠️ El Problema de la Programación sin Especificación con IA</div>
-    Cuando los desarrolladores utilizan IA pidiéndole *"hazme una pantalla de lista de compras"*, la IA recurre a sus probabilidades estadísticas y **adivina** los nombres de los campos, inventa reglas de negocio cambiantes y genera código inconsistente. Esto produce el fenómeno de <em>alucinación técnica</em> ante cambios acumulativos.
-  </div>
-
-  <h3>La Regla de Oro del SDD</h3>
   <div class="callout callout-success">
-    <div class="callout-title">💎 Ley Fundamental</div>
-    <strong>"El código siempre sigue a la especificación; la especificación NUNCA persigue al código."</strong>
-    Cualquier cambio de negocio (un campo nuevo, confirmación anti-dedazos, nacionalización al español) se aprueba primero en la especificación, luego se diseña la prueba en el arnés, y por último se programa el código.
+    <div class="callout-title">💡 La Regla de Oro del SDD</div>
+    <em>"Si no está en la Especificación (<code>docs/SPEC.md</code>), no existe. Si está en la Especificación, el software está obligado a cumplirlo matemática y sensorialmente."</em>
+  </div>
+
+  <h3>La Metáfora de la Construcción Civil</h3>
+  <div class="card-grid">
+    <div class="card" style="border-left: 4px solid var(--danger);">
+      <h4>❌ Desarrollo Tradicional / Caótico con IA</h4>
+      <p>Pedirle a un albañil que levante paredes en un terreno vacío diciéndole: <em>"Hazme una sala bonita y luego vemos dónde va el baño"</em>. El resultado inevitable son demoliciones continuas, vigas mal calculadas y colapso estructural.</p>
+    </div>
+    <div class="card" style="border-left: 4px solid var(--primary);">
+      <h4>✅ Spec-Driven Development (SDD)</h4>
+      <p>El arquitecto diseña el plano formal (<code>SPEC.md</code>), calcula cargas de ingeniería (<code>ARCHITECTURE.md</code>) y define tolerancias de materiales (<code>RULES.md</code>). Ningún operario pega un solo bloque sin verificar el plano.</p>
+    </div>
   </div>
 
   <!-- ==================== CAPÍTULO 2 ==================== -->
   <div class="page-break"></div>
-  <h2>🛡️ 2. El Arnés de Pruebas (The Test Harness) - El Órgano Sensorial</h2>
-
+  <h2>🔬 2. El Arnés de Pruebas (The Test Harness) - El Órgano Sensorial</h2>
   <p>
-    El <strong>Arnés de Pruebas</strong> es el banco de evaluación automatizado donde se colocan los componentes de software en condiciones controladas para verificar que cumplen matemáticamente las promesas hechas en la especificación.
+    Un Modelo de Lenguaje (LLM) es un procesador de texto probabilístico: no tiene ojos, manos ni navegador para comprobar físicamente si un botón hace clic o si una tabla se actualizó. El <strong>Arnés de Pruebas (Test Harness)</strong> es el andamiaje instrumental que le otorga <strong>percepción sensorial y retroalimentación empírica en tiempo real</strong>.
   </p>
 
   <div class="diagram-box">
-┌─────────────────────────────────────────────────────────────┐
-│                 ARQUITECTURA DEL ARNÉS                      │
-├─────────────────────────────────────────────────────────────┤
-│   [ ESPECIFICACIÓN ] ──(Define Reglas)──> [ TEST HARNESS ]  │
-│                                                   │         │
-│                                           (Ejecuta Pruebas) │
-│                                                   ▼         │
-│   [ CÓDIGO FUENTE ] <───(Corrige)─── [ ASERCIÓN: PASS/FAIL ]│
-└─────────────────────────────────────────────────────────────┘
+┌────────────────────────────────────────────────────────────────────────┐
+│                        ARQUITECTURA DEL ARNÉS SDD                      │
+│                                                                        │
+│  [ docs/SPEC.md ] ──► Define Contratos y Requerimientos (RF / RNF)     │
+│           │                                                            │
+│           ▼                                                            │
+│  [ tests/harness.html ]  ◄──┐                                          │
+│  [ tests/e2e.test.jsx ]  ───┼──► Inyecta Estímulo Sensorial (Click/Dom)│
+│           │                 │                                          │
+│           ▼                 │                                          │
+│  [ Código de la App ] ──────┘                                          │
+│           │                                                            │
+│           ▼                                                            │
+│  Aserción Matemática: ¿Esperado == Obtenido?                           │
+│     ├── 🟢 VERDE (PASS): Contrato Validado y Certificado               │
+│     └── 🔴 ROJO  (FAIL): Discrepancia detectada ──► Feedback al Agente │
+└────────────────────────────────────────────────────────────────────────┘
   </div>
 
-  <h3>El Órgano Sensorial del Agente de IA</h3>
-  <p>
-    Los seres humanos verificamos el código abriendo el navegador, haciendo clics e inspeccionando la pantalla con los ojos. <strong>Un Agente de IA no tiene ojos humanos nativos.</strong> El arnés es el <em>órgano sensorial</em> que le permite al agente saber si su solución funciona:
-  </p>
-  <ul>
-    <li><strong>Sin Arnés:</strong> El agente dice *"¡Listo, ya terminé!"* basándose en una corazonada o alucinación.</li>
-    <li><strong>Con Arnés:</strong> El agente ejecuta el arnés, lee el error exacto (ej: <code>"Expected true but received false"</code>), corrige la línea precisa y re-evalúa hasta obtener 100% verde.</li>
-  </ul>
-
-  <h3>La Metáfora del Restaurante de Alta Cocina</h3>
+  <h3>La Metáfora de la Cocina Gourmet</h3>
   <div class="card-grid">
     <div class="card">
-      <h4>📜 La Especificación (`SPEC.md`)</h4>
-      <p>Es la <strong>Carta y la Receta Maestra</strong>. Define exactamente los ingredientes, las porciones y lo que el cliente final pagó por recibir.</p>
+      <h4>📖 La Receta Maestra (<code>SPEC.md</code>)</h4>
+      <p>Es la <strong>Ficha Técnica Oficial</strong>. Define ingredientes al gramo, orden exacto de cocción y temperaturas.</p>
     </div>
     <div class="card">
-      <h4>🤖 El Reglamento (`AGENTS.md` / `RULES.md`)</h4>
-      <p>Son las <strong>Normas de la Cocina</strong>. Indica a los cocineros cómo comportarse, qué herramientas usar y qué prácticas están prohibidas.</p>
+      <h4>👨‍🍳 El Chef Asistente (La IA / Agente)</h4>
+      <p>Ejecuta la receta siguiendo instrucciones. Es talentoso pero puede distraerse o alucinar ingredientes.</p>
     </div>
     <div class="card">
-      <h4>🛡️ El Arnés (`harness.html`)</h4>
-      <p>Es el <strong>Inspector de Calidad</strong>. Antes de que el plato salga a la mesa, verifica peso, temperatura e higiene sin compasión.</p>
+      <h4>🛡️ El Arnés de Pruebas (<code>harness.html</code> / Vitest)</h4>
+      <p>Es el <strong>Inspector de Calidad</strong>. Termómetro digital, refractómetro y báscula: nada sale a la mesa sin aprobación.</p>
     </div>
     <div class="card">
-      <h4>🧠 La Memoria (`MEMORY.md`)</h4>
-      <p>Es la <strong>Bitácora del Chef</strong>. Anota lecciones aprendidas, incidentes pasados y recetas mejoradas (ADRs).</p>
+      <h4>🧠 La Bitácora de Memoria (<code>MEMORY.md</code>)</h4>
+      <p>Es el <strong>Cuaderno del Chef</strong>. Registra incidentes, lecciones aprendidas y mejoras de recetas (ADRs).</p>
     </div>
   </div>
 
   <!-- ==================== CAPÍTULO 3 ==================== -->
   <div class="page-break"></div>
-  <h2>🔄 3. El Ciclo de Vida: Rojo $\rightarrow$ Verde $\rightarrow$ Refactor</h2>
+  <h2>🔄 3. El Ciclo de Vida: Rojo $ightarrow$ Verde $ightarrow$ Refactor</h2>
 
   <table>
     <thead>
@@ -367,14 +382,32 @@
     Si creas una prueba y pasa en verde de inmediato sin que hayas programado nada, <strong>la prueba no sirve</strong>. La Fase Roja es la garantía científica de que la prueba realmente detecta la falta de la función.
   </div>
 
+  <div class="diagram-box">
+  [ Requerimiento en SPEC.md ] ──► [ Caso de Prueba en Arnés ]
+                                              │
+                                              ▼
+                                    🔴 FASE ROJA: FALLO
+                                  (Comprobación Científica)
+                                              │
+                                              ▼
+                                   [ Programar Solución ]
+                                              │
+                                              ▼
+                                   🟢 FASE VERDE: ÉXITO
+                                 (Cumplimiento del Contrato)
+                                              │
+                                              ▼
+                                   🔵 REFACTORIZAR & DoD
+                             (Guardrails 47/47 + ADR en MEMORY.md)
+  </div>
+
   <!-- ==================== CAPÍTULO 4 ==================== -->
   <h2>🚧 4. Guardrails: Las Barandillas de Seguridad (Explicado para Todos)</h2>
-
   <p>
-    La palabra <strong>Guardrail</strong> significa literalmente la <strong>barandilla de contención</strong> metálica que ves al borde de una carretera en la montaña o en un balcón alto. Tú sabes manejar, pero si hay hielo o niebla, la barandilla <strong>físicamente te impide caer al abismo</strong>.
+    La palabra <strong>Guardrail</strong> significa literalmente la <strong>barandilla de contención</strong> metálica que ves al borde de una carretera en la montaña. Tú sabes manejar, pero si hay hielo, la barandilla <strong>físicamente te impide caer al abismo</strong>.
   </p>
 
-  <h3>3 Ejemplos Visuales de la Vida Real:</h3>
+  <h3>4 Ejemplos Visuales de la Vida Real:</h3>
   <div class="card-grid">
     <div class="card">
       <h4>1. La puerta del microondas</h4>
@@ -386,77 +419,47 @@
     </div>
     <div class="card">
       <h4>3. El enchufe de 3 clavijas (con polo a tierra)</h4>
-      <p>Tiene una clavija redonda más larga que las otras dos. Es geométricamente imposible enchufarlo al revés; su propia forma actúa como guardrail.</p>
+      <p>Tiene una clavija redonda más larga. Es geométricamente imposible enchufarlo al revés; su propia forma actúa como guardrail.</p>
     </div>
     <div class="card">
       <h4>4. El script automatizado (check:guardrails)</h4>
-      <p>Escanea 27 puntos de control en 40ms e impide que se suba código que viole el idioma español, toque storage directo o rompa aserciones.</p>
+      <p>Escanea <strong>47 verificaciones en 5 fases en ~50ms</strong> e impide que se suba código que viole el idioma español, toque storage directo o rompa aserciones.</p>
     </div>
   </div>
 
   <h3>Los 4 Niveles de Guardrails en Desarrollo con IA:</h3>
   <ul>
-    <li><strong>1. Guardrails de Instrucción (`AGENTS.md`, `RULES.md`):</strong> Reglas escritas que prohíben alucinar o inventar APIs.</li>
-    <li><strong>2. Guardrails Estructurales (Scripts y CI/CD - `scripts/guardrails.js`):</strong> Verificaciones automáticas por terminal antes de compilar o hacer commit.</li>
-    <li><strong>3. Guardrails de Negocio / UX (Anti-dedazos - `RF-4.6`):</strong> Freno en pantalla: confirmación obligatoria al desmarcar un artículo del carrito.</li>
-    <li><strong>4. Guardrails de Resiliencia (Fallback - `RNF-02`):</strong> Captura de excepciones: si el storage se corrompe, reinicia tablas vacías limpias sin pantalla blanca.</li>
+    <li><strong>1. Guardrails de Instrucción (<code>app/AGENTS.md</code>, <code>docs/RULES.md</code>):</strong> Reglas escritas que prohíben alucinar o inventar APIs.</li>
+    <li><strong>2. Guardrails Estructurales (Scripts y CI/CD - <code>scripts/guardrails.js</code>):</strong> 47 verificaciones automáticas por terminal antes de compilar o hacer commit.</li>
+    <li><strong>3. Guardrails de Acero (Git Pre-commit Hook):</strong> Bloqueo físico en el sistema de control de versiones: si un solo guardrail falla, el commit es abortado de raíz.</li>
+    <li><strong>4. Guardrails de UX (ConfirmModal):</strong> Modales táctiles flotantes que impiden desmarcar compras por error al caminar ("anti-dedazos").</li>
   </ul>
 
-  <!-- ==================== CAPÍTULO 5 ==================== -->
+  <!-- ==================== CAPÍTULOS 5, 6, 7 ==================== -->
   <div class="page-break"></div>
-  <h2>🧠 5. Skills (Habilidades): La Carpeta de Especialidad de la IA</h2>
-
+  <h2>🧰 5. Skills (Habilidades): La Carpeta de Especialidad de la IA</h2>
   <p>
-    Imagina que contratas a un chef profesional muy inteligente. Sabe cocinar comida internacional, pero hoy tu restaurante va a abrir una estación de <strong>Pastelería Francesa de Alta Precisión</strong>.
+    Un <strong>Skill</strong> es un paquete modular de instrucciones avanzadas, scripts auxiliares y plantillas que enseñan a la IA a realizar una tarea especializada sin necesidad de reentrenar el modelo base.
   </p>
-  <p>
-    El chef tiene la capacidad cerebral, pero para no cometer errores en las temperaturas del merengue, le entregas una <strong>carpeta de especialidad</strong> con las recetas exactas, las tablas de conversión de gramos a mililitros y la lista de fallos que jamás debe cometer. <strong>Esa carpeta es un Skill.</strong>
-  </p>
-
   <div class="callout callout-info">
-    <div class="callout-title">💡 ¿Qué es un Skill en Sistemas de IA?</div>
-    Es un paquete modular de instrucciones avanzadas, plantillas y herramientas que le enseñan a la IA <strong>cómo realizar una tarea técnica específica al nivel de un experto</strong> (ej: automatizaciones cron, generación de UI interactiva, plugins). Evita que la IA adivine y le entrega el manual oficial de procedimientos antes de empezar.
+    <div class="callout-title">Carpeta de Recetas del Chef</div>
+    El modelo base sabe cocinar en general; al activar el skill <code>generative_ui</code> o <code>automation</code>, abre el manual técnico del chef pastelero y opera con precisión de especialista.
   </div>
 
-  <!-- ==================== CAPÍTULO 6 ==================== -->
   <h2>🔌 6. MCP (Model Context Protocol): El USB-C Universal de la IA</h2>
-
   <p>
-    Antes de que se inventara el estándar <strong>USB-C</strong>, conectar aparatos era una pesadilla: un teléfono usaba micro-USB, una cámara mini-USB, un iPhone Lightning y una impresora USB tipo B. Había que comprar decenas de adaptadores incompatibles.
+    El <strong>Model Context Protocol (MCP)</strong> es un estándar abierto desarrollado por Anthropic para permitir que los asistentes de IA se conecten de forma segura a fuentes de datos locales, servidores, repositorios GitHub, bases de datos SQL y herramientas empresariales mediante un protocolo cliente-servidor estandarizado.
   </p>
-  <p>
-    <strong>MCP (Model Context Protocol) es el USB-C universal de la Inteligencia Artificial:</strong>
-  </p>
+
+  <h2>👥 7. Arquitectura de Agentes, Subagentes y Slash Commands</h2>
   <ul>
-    <li>Históricamente, una IA es un cerebro aislado dentro de una ventana de texto sin acceso directo a tus bases de datos, APIs o archivos.</li>
-    <li>Antes de MCP, para cada herramienta se requería programar un conector exclusivo y frágil.</li>
-    <li>Con <strong>MCP</strong>, cualquier sistema (un servidor PostgreSQL, GitHub, Jira, o tu sistema local) expone un "servidor MCP", y la IA simplemente <strong>se enchufa con un cable universal estándar</strong> para leer datos y ejecutar acciones con máxima seguridad.</li>
-  </ul>
-
-  <!-- ==================== CAPÍTULO 7 ==================== -->
-  <h2>👥 7. Arquitectura de Agentes, Subagentes y Pair Programming</h2>
-
-  <div class="diagram-box">
-       [ CHRIS - Desarrollador & Piloto Humano (Tiene el Volante) ]
-                                  │
-                    Da instrucciones y toma decisiones
-                                  ▼
-       [ ANTIGRAVITY - Agente Orquestador Copiloto ]
-                                  │
-                  ┌───────────────┴───────────────┐
-                  ▼                               ▼
-         [ Subagente Coder ]             [ Subagente Tester ]
-         Modifica código en src/         Ejecuta arnés y guardrails
-  </div>
-
-  <ul>
-    <li><strong>Humano (Chris):</strong> Conduce el proyecto, define requerimientos de negocio y aprueba las especificaciones.</li>
+    <li><strong>Humano (Christian Vargas A.):</strong> Conduce el proyecto, define requerimientos de negocio y aprueba las especificaciones.</li>
     <li><strong>Agente Orquestador (Antigravity):</strong> Mantiene la visión general, conversa con el humano, actualiza <code>MEMORY.md</code> y supervisa el cumplimiento del contrato.</li>
-    <li><strong>Subagentes Especializados:</strong> Asistentes que el orquestador despierta para tareas aisladas (Investigador para leer documentación sin saturar la conversación, Tester para certificar calidad).</li>
-    <li><strong>Slash Commands (`/`):</strong> Atajos rápidos en la caja de texto (como <code>/plan</code>, <code>/goal</code>) para activar flujos de trabajo de un solo toque.</li>
+    <li><strong>Subagentes Especializados:</strong> Asistentes efímeros que el orquestador despierta para tareas aisladas (Investigador para leer documentación sin saturar la conversación, Tester para certificar calidad).</li>
+    <li><strong>Slash Commands (<code>/</code>):</strong> Atajos rápidos en la caja de texto (como <code>/plan</code>, <code>/goal</code>, <code>/boost</code>) para activar flujos de trabajo de un solo toque.</li>
   </ul>
 
-  <!-- ==================== MATRIZ RESUMEN ==================== -->
+  <!-- ==================== CAPÍTULO 8 ==================== -->
   <div class="page-break"></div>
   <h2>📊 8. Matriz Comparativa y Diccionario Conceptual Rápido</h2>
 
@@ -472,7 +475,7 @@
       <tr>
         <td><strong>Spec-Driven Development (SDD)</strong></td>
         <td>El plano del arquitecto antes de colocar ladrillos.</td>
-        <td><code>docs/SPEC.md</code> como Fuente Única de Verdad.</td>
+        <td><code>docs/SPEC.md</code> como Única Fuente de Verdad (SSOT v2.16.0).</td>
       </tr>
       <tr>
         <td><strong>Arnés de Pruebas (Harness)</strong></td>
@@ -482,22 +485,37 @@
       <tr>
         <td><strong>Guardrails Duales (CLI + Web)</strong></td>
         <td>La barandilla de autopista y el tablero de control de mando.</td>
-        <td><code>scripts/guardrails.js</code> (terminal) y <code>tests/guardrails.html</code> (web).</td>
+        <td><code>scripts/guardrails.js</code> (terminal) y <code>tests/guardrails.html</code> (web) con 47 verificaciones en 5 fases.</td>
       </tr>
       <tr>
         <td><strong>Guardrail de Acero (Git)</strong></td>
         <td>La barrera de control que bloquea el paso sin ticket válido.</td>
-        <td><code>.githooks/pre-commit</code> impidiendo físicamente commits no certificados.</td>
+        <td><code>.githooks/pre-commit</code> impidiendo físicamente commits si una regla falla.</td>
       </tr>
       <tr>
         <td><strong>Arnés Sensorial E2E</strong></td>
         <td>El dedo real del usuario interactuando con la pantalla.</td>
-        <td><code>tests/e2e.test.jsx</code> con Vitest y JSDOM simulando interacción DOM.</td>
+        <td><code>tests/e2e.test.jsx</code> con Vitest y JSDOM simulando 9 flujos de usuario completos.</td>
       </tr>
       <tr>
         <td><strong>Patrón del Puntero Maestro</strong></td>
         <td>El índice general de una biblioteca clasificada.</td>
-        <td><code>AGENTS.md</code> en raíz guiando a los agentes hacia la carpeta <code>docs/</code>.</td>
+        <td><code>app/AGENTS.md</code> guiando hacia la documentación en <code>docs/</code> en orden estricto.</td>
+      </tr>
+      <tr>
+        <td><strong>Dashboard 360° (Power BI)</strong></td>
+        <td>La torre de control de un aeropuerto internacional.</td>
+        <td><code>AuditoriaHub.jsx</code> opción 1: métricas visuales ejecutivas en 5 tarjetas KPIs.</td>
+      </tr>
+      <tr>
+        <td><strong>Laboratorio de Caos</strong></td>
+        <td>El simulacro de terremoto con bomberos e ingenieros.</td>
+        <td>Inyector de mutaciones deliberadas (corrupción JSON, violaciones a storage) para probar auto-sanación.</td>
+      </tr>
+      <tr>
+        <td><strong>Contrastes WCAG AAA</strong></td>
+        <td>La señalización vial reflectiva de alta visibilidad.</td>
+        <td>Normalización de tarjetas claras (<code>#faf5ff</code>, <code>#f0f9ff</code>) y consolas oscuras con texto nítido.</td>
       </tr>
       <tr>
         <td><strong>Skills</strong></td>
@@ -507,54 +525,49 @@
       <tr>
         <td><strong>MCP</strong></td>
         <td>El conector universal USB-C.</td>
-        <td>Protocolo estándar para conectar la IA a bases de datos y herramientas.</td>
-      </tr>
-      <tr>
-        <td><strong>Agente Orquestador</strong></td>
-        <td>El maestro de obras que coordina con el cliente.</td>
-        <td>Antigravity coordinando y manteniendo la visión general.</td>
-      </tr>
-      <tr>
-        <td><strong>Subagentes</strong></td>
-        <td>Los especialistas (el electricista, el fontanero).</td>
-        <td>Procesos aislados para investigar código o correr pruebas de QA.</td>
+        <td>Protocolo estándar para conectar la IA a bases de datos y herramientas sin plugins propietarios.</td>
       </tr>
       <tr>
         <td><strong>ADRs (Architecture Decisions)</strong></td>
-        <td>El libro de actas de una junta directiva.</td>
-        <td>Registros numerados en <code>docs/MEMORY.md</code> (ADR-01 a ADR-17).</td>
+        <td>El libro de actas notariadas de una junta directiva.</td>
+        <td>Registros numerados en <code>docs/MEMORY.md</code> (ADR-01 a ADR-22).</td>
       </tr>
     </tbody>
   </table>
 
-  <!-- ==================== ARQUITECTURA MÓDULO A MÓDULO ==================== -->
+  <!-- ==================== CAPÍTULO 9 ==================== -->
   <div class="page-break"></div>
   <h2>🏗️ 9. Caso de Estudio Real: SuperCarrito SDD (Arquitectura Módulo a Módulo)</h2>
 
-  <div style="display: flex; flex-direction: column; gap: 1rem; margin: 1.5rem 0;">
-    <div style="background: var(--card-bg); border: 1px solid var(--border); border-left: 4px solid var(--primary); padding: 1rem 1.25rem; border-radius: 8px;">
-      <h3 style="margin-top: 0; color: var(--primary-dark); font-size: 1.05rem;">Módulo 1: Portada y Navegación Minimalista (HomeHub.jsx - RF-5.1 / RF-5.2)</h3>
-      <p style="font-size: 0.9rem; margin-top: 0.4rem;">Puerta de entrada táctil estructurada en los 3 momentos del usuario: Paso 1 (Preparar despensa y listas en casa), Paso 2 (¡Vamos al Súper! en tienda) y Paso 3 (Laboratorio SDD y Auditoría). Header limpio que preserva exclusivamente identidad, selector Claro/Oscuro y botón de retorno al inicio.</p>
+  <div style="display: flex; flex-direction: column; gap: 0.9rem; margin: 1.2rem 0;">
+    <div style="background: var(--card-bg); border: 1px solid var(--border); border-left: 4px solid var(--primary); padding: 0.9rem 1.15rem; border-radius: 8px;">
+      <h3 style="margin-top: 0; color: var(--primary-dark); font-size: 1rem;">Módulo 1: Portada y Navegación Minimalista (HomeHub.jsx - RF-5.1 / RF-5.2)</h3>
+      <p style="font-size: 0.85rem; margin-top: 0.35rem; margin-bottom: 0;">Puerta de entrada táctil estructurada en los 3 momentos del usuario: Paso 1 (Preparar despensa y listas en casa), Paso 2 (¡Vamos al Súper! en tienda) y Paso 3 (Laboratorio SDD y Auditoría). Header limpio que preserva exclusivamente identidad, selector Claro/Oscuro y retorno al inicio.</p>
     </div>
 
-    <div style="background: var(--card-bg); border: 1px solid var(--border); border-left: 4px solid var(--secondary); padding: 1rem 1.25rem; border-radius: 8px;">
-      <h3 style="margin-top: 0; color: var(--secondary); font-size: 1.05rem;">Módulo 2: Centro Unificado de Gestión (GestionHub.jsx - RF-5.4 / RF-5.5)</h3>
-      <p style="font-size: 0.9rem; margin-top: 0.4rem;">Estructura ergonómica estilo AdminLTE con dos columnas: barra lateral para alternar entre Catálogo de Despensa y Mantenimiento de Listas con contadores en tiempo real. Incorpora selector con casillas de verificación (checkboxes) y botón de carga en lote simultáneo (RF-3.1).</p>
+    <div style="background: var(--card-bg); border: 1px solid var(--border); border-left: 4px solid var(--secondary); padding: 0.9rem 1.15rem; border-radius: 8px;">
+      <h3 style="margin-top: 0; color: var(--secondary); font-size: 1rem;">Módulo 2: Centro Unificado de Gestión (GestionHub.jsx - RF-5.4 / RF-5.5 / RF-3.1)</h3>
+      <p style="font-size: 0.85rem; margin-top: 0.35rem; margin-bottom: 0;">Estructura ergonómica estilo AdminLTE con dos columnas: barra lateral para alternar entre Catálogo de Despensa y Mantenimiento de Listas con contadores en tiempo real. Incorpora selector con casillas de verificación (checkboxes) y botón de carga en lote simultáneo (RF-3.1).</p>
     </div>
 
-    <div style="background: var(--card-bg); border: 1px solid var(--border); border-left: 4px solid var(--accent); padding: 1rem 1.25rem; border-radius: 8px;">
-      <h3 style="margin-top: 0; color: #b45309; font-size: 1.05rem;">Módulo 3: Modo Compra Táctil con Confirmación Anti-dedazos (ActiveShopping.jsx - RF-4.6)</h3>
-      <p style="font-size: 0.9rem; margin-top: 0.4rem;">Diseño ultra-lineal de una sola columna optimizado para usarse con una mano caminando por los pasillos. Erradicación del <code>window.confirm</code> nativo a favor de un modal táctil flotante (<code>ConfirmModal.jsx</code>) con botones gigantes amigables para el pulgar.</p>
+    <div style="background: var(--card-bg); border: 1px solid var(--border); border-left: 4px solid var(--accent); padding: 0.9rem 1.15rem; border-radius: 8px;">
+      <h3 style="margin-top: 0; color: #b45309; font-size: 1rem;">Módulo 3: Modo Compra Táctil con Confirmación Anti-dedazos (ActiveShopping.jsx - RF-4.6)</h3>
+      <p style="font-size: 0.85rem; margin-top: 0.35rem; margin-bottom: 0;">Diseño ultra-lineal de una sola columna optimizado para usarse con una mano caminando por los pasillos. Erradicación del <code>window.confirm</code> nativo a favor de un modal táctil flotante (<code>ConfirmModal.jsx</code>) con botones gigantes amigables para el pulgar.</p>
     </div>
 
-    <div style="background: var(--card-bg); border: 1px solid var(--border); border-left: 4px solid #8b5cf6; padding: 1rem 1.25rem; border-radius: 8px;">
-      <h3 style="margin-top: 0; color: #6d28d9; font-size: 1.05rem;">Módulo 4: Centro Integrado de Auditoría (AuditoriaHub.jsx - RF-5.3 / RF-5.6)</h3>
-      <p style="font-size: 0.9rem; margin-top: 0.4rem;">Panel lateral AdminLTE de 4 opciones: 1. Guardrails Maestros (44/44 en vivo), 2. Arnés Sensorial interactivo, 3. Guardrail de Acero en Git con terminal interactiva y simulación de rechazos, y 4. Arnés Sensorial E2E con consola Vitest y selectores DOM reales.</p>
+    <div style="background: var(--card-bg); border: 1px solid var(--border); border-left: 4px solid #8b5cf6; padding: 0.9rem 1.15rem; border-radius: 8px;">
+      <h3 style="margin-top: 0; color: #6d28d9; font-size: 1rem;">Módulo 4: Centro Integrado de Auditoría (AuditoriaHub.jsx - RF-5.3 a RF-5.10)</h3>
+      <p style="font-size: 0.85rem; margin-top: 0.35rem; margin-bottom: 0;">Panel lateral AdminLTE con 7 consolas especializadas: 1. Dashboard 360° Ejecutivo estilo Power BI, 2. Guardrails Maestros (47/47 en vivo), 3. Arnés Sensorial interactivo, 4. Guardrail de Acero en Git (Pre-commit hook certificado), 5. Suite Sensorial E2E con 9 flujos Vitest, 6. Enjambre Multi-Agente y 7. Laboratorio de Caos e Inmunidad SDD.</p>
     </div>
 
-    <div style="background: var(--card-bg); border: 1px solid var(--border); border-left: 4px solid #0f172a; padding: 1rem 1.25rem; border-radius: 8px;">
-      <h3 style="margin-top: 0; color: #0f172a; font-size: 1.05rem;">Módulo 5: Patrón del Puntero Maestro (AGENTS.md - RF-5.7)</h3>
-      <p style="font-size: 0.9rem; margin-top: 0.4rem;">Limpieza absoluta de la raíz del proyecto. Solo reside <code>AGENTS.md</code> como Constitución Operativa y Puntero Maestro, centralizando toda la documentación y estándares en el directorio <code>docs/</code> con tabla de lectura obligatoria.</p>
+    <div style="background: var(--card-bg); border: 1px solid var(--border); border-left: 4px solid #065f46; padding: 0.9rem 1.15rem; border-radius: 8px;">
+      <h3 style="margin-top: 0; color: #065f46; font-size: 1rem;">Módulo 5: Contrastes Adaptativos y Tokens WCAG AAA (RF-5.2 / ADR-22)</h3>
+      <p style="font-size: 0.85rem; margin-top: 0.35rem; margin-bottom: 0;">Normalización visual de contenedores claros de alta legibilidad (<code>#faf5ff</code>, <code>#f0f9ff</code>, <code>#f0fdf4</code>) para tarjetas ejecutivas y consolas oscuras obsidian (<code>#0b0f19</code>) para logs técnicos, erradicando fondos oscuros fuera de lugar.</p>
+    </div>
+
+    <div style="background: var(--card-bg); border: 1px solid var(--border); border-left: 4px solid #0f172a; padding: 0.9rem 1.15rem; border-radius: 8px;">
+      <h3 style="margin-top: 0; color: #0f172a; font-size: 1rem;">Módulo 6: Patrón del Puntero Maestro (app/AGENTS.md - RF-5.7)</h3>
+      <p style="font-size: 0.85rem; margin-top: 0.35rem; margin-bottom: 0;">Limpieza absoluta de la raíz del proyecto. Solo reside <code>app/AGENTS.md</code> como Constitución Operativa y Puntero Maestro, centralizando toda la documentación y estándares en el directorio <code>docs/</code> con tabla de lectura obligatoria.</p>
     </div>
   </div>
 
@@ -567,7 +580,7 @@
 │  ├── GestionHub.jsx     (AdminLTE: Catálogo y Listas con Checkboxes)   │
 │  ├── ActiveShopping.jsx (Modo Súper Táctil de 1 columna)               │
 │  │   └── ConfirmModal   (Guardrail de UX Anti-dedazos - RF-4.6)        │
-│  └── AuditoriaHub.jsx   (Centro Integrado de Calidad y Git Hook)       │
+│  └── AuditoriaHub.jsx   (Dashboard 360°, 47 Guardrails, Caos, E2E)     │
 └──────────────────────────────────┬─────────────────────────────────────┘
                                    │ Invocaciones desacopladas (CRUD / Toggle)
                                    ▼
@@ -595,7 +608,7 @@
   [ .githooks/pre-commit intercepta la acción físicamente ]
                          │
                          ▼
-  [ node scripts/guardrails.js (44 Verificaciones en <50ms) ]
+  [ node scripts/guardrails.js (47 Verificaciones en <50ms) ]
                          │
            ┌─────────────┴─────────────┐
            ▼                           ▼
@@ -606,8 +619,9 @@
   (Código certificado)         (Imposible subir código roto)
   </div>
 
-  <!-- ==================== CHECKLIST ==================== -->
-  <h2>📋 10. Protocolo Profesional para Nuevas Funciones</h2>
+  <!-- ==================== CAPÍTULO 10 ==================== -->
+  <div class="page-break"></div>
+  <h2>📋 10. Checklist Profesional y Protocolo de Trabajo Definitivo</h2>
 
   <div class="callout callout-info">
     <ol>
@@ -616,238 +630,265 @@
       <li><strong>Diseñar el Caso de Prueba:</strong> Agregar la aserción en <code>tests/harness.html</code> o <code>tests/e2e.test.jsx</code> con código <code>RF-*</code>.</li>
       <li><strong>Comprobar el Fallo Rojo:</strong> Re-ejecutar el arnés y certificar el fallo científico (Fase Roja).</li>
       <li><strong>Escribir el Código Mínimo:</strong> Modificar los componentes y servicios en <code>src/</code> hasta lograr Verde.</li>
-      <li><strong>Ejecutar Guardrails:</strong> Correr <code>npm run check:guardrails</code> en terminal o abrir el Centro de Auditoría en la SPA.</li>
+      <li><strong>Ejecutar Guardrails:</strong> Correr <code>npm run check:guardrails</code> en terminal (47/47 en verde) y suite sensorial E2E (9/9 flujos).</li>
       <li><strong>Registrar en Memoria:</strong> Guardar el ADR y lecciones aprendidas en <code>docs/MEMORY.md</code>.</li>
-      <li><strong>Commit Semántico en Git:</strong> El Pre-commit Hook valida los 44 guardrails y autoriza el commit atómico.</li>
+      <li><strong>Commit Semántico en Git:</strong> El Pre-commit Hook valida los 47 guardrails y autoriza el commit atómico.</li>
     </ol>
   </div>
 
-  <!-- ==================== PREGUNTAS Y RESPUESTAS ==================== -->
+  <!-- ==================== CAPÍTULO 11: CATÁLOGO DE MARKDOWNS ==================== -->
   <div class="page-break"></div>
-  <h2>💡 11. Preguntas y Respuestas Frecuentes (Banco Extendido de Repaso - 21 Consultas Clave)</h2>
-  <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Compilación exhaustiva de las consultas reales planteadas por Chris durante nuestras sesiones de laboratorio, con las explicaciones conceptuales y prácticas que sustentan la arquitectura.</p>
+  <h2>🗂️ 11. Catálogo Maestro de Archivos Markdown (*.md) del Proyecto</h2>
+  <p>
+    En una arquitectura gobernada por <strong>Spec-Driven Development (SDD)</strong>, los archivos Markdown (<code>*.md</code>) no son simples notas pasivas: son <strong>artefactos ejecutables de gobernanza, contratos de verdad y compuertas de seguridad</strong> que dictan el comportamiento estricto tanto del equipo humano como de los agentes de Inteligencia Artificial.
+  </p>
 
-  <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+  <h3>🗺️ Tabla Sinóptica de los 7 Artefactos Markdown Oficiales</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Orden</th>
+        <th>Archivo</th>
+        <th>Ubicación</th>
+        <th>Rol Arquitectónico</th>
+        <th>Audiencia</th>
+        <th>Criticidad</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>0º</strong></td>
+        <td><code>app/AGENTS.md</code></td>
+        <td><code>app/AGENTS.md</code></td>
+        <td>Constitución Operativa y Puntero Maestro</td>
+        <td>Agentes de IA</td>
+        <td>🔴 Innegociable</td>
+      </tr>
+      <tr>
+        <td><strong>1º</strong></td>
+        <td><code>app/docs/SPEC.md</code></td>
+        <td><code>app/docs/SPEC.md</code></td>
+        <td><strong>Única Fuente de Verdad (SSOT v2.16.0)</strong></td>
+        <td>Sponsor, IA y QA</td>
+        <td>🔴 Suprema</td>
+      </tr>
+      <tr>
+        <td><strong>2º</strong></td>
+        <td><code>app/docs/ARCHITECTURE.md</code></td>
+        <td><code>app/docs/ARCHITECTURE.md</code></td>
+        <td>Arquitectura de Software y Diagramas C4</td>
+        <td>Arquitectos e IA</td>
+        <td>🟠 Alta</td>
+      </tr>
+      <tr>
+        <td><strong>3º</strong></td>
+        <td><code>app/docs/RULES.md</code></td>
+        <td><code>app/docs/RULES.md</code></td>
+        <td>Estándares de Código y Definition of Done</td>
+        <td>Desarrolladores e IA</td>
+        <td>🔴 Innegociable</td>
+      </tr>
+      <tr>
+        <td><strong>4º</strong></td>
+        <td><code>app/docs/MEMORY.md</code></td>
+        <td><code>app/docs/MEMORY.md</code></td>
+        <td>Bitácora de Memoria, ADRs 01-22 y Roadmap</td>
+        <td>IA y Equipo</td>
+        <td>🟠 Alta</td>
+      </tr>
+      <tr>
+        <td><strong>Infra</strong></td>
+        <td><code>app/README.md</code></td>
+        <td><code>app/README.md</code></td>
+        <td>Portada Técnica y Guía de Despliegue</td>
+        <td>Desarrolladores</td>
+        <td>🟡 Media</td>
+      </tr>
+      <tr>
+        <td><strong>Docs</strong></td>
+        <td><code>GUIA_MAESTRA.md</code></td>
+        <td><code>info-docs/</code></td>
+        <td>Guía Maestra Pedagógica y Conceptual</td>
+        <td>Estudiantes y Líderes</td>
+        <td>🟢 Formativa</td>
+      </tr>
+    </tbody>
+  </table>
 
-    <div style="background: #ffffff; border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-      <h4 style="color: var(--dark); font-size: 0.95rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
-        <span style="background: var(--primary-light); color: var(--primary); padding: 0.2rem 0.5rem; border-radius: 6px; font-size: 0.8rem; font-weight: 700;">P1</span>
-        ¿Por qué no programamos directamente la interfaz o la base de datos en vez de escribir primero la especificación?
-      </h4>
-      <p style="font-size: 0.9rem; color: #334155; line-height: 1.6;">
-        Porque programar sin especificación previa obliga a la IA a <strong>suponer y alucinar</strong>. Sin un contrato formal con nombres exactos de campos y tipos de datos, la IA inventa estructuras sobre la marcha (ej: llamando a un campo <code>inCart</code> en un archivo y <code>comprado</code> en otro). La especificación es la <strong>Única Fuente de Verdad (SSOT)</strong>: el código siempre sigue a la especificación; la especificación jamás persigue al código.
-      </p>
+  <h3>🧬 Diagrama de Jerarquía Documental del Repositorio</h3>
+  <div class="diagram-box">
+  [ Nivel 0: Entrada y Constitución ]
+         │
+         ▼
+  app/AGENTS.md (Puntero Maestro y Constitución Operativa)
+         │
+         ├─────────────────────────────────────────┐
+         ▼                                         ▼
+  [ Nivel 1: Base de Conocimiento Centralizada ]  app/README.md (Despliegue)
+         │
+         ├── 1º docs/SPEC.md (SSOT - Contratos de Negocio RF/RNF)
+         ├── 2º docs/ARCHITECTURE.md (Diagramas C4 y Flujos)
+         ├── 3º docs/RULES.md (Estándares y DoD)
+         └── 4º docs/MEMORY.md (ADRs 01-22 y Roadmap Activo)
+         │
+         ▼
+  [ Nivel 2: Formación y Pedagogía ]
+  info-docs/GUIA_MAESTRA_SDD_AGENTES_ARNESES.md (Manual Teórico + 21 Q&A)
+  </div>
+
+  <h3>📋 Desglose Exhaustivo de los 7 Artefactos:</h3>
+  <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1rem;">
+    <div class="card" style="border-left: 4px solid #ef4444;">
+      <h4>1. app/AGENTS.md (Constitución Operativa y Puntero Maestro)</h4>
+      <p>Es el artefacto de <strong>orden 0º</strong>. Intercepta la atención del agente al iniciar, prohibiendo tocar código sin antes consultar la especificación. Centraliza los comandos rápidos de verificación (<code>npm run check:guardrails</code> y <code>npm run test:e2e</code>) y los estándares de ingeniería.</p>
+    </div>
+    <div class="card" style="border-left: 4px solid #3b82f6;">
+      <h4>2. app/README.md (Ficha Técnica y Despliegue)</h4>
+      <p>Carta de bienvenida para desarrolladores y evaluadores humanos. Resume el stack técnico (React 18, Vite, Tailwind v4, Vitest), el árbol de directorios de <code>app/</code> y las instrucciones de terminal para levantar el servidor y las pruebas.</p>
+    </div>
+    <div class="card" style="border-left: 4px solid #10b981;">
+      <h4>3. app/docs/SPEC.md (Especificación Principal - SSOT)</h4>
+      <p>El <strong>artefacto supremo del sistema (Orden 1º)</strong>. Contiene la versión SemVer formal (v2.16.0), el changelog histórico, el modelo de datos relacional en español y los contratos funcionales (RF-1.1 a RF-5.10) y no funcionales (RNF-01 a RNF-04).</p>
+    </div>
+    <div class="card" style="border-left: 4px solid #f59e0b;">
+      <h4>4. app/docs/ARCHITECTURE.md (Arquitectura y Diagramas C4)</h4>
+      <p>Artefacto de <strong>orden 2º</strong>. Modela mediante C1, C2, C3 y C4 cómo interactúan las piezas de software, la topología del enjambre multi-agente, el algoritmo de auto-sanación ante JSON corrupto y el embudo de seguridad del panel ejecutivo.</p>
+    </div>
+    <div class="card" style="border-left: 4px solid #6366f1;">
+      <h4>5. app/docs/RULES.md (Estándares y Definition of Done)</h4>
+      <p>Artefacto de <strong>orden 3º</strong>. El código penal del proyecto: impone español obligatorio para entidades de negocio, prohíbe el uso de <code>localStorage</code> en componentes de UI y dicta la Definición de Terminado innegociable.</p>
+    </div>
+    <div class="card" style="border-left: 4px solid #8b5cf6;">
+      <h4>6. app/docs/MEMORY.md (Bitácora de Decisiones, ADRs y Roadmap)</h4>
+      <p>Artefacto de <strong>orden 4º</strong>. Es la memoria a largo plazo: conserva los <strong>22 ADRs formales (ADR-01 a ADR-22)</strong>, 21 lecciones aprendidas de ingeniería y el roadmap activo con sus 32 pasos completados.</p>
+    </div>
+    <div class="card" style="border-left: 4px solid #064e3b;">
+      <h4>7. info-docs/GUIA_MAESTRA_SDD_AGENTES_ARNESES.md (Guía Pedagógica y Conceptual)</h4>
+      <p>El libro de texto integral y manual formativo del proyecto. Traduce conceptos de alta ingeniería a metáforas cotidianas, analiza el caso SuperCarrito en detalle y provee el banco extendido de 21 preguntas y respuestas.</p>
+    </div>
+  </div>
+
+  <!-- ==================== CAPÍTULO 12: PREGUNTAS Y RESPUESTAS ==================== -->
+  <div class="page-break"></div>
+  <h2>💡 12. Preguntas y Respuestas Frecuentes (Banco Extendido de Repaso - 21 Consultas Clave)</h2>
+  <p style="color: var(--text-muted); margin-bottom: 1.2rem;">Compilación exhaustiva de las consultas reales planteadas por Chris durante nuestras sesiones de laboratorio, con las explicaciones conceptuales y prácticas que sustentan la arquitectura.</p>
+
+  <div style="display: flex; flex-direction: column; gap: 0.9rem;">
+
+    <div class="qa-card">
+      <h4><span class="qa-badge">P1</span> ¿Por qué no programamos directamente la interfaz o la base de datos en vez de escribir primero la especificación?</h4>
+      <p>Porque sin especificación previa, la IA programa por adivinanza estadística (alucinación funcional). Cuando programas primero la UI, descubres a mitad de camino que faltan campos relacionales o que el borrado en cascada rompe la vista. En SDD, la especificación en <code>docs/SPEC.md</code> es el plano formal aprobado: programar se convierte en rellenar contratos exactos, reduciendo retrabajos a cero.</p>
     </div>
 
-    <div style="background: #ffffff; border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-      <h4 style="color: var(--dark); font-size: 0.95rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
-        <span style="background: var(--primary-light); color: var(--primary); padding: 0.2rem 0.5rem; border-radius: 6px; font-size: 0.8rem; font-weight: 700;">P2</span>
-        ¿Qué es exactamente el "Arnés de Pruebas" y por qué se dice que es el "órgano sensorial" de la IA?
-      </h4>
-      <p style="font-size: 0.9rem; color: #334155; line-height: 1.6;">
-        Los humanos abrimos el navegador, hacemos clics y miramos con nuestros propios ojos. <strong>La IA no tiene ojos humanos ni cuerpo físico</strong>; si le pides un cambio sin un arnés, no sabe si el código compila o falló, solo responde por corazonada. El <strong>Arnés de Pruebas</strong> es su órgano sensorial matemático: somete el código a aserciones objetivas y le reporta exactamente dónde falló, permitiéndole corregir de forma quirúrgica hasta ver 100% verde.
-      </p>
+    <div class="qa-card">
+      <h4><span class="qa-badge">P2</span> ¿Qué diferencia hay entre una prueba unitaria común y un "Arnés de Pruebas"?</h4>
+      <p>Una prueba unitaria típica verifica una función aislada fuera de contexto. El <strong>Arnés de Pruebas (Harness)</strong> es un órgano sensorial completo: levanta la aplicación, simula el entorno físico de ejecución, inyecta estímulos secuenciales de usuario (flujos de interacción) y ofrece un tablero visual con telemetría en tiempo real accesible tanto para el copiloto de IA como para el auditor humano.</p>
     </div>
 
-    <div style="background: #ffffff; border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-      <h4 style="color: var(--dark); font-size: 0.95rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
-        <span style="background: var(--primary-light); color: var(--primary); padding: 0.2rem 0.5rem; border-radius: 6px; font-size: 0.8rem; font-weight: 700;">P3</span>
-        ¿Por qué es tan importante la "Fase Roja" (Red Phase)? ¿No es una pérdida de tiempo ver fallar la prueba?
-      </h4>
-      <p style="font-size: 0.9rem; color: #334155; line-height: 1.6;">
-        Es la <strong>prueba de fuego científica</strong> de tu arnés. Si escribes una prueba para una función que aún no existe y pasa en verde de inmediato, la prueba no sirve (es un falso positivo que jamás te avisará si algo se rompe). Verla fallar en rojo demuestra que la prueba es sensible al requerimiento, y que cuando pase a verde más adelante será legítimamente por tu código.
-      </p>
+    <div class="qa-card">
+      <h4><span class="qa-badge">P3</span> ¿Por qué es tan peligroso saltarse la "Fase Roja" en el ciclo de pruebas?</h4>
+      <p>Saltarse la fase roja es como instalar una alarma contra incendios y nunca probar si suena cuando hay humo. Si la prueba pasa en verde sin haber programado la función, estás ante un <strong>falso positivo</strong>: una prueba mal escrita que siempre aprueba, dando una falsa sensación de seguridad que oculta bugs críticos en producción.</p>
     </div>
 
-    <div style="background: #ffffff; border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-      <h4 style="color: var(--dark); font-size: 0.95rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
-        <span style="background: var(--primary-light); color: var(--primary); padding: 0.2rem 0.5rem; border-radius: 6px; font-size: 0.8rem; font-weight: 700;">P4</span>
-        ¿Qué es un Guardrail en ingeniería de software y en qué se diferencia de una prueba unitaria común?
-      </h4>
-      <p style="font-size: 0.9rem; color: #334155; line-height: 1.6;">
-        Una prueba unitaria evalúa una función aislada. Un <strong>Guardrail</strong> es una barandilla preventiva global que abarca múltiples capas: valida la existencia de documentos obligatorios (Fase 1), audita el cumplimiento formal de la especificación SemVer (Fase 2), verifica la memoria y los ADRs (Fase 3), escanea el código para prohibir malas prácticas como <code>debugger;</code> o términos obsoletos en inglés (Fase 4) y ejecuta las pruebas de dominio en memoria (Fase 5) en milisegundos.
-      </p>
+    <div class="qa-card">
+      <h4><span class="qa-badge">P4</span> ¿Qué sucede si la IA inventa una función o atributo que no estaba en SPEC.md?</h4>
+      <p>Ocurre una violación de contrato. Los Guardrails automáticos (Fase 4: Linter de Dominio) y el arnés detectan la discrepancia y el sistema falla. En SDD, cualquier adición técnica debe nacer como una propuesta en <code>docs/SPEC.md</code>, aprobada por el sponsor e incrementando la versión SemVer formal.</p>
     </div>
 
-    <div style="background: #ffffff; border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-      <h4 style="color: var(--dark); font-size: 0.95rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
-        <span style="background: var(--primary-light); color: var(--primary); padding: 0.2rem 0.5rem; border-radius: 6px; font-size: 0.8rem; font-weight: 700;">P5</span>
-        ¿Por qué implementamos un "Guardrail de Acero" en Git Pre-commit Hook en lugar de confiar solo en npm?
-      </h4>
-      <p style="font-size: 0.9rem; color: #334155; line-height: 1.6;">
-        Porque un comando en <code>package.json</code> es solo una recomendación voluntaria que cualquiera puede olvidar ejecutar. Al amarrar los guardrails a un Git Pre-commit Hook (<code>.githooks/pre-commit</code>), la barandilla se vuelve <strong>física e inviolable</strong>: Git intercepta cada intento de commit y, si una sola de las 44 verificaciones no está en verde, aborta la operación. Código roto o fuera de contrato jamás llega al repositorio.
-      </p>
+    <div class="qa-card">
+      <h4><span class="qa-badge">P5</span> ¿Por qué los Guardrails son más rápidos que las pruebas tradicionales en navegador?</h4>
+      <p>Porque los <strong>47 Guardrails Maestros</strong> se ejecutan puramente en Node.js analizando el árbol sintáctico (AST) de los archivos, expresiones regulares de texto y pruebas en memoria (sandbox MockStorage), tardando <strong>menos de 50 milisegundos</strong>, sin la sobrecarga de levantar ventanas gráficas de navegador.</p>
     </div>
 
-    <div style="background: #ffffff; border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-      <h4 style="color: var(--dark); font-size: 0.95rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
-        <span style="background: var(--primary-light); color: var(--primary); padding: 0.2rem 0.5rem; border-radius: 6px; font-size: 0.8rem; font-weight: 700;">P6</span>
-        ¿Qué diferencia hay entre el Arnés de Pruebas en Memoria (harness.html) y el Arnés Sensorial E2E con Vitest?
-      </h4>
-      <p style="font-size: 0.9rem; color: #334155; line-height: 1.6;">
-        El <strong>arnés en memoria</strong> valida la lógica de negocio pura del servicio de almacenamiento (que 2 + 3 sumen 5, que el borrado en cascada funcione). El <strong>arnés sensorial E2E</strong> monta la aplicación sobre el DOM virtual (JSDOM) y simula el dedo físico del usuario: hace clics en casillas de verificación, abre ventanas modales, cambia de vistas y conmuta temas, asegurando que la experiencia táctil real en pantalla no tenga discrepancias.
-      </p>
+    <div class="qa-card">
+      <h4><span class="qa-badge">P6</span> ¿Qué es un Skill en Antigravity y cuándo conviene activarlo?</h4>
+      <p>Un Skill es una carpeta modular de instrucciones y utilidades que capacita a la IA en una especialidad concreta (por ejemplo, <code>generative_ui</code> para crear widgets visuales o <code>automation</code> para tareas programadas). Conviene activarlo cuando la tarea requiere conocimiento experto que excede el modelo base.</p>
     </div>
 
-    <div style="background: #ffffff; border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-      <h4 style="color: var(--dark); font-size: 0.95rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
-        <span style="background: var(--primary-light); color: var(--primary); padding: 0.2rem 0.5rem; border-radius: 6px; font-size: 0.8rem; font-weight: 700;">P7</span>
-        ¿Por qué cambiamos el window.confirm nativo del navegador por un modal táctil personalizado (ConfirmModal.jsx)?
-      </h4>
-      <p style="font-size: 0.9rem; color: #334155; line-height: 1.6;">
-        El <code>window.confirm</code> nativo rompe la inmersión con un diálogo gris obsoleto, no respeta el tema claro ni oscuro, bloquea el hilo principal y tiene botones diminutos en la parte superior de la pantalla. Un modal táctil nativo en React (<code>ConfirmModal.jsx</code>) ofrece alto contraste, animaciones fluidas y botones gigantes ergonómicos accesibles cómodamente con el pulgar mientras caminas en el supermercado.
-      </p>
+    <div class="qa-card">
+      <h4><span class="qa-badge">P7</span> ¿En qué se diferencia MCP (Model Context Protocol) de una API tradicional?</h4>
+      <p>Una API REST o GraphQL tradicional requiere código cliente personalizado para cada endpoint y proveedor. <strong>MCP</strong> es un conector estándar universal (como el USB-C): un solo protocolo mediante el cual la IA descubre herramientas, recursos y esquemas de datos expuestos por cualquier servidor compatible sin adaptadores ad-hoc.</p>
     </div>
 
-    <div style="background: #ffffff; border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-      <h4 style="color: var(--dark); font-size: 0.95rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
-        <span style="background: var(--primary-light); color: var(--primary); padding: 0.2rem 0.5rem; border-radius: 6px; font-size: 0.8rem; font-weight: 700;">P8</span>
-        ¿Por qué usamos navegación lateral AdminLTE en Paso 1 y Paso 3, pero una sola columna en Paso 2 (Modo Súper)?
-      </h4>
-      <p style="font-size: 0.9rem; color: #334155; line-height: 1.6;">
-        Por ergonomía del contexto de uso (UX): planificar despensas o auditar el sistema son tareas que se realizan sentado frente al monitor con espacio para barras laterales y menús complejos. En cambio, comprar en el supermercado (Paso 2) se hace de pie, con una mano en el carrito físico y otra en el móvil; cualquier barra lateral causaría tropiezos. Por eso, el Modo Súper es estrictamente vertical táctil de una sola columna.
-      </p>
+    <div class="qa-card">
+      <h4><span class="qa-badge">P8</span> ¿Por qué utilizamos subagentes en lugar de hacer todo con el agente principal?</h4>
+      <p>Para evitar la saturación de la ventana de contexto. Cuando un subagente investiga código o lee logs masivos, lo hace en un hilo aislado; solo devuelve el resumen sintetizado al agente orquestador, manteniendo la conversación principal limpia, rápida y enfocada.</p>
     </div>
 
-    <div style="background: #ffffff; border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-      <h4 style="color: var(--dark); font-size: 0.95rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
-        <span style="background: var(--primary-light); color: var(--primary); padding: 0.2rem 0.5rem; border-radius: 6px; font-size: 0.8rem; font-weight: 700;">P9</span>
-        ¿Qué es el "Patrón del Puntero Maestro" y por qué dejamos solo AGENTS.md en la raíz y movimos lo demás a docs/?
-      </h4>
-      <p style="font-size: 0.9rem; color: #334155; line-height: 1.6;">
-        Tener múltiples markdowns en la raíz satura la vista y desorienta tanto a humanos como a agentes. El <strong>Patrón del Puntero Maestro</strong> deja únicamente <code>AGENTS.md</code> en la raíz como Constitución Operativa que incluye una tabla de enrutamiento estricta hacia toda la base de conocimiento técnico centralizada en <code>docs/</code> (Especificación, Arquitectura, Reglas y Memoria).
-      </p>
+    <div class="qa-card">
+      <h4><span class="qa-badge">P9</span> ¿Qué rol cumplen los Slash Commands en el flujo diario de trabajo?</h4>
+      <p>Son aceleradores cognitivos: comandos como <code>/plan</code>, <code>/goal</code> o <code>/boost</code> activan directamente flujos de trabajo multi-paso prediseñados, evitando redactar instrucciones repetitivas en cada solicitud.</p>
     </div>
 
-    <div style="background: #ffffff; border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-      <h4 style="color: var(--dark); font-size: 0.95rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
-        <span style="background: var(--primary-light); color: var(--primary); padding: 0.2rem 0.5rem; border-radius: 6px; font-size: 0.8rem; font-weight: 700;">P10</span>
-        ¿Qué es un Skill, qué es el protocolo MCP y cómo interactúan con agentes y subagentes en Pair Programming?
-      </h4>
-      <p style="font-size: 0.9rem; color: #334155; line-height: 1.6;">
-        Un <strong>Skill</strong> es la carpeta de especialidad que capacita a la IA para tareas complejas sin alucinar. <strong>MCP</strong> es el "USB-C" universal que conecta a la IA con herramientas externas de forma abierta. En Pair Programming, el piloto humano toma decisiones, el agente orquestador coordina la sesión y despierta <strong>subagentes</strong> especializados en segundo plano para tareas aisladas de investigación o pruebas sin saturar la conversación principal.
-      </p>
+    <div class="qa-card">
+      <h4><span class="qa-badge">P10</span> ¿Por qué prohibimos a los componentes de React llamar directamente a localStorage?</h4>
+      <p>Por el principio de <strong>Aislamiento de Capas</strong> (Regla innegociable verificada por la Fase 4 de Guardrails). Si la UI llama directo a <code>localStorage</code>, se vuelve imposible migrar de motor, agregar validaciones o probar en memoria. Al pasar por <code>SupermarketStorage</code>, centralizamos integridad referencial, sanitización y tolerancia a fallos.</p>
     </div>
 
-    <div style="background: #ffffff; border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-      <h4 style="color: var(--dark); font-size: 0.95rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
-        <span style="background: var(--primary-light); color: var(--primary); padding: 0.2rem 0.5rem; border-radius: 6px; font-size: 0.8rem; font-weight: 700;">P11</span>
-        ¿Qué es un ADR (Architecture Decision Record) y por qué los registramos en docs/MEMORY.md?
-      </h4>
-      <p style="font-size: 0.9rem; color: #334155; line-height: 1.6;">
-        Un <strong>ADR</strong> es un acta histórica numerada que asienta por qué se tomó una decisión arquitectónica clave, qué alternativas se descartaron y qué implicaciones tiene. Asentarlos en <code>docs/MEMORY.md</code> (ADR-01 a ADR-17) evita la pérdida de memoria del proyecto y previene que futuros desarrolladores o agentes de IA deshagan decisiones aprobadas previamente por el sponsor.
-      </p>
+    <div class="qa-card">
+      <h4><span class="qa-badge">P11</span> ¿Qué es un ADR (Architectural Decision Record) y por qué los registramos en MEMORY.md?</h4>
+      <p>Un ADR es un registro formal que documenta el contexto, la decisión técnica tomada y sus consecuencias. En nuestro laboratorio contamos con <strong>22 ADRs formales (ADR-01 a ADR-22)</strong> que aseguran que el razonamiento detrás de decisiones críticas (como adoptar Tailwind v4, modal anti-dedazos o tokens WCAG AAA) no se olvide entre sesiones.</p>
     </div>
 
-    <div style="background: #ffffff; border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-      <h4 style="color: var(--dark); font-size: 0.95rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
-        <span style="background: var(--primary-light); color: var(--primary); padding: 0.2rem 0.5rem; border-radius: 6px; font-size: 0.8rem; font-weight: 700;">P12</span>
-        ¿Qué es la "Definición de Terminado" (Definition of Done - DoD) en un flujo SDD profesional?
-      </h4>
-      <p style="font-size: 0.9rem; color: #334155; line-height: 1.6;">
-        En SDD, una tarea no termina cuando el código compila. Según <code>docs/RULES.md</code>, requiere: 1. Requerimiento formal en la Spec, 2. Prueba en el arnés, 3. Certificación de Fase Roja superada, 4. Arnés 100% en verde, 5. Guardrails 44/44 aprobados y Git hook autorizando el commit, y 6. Registro de la decisión en la bitácora de memoria.
-      </p>
+    <div class="qa-card">
+      <h4><span class="qa-badge">P12</span> ¿Cómo garantiza el sistema que ninguna tarea se dé por terminada antes de tiempo?</h4>
+      <p>A través de la <strong>Definición de Terminado (DoD)</strong> en <code>docs/RULES.md</code>. Una tarea solo está lista si tiene: 1. Especificación formal, 2. Caso en arnés, 3. Fase roja certificada, 4. Fase verde alcanzada, 5. Los 47 guardrails aprobados, 6. 9 flujos E2E aprobados, 7. ADR asentado en <code>docs/MEMORY.md</code> y 8. Commit validado por el Pre-commit Hook.</p>
     </div>
 
-    <div style="background: #ffffff; border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-      <h4 style="color: var(--dark); font-size: 0.95rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
-        <span style="background: var(--primary-light); color: var(--primary); padding: 0.2rem 0.5rem; border-radius: 6px; font-size: 0.8rem; font-weight: 700;">P13</span>
-        ¿Cómo garantizamos la resiliencia y tolerancia ante JSON corrupto en localStorage (RNF-02)?
-      </h4>
-      <p style="font-size: 0.9rem; color: #334155; line-height: 1.6;">
-        Mediante un bloque defensivo <code>try/catch</code> en <code>storage.js</code>. Si los datos locales se corrompen o reciben texto inválido, el sistema captura el error y reinicia automáticamente una base de datos limpia con arreglos vacíos (<code>{ productos: [], listas: [], productos_listas: [] }</code>), evitando caídas catastróficas o pantallas en blanco.
-      </p>
+    <div class="qa-card">
+      <h4><span class="qa-badge">P13</span> ¿Por qué eliminamos window.confirm en el modo de compra táctil en tienda?</h4>
+      <p>Porque el cuadro de diálogo nativo del navegador (<code>window.confirm</code>) bloquea el hilo de ejecución, es inaccesible visualmente y tiene botones pequeños propensos a pulsaciones accidentales con una sola mano. Fue reemplazado por <code>ConfirmModal.jsx</code> (RF-4.6), un modal flotante con botones táctiles gigantes optimizados para el pulgar.</p>
     </div>
 
-    <div style="background: #ffffff; border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-      <h4 style="color: var(--dark); font-size: 0.95rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
-        <span style="background: var(--primary-light); color: var(--primary); padding: 0.2rem 0.5rem; border-radius: 6px; font-size: 0.8rem; font-weight: 700;">P14</span>
-        ¿Cómo funciona la migración automática de datos existentes de inglés a español sin pérdida (RNF-03)?
-      </h4>
-      <p style="font-size: 0.9rem; color: #334155; line-height: 1.6;">
-        Al invocar <code>obtenerBaseDeDatos()</code>, el servicio verifica si existen claves heredadas en inglés (<code>products</code>, <code>lists</code>, <code>items</code>). Si las encuentra, mapea cada registro al esquema español (<code>productos</code>, <code>listas</code>, <code>productos_listas</code>), traduciendo atributos como <code>inCart</code> a <code>enCarrito</code> y guardando el nuevo formato de inmediato sin que el usuario note interrupción alguna.
-      </p>
+    <div class="qa-card">
+      <h4><span class="qa-badge">P14</span> ¿Cómo opera la auto-recuperación ante datos corruptos en el almacenamiento (RNF-02)?</h4>
+      <p>El servicio <code>SupermarketStorage</code> envuelve todas las lecturas en bloques <code>try/catch</code> con validación de esquemas. Si un usuario o script introduce JSON malformado, el servicio detecta la anomalía, restaura silenciosamente las tablas base vacías e impide que la aplicación caiga en pantalla blanca.</p>
     </div>
 
-    <div style="background: #ffffff; border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-      <h4 style="color: var(--dark); font-size: 0.95rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
-        <span style="background: var(--primary-light); color: var(--primary); padding: 0.2rem 0.5rem; border-radius: 6px; font-size: 0.8rem; font-weight: 700;">P15</span>
-        ¿Por qué prohibimos que los componentes de la interfaz accedan directamente a localStorage?
-      </h4>
-      <p style="font-size: 0.9rem; color: #334155; line-height: 1.6;">
-        El acceso directo desde componentes React acopla la vista al navegador e impide correr pruebas sin navegador. Además, duplicaría reglas como borrado en cascada o validaciones en múltiples archivos. Al centralizar todo en <code>SupermarketStorage</code>, la UI solo dibuja la pantalla y el servicio garantiza la integridad referencial. La Fase 4 de guardrails audita que ningún componente llame a <code>localStorage</code>.
-      </p>
+    <div class="qa-card">
+      <h4><span class="qa-badge">P15</span> ¿Cómo funciona la migración transparente de esquemas al vuelo (RNF-03)?</h4>
+      <p>Al arrancar la aplicación, el servicio detecta si existen tablas en inglés de la v2.0 (<code>products</code>, <code>lists</code>, <code>list_items</code>). Si las encuentra, ejecuta un mapper en memoria que traduce claves y estados al español canónico (<code>productos</code>, <code>listas</code>, <code>enCarrito</code>), persistiendo el nuevo formato sin pérdida de datos para el usuario.</p>
     </div>
 
-    <div style="background: #ffffff; border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-      <h4 style="color: var(--dark); font-size: 0.95rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
-        <span style="background: var(--primary-light); color: var(--primary); padding: 0.2rem 0.5rem; border-radius: 6px; font-size: 0.8rem; font-weight: 700;">P16</span>
-        ¿Por qué usamos un selector con casillas de verificación (checkboxes) y carga en lote al armar una lista?
-      </h4>
-      <p style="font-size: 0.9rem; color: #334155; line-height: 1.6;">
-        Escribir productos manualmente cada semana produce errores tipográficos y es engorroso. Con casillas de verificación, el usuario ve su despensa completa, selecciona con un toque los productos requeridos y los agrega en lote con un solo clic. El motor acumula cantidades si ya existían, manteniendo una taxonomía limpia y ahorrando tiempo.
-      </p>
+    <div class="qa-card">
+      <h4><span class="qa-badge">P16</span> ¿Por qué adoptamos la navegación lateral estilo AdminLTE en el módulo de gestión (RF-5.5)?</h4>
+      <p>Para separar limpiamente las responsabilidades visuales. El Catálogo de Despensa y las Listas de Compras tienen naturalezas distintas: la barra lateral permite saltar entre ambas con contadores numéricos en vivo sin recargar la página ni saturar la pantalla con formularios apilados.</p>
     </div>
 
-    <div style="background: #ffffff; border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-      <h4 style="color: var(--dark); font-size: 0.95rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
-        <span style="background: var(--primary-light); color: var(--primary); padding: 0.2rem 0.5rem; border-radius: 6px; font-size: 0.8rem; font-weight: 700;">P17</span>
-        ¿Por qué integramos el Centro de Auditoría (Guardrails, Arneses y Git) directamente dentro de la SPA?
-      </h4>
-      <p style="font-size: 0.9rem; color: #334155; line-height: 1.6;">
-        Para democratizar la visibilidad de la calidad del software. Dejar las validaciones solo en la consola limita su acceso al programador. Al integrarlo en <code>AuditoriaHub.jsx</code>, cualquier miembro del equipo, cliente o evaluador puede pulsar un botón, ver la corrida en vivo de los 44 guardrails, revisar los selectores DOM del arnés E2E y certificar el hash de commit de Git sin abrir una terminal.
-      </p>
+    <div class="qa-card">
+      <h4><span class="qa-badge">P17</span> ¿Qué ventaja tiene contar con un panel de Guardrails dentro de la propia interfaz web (RF-5.3)?</h4>
+      <p>Democratiza la auditoría técnica. Cualquier usuario, evaluador o sponsor puede verificar visualmente la salud del sistema (los 47 puntos en verde) con un solo clic en la aplicación web, sin necesidad de abrir una terminal o instalar Node.js.</p>
     </div>
 
-    <div style="background: #ffffff; border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-      <h4 style="color: var(--dark); font-size: 0.95rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
-        <span style="background: var(--primary-light); color: var(--primary); padding: 0.2rem 0.5rem; border-radius: 6px; font-size: 0.8rem; font-weight: 700;">P18</span>
-        ¿Cómo se configuran los ganchos de Git mediante .githooks y core.hooksPath para trabajar en equipo?
-      </h4>
-      <p style="font-size: 0.9rem; color: #334155; line-height: 1.6;">
-        La carpeta <code>.git/hooks/</code> no se versiona en Git. Al crear la carpeta versionada <code>.githooks/</code> con el ejecutable <code>pre-commit</code> y ejecutar <code>git config core.hooksPath .githooks</code> (mediante <code>npm run setup:hooks</code>), el "Guardrail de Acero" se comparte con todo el equipo, forzando la evaluación de los 44 guardrails en cualquier máquina que clone el proyecto.
-      </p>
+    <div class="qa-card">
+      <h4><span class="qa-badge">P18</span> ¿Cómo se configuran los ganchos de Git mediante .githooks y core.hooksPath para trabajar en equipo?</h4>
+      <p>La carpeta <code>.git/hooks/</code> no se versiona en Git. Al crear la carpeta versionada <code>.githooks/</code> con el script ejecutable <code>pre-commit</code> y ejecutar <code>git config core.hooksPath .githooks</code> (automatizado con <code>npm run setup:hooks</code>), el "Guardrail de Acero" se comparte con todo el equipo, forzando la evaluación de los 47 guardrails en cualquier máquina que clone el proyecto.</p>
     </div>
 
-    <div style="background: #ffffff; border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-      <h4 style="color: var(--dark); font-size: 0.95rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
-        <span style="background: var(--primary-light); color: var(--primary); padding: 0.2rem 0.5rem; border-radius: 6px; font-size: 0.8rem; font-weight: 700;">P19</span>
-        ¿Cómo logra Vitest + JSDOM ejecutar las pruebas E2E en 1.8 segundos sin navegadores pesados?
-      </h4>
-      <p style="font-size: 0.9rem; color: #334155; line-height: 1.6;">
-        En lugar de levantar navegadores Chromium reales (como Cypress o Selenium) que tardan decenas de segundos, <strong>JSDOM</strong> emula toda la API del DOM puramente en memoria dentro de Node.js. Al combinarse con React Testing Library, simula eventos táctiles, clics y cambios de vista con fidelidad absoluta a la velocidad de la CPU en milisegundos.
-      </p>
+    <div class="qa-card">
+      <h4><span class="qa-badge">P19</span> ¿Cómo logra Vitest + JSDOM ejecutar las pruebas E2E en ~2 segundos sin navegadores pesados?</h4>
+      <p>En lugar de levantar navegadores Chromium reales (como Cypress o Selenium) que tardan decenas de segundos, <strong>JSDOM</strong> emula toda la API del DOM puramente en memoria dentro de Node.js. Al combinarse con React Testing Library, simula eventos táctiles, clics y cambios de vista con fidelidad absoluta a la velocidad de la CPU en milisegundos (9 flujos completos en ~2.5s).</p>
     </div>
 
-    <div style="background: #ffffff; border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-      <h4 style="color: var(--dark); font-size: 0.95rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
-        <span style="background: var(--primary-light); color: var(--primary); padding: 0.2rem 0.5rem; border-radius: 6px; font-size: 0.8rem; font-weight: 700;">P20</span>
-        ¿Por qué organizamos la aplicación en un flujo cronológico de 3 momentos (En casa, En tienda, Laboratorio)?
-      </h4>
-      <p style="font-size: 0.9rem; color: #334155; line-height: 1.6;">
-        Porque el software debe alinearse con la psicología humana y no con la estructura de sus tablas relacionales. El usuario vive 3 momentos claros: 1. Planificar la compra en casa (Paso 1: Gestión), 2. Hacer las compras caminando en tienda (Paso 2: Modo Súper Táctil) y 3. Auditar la calidad del sistema (Paso 3: Laboratorio SDD). Esta arquitectura mental elimina fricción y maximiza la usabilidad.
+    <div class="qa-card">
+      <h4><span class="qa-badge">P20</span> ¿Por qué organizamos la aplicación en un flujo cronológico de 3 momentos (En casa, En tienda, Laboratorio)?</h4>
+      <p>Porque el software debe alinearse con la psicología humana y no con la estructura de sus tablas relacionales. El usuario vive 3 momentos claros: 1. Planificar la compra en casa (Paso 1: Gestión), 2. Hacer las compras caminando en tienda (Paso 2: Modo Súper Táctil) y 3. Auditar la calidad del sistema (Paso 3: Laboratorio SDD). Esta arquitectura mental elimina fricción y maximiza la usabilidad.</p>
     </div>
 
-    <div style="background: #ffffff; border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-      <h4 style="color: var(--dark); font-size: 0.95rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
-        <span style="background: var(--primary-light); color: var(--primary); padding: 0.2rem 0.5rem; border-radius: 6px; font-size: 0.8rem; font-weight: 700;">P21</span>
-        ¿Cuándo usar una Especificación Centralizada (docs/SPEC.md) versus Specs Locales por Componente, y quién las redacta?
-      </h4>
-      <p style="font-size: 0.9rem; color: #334155; line-height: 1.6;">
-        <strong>1. ¿Quién redacta?:</strong> El <strong>Copiloto AI (Antigravity)</strong>, guiado por la visión y directivas de negocio de Chris. Tú no tienes que redactar Markdown manualmente. Antigravity actualiza <code>docs/SPEC.md</code>, asienta el ADR en <code>docs/MEMORY.md</code> y construye el código.<br>
-        <strong>2. ¿Centralizado o Local?:</strong> Para el 90% de las aplicaciones completas (como SuperCarrito), el <strong>patrón centralizado en <code>docs/SPEC.md</code> es el estándar óptimo</strong>: evita la fragmentación de contexto del LLM y ofrece una visión integral del modelo relacional. Los <em>Specs locales o co-localizados</em> (junto al componente) se reservan exclusivamente para librerías de componentes aislados (Design Systems / Storybook), monorrepos de gran escala o microfrontends autónomos. Con los 4 archivos en <code>docs/</code> el proyecto está 100% cubierto.
-      </p>
+    <div class="qa-card">
+      <h4><span class="qa-badge">P21</span> ¿Cuándo usar una Especificación Centralizada (docs/SPEC.md) versus Specs Locales por Componente, y quién las redacta?</h4>
+      <p><strong>1. ¿Quién redacta?:</strong> El <strong>Copiloto AI (Antigravity)</strong>, guiado por la visión y directivas de negocio de Christian Vargas A. Tú no tienes que redactar Markdown manualmente: Antigravity actualiza <code>docs/SPEC.md</code>, asienta el ADR en <code>docs/MEMORY.md</code> y construye el código.<br>
+      <strong>2. ¿Centralizado o Local?:</strong> Para el 90% de las aplicaciones completas (como SuperCarrito), el <strong>patrón centralizado en <code>docs/SPEC.md</code> es el estándar óptimo</strong>: evita la fragmentación de contexto del LLM y ofrece una visión integral del modelo relacional. Los specs locales co-localizados se reservan para design systems aislados o monorrepos masivos.</p>
     </div>
 
   </div>
 
-  <div style="margin-top: 3rem; text-align: center; border-top: 1px solid var(--border); padding-top: 1.5rem; color: var(--text-muted); font-size: 0.85rem;">
-    <strong>SuperCarrito SDD - Laboratorio de Aprendizaje</strong><br>
-    Documento maestro generado para Christian Vargas A. en colaboración con Antigravity (Google DeepMind).
+  <div style="margin-top: 2.5rem; text-align: center; border-top: 1px solid var(--border); padding-top: 1.2rem; color: var(--text-muted); font-size: 0.82rem;">
+    <strong>SuperCarrito SDD - Laboratorio de Aprendizaje y Excelencia en Ingeniería</strong><br>
+    Documento maestro generado para Christian Vargas A. en colaboración con Antigravity (Google DeepMind). Versión 4.0 Consolidada.
   </div>
 
 </div>
 
 </body>
 </html>
-
