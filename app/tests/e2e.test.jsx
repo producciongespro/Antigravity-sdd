@@ -279,5 +279,38 @@ describe('🧪 Arnés Sensorial End-to-End (E2E) - SuperCarrito SDD', () => {
       expect(screen.getByRole('heading', { name: /Arquitectura de Agentes/i })).toBeDefined();
     });
   });
+
+  it('9. [RF-5.10] Arnés de Caos (Chaos Engineering) e Inyección de Mutaciones en Auditoría', async () => {
+    render(<App />);
+
+    // Entrar al Paso 3 · Auditoría y Arneses
+    const btnAuditoria = screen.getByRole('button', { name: /Auditar Sistema/i });
+    fireEvent.click(btnAuditoria);
+
+    // Navegar a la Opción 6 "Arnés de Caos" en el Sidebar
+    await waitFor(() => {
+      const btnCaos = screen.getByRole('button', { name: /Arnés de Caos/i });
+      fireEvent.click(btnCaos);
+    });
+
+    // Validar encabezado del Laboratorio de Caos
+    await waitFor(() => {
+      expect(screen.getByRole('heading', { name: /Laboratorio de Caos e Inmunidad/i })).toBeDefined();
+      expect(screen.getByText(/Vector 1: Corrupción de DB/i)).toBeDefined();
+      expect(screen.getByText(/Vector 2: Huérfano Relacional/i)).toBeDefined();
+      expect(screen.getByText(/Vector 3: Violación de Contrato/i)).toBeDefined();
+      expect(screen.getByText(/Vector 4: Commit Corrupto/i)).toBeDefined();
+    });
+
+    // Inyectar Mutación 1 (JSON Corrupto)
+    const btnInyectarJson = screen.getByRole('button', { name: /Inyectar JSON Corrupto/i });
+    fireEvent.click(btnInyectarJson);
+
+    // Debe activar la defensa y auto-recuperación en la terminal de telemetría
+    await waitFor(() => {
+      expect(screen.getAllByText(/DEFENSA RNF-02/i).length).toBeGreaterThan(0);
+      expect(screen.getAllByText(/AUTO-RECUPERACIÓN/i).length).toBeGreaterThan(0);
+    });
+  });
 });
 

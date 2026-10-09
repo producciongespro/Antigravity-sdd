@@ -1,7 +1,7 @@
 # SPEC.md - Especificación Principal del Sistema: SuperCarrito (SDD)
 
 > **Documento:** `docs/SPEC.md`  
-> **Versión:** 2.14.0  
+> **Versión:** 2.15.0  
 > **Fecha de Actualización:** 2026-10-08  
 > **Estado:** Aprobado / Fuente Única de Verdad (SSOT)  
 > **Stack Técnico:** React 18+ | JavaScript (ESModules) | Vite 6+ | Tailwind CSS v4 | LocalStorage | Vitest & Testing Library
@@ -29,6 +29,7 @@
 | **v2.12.0** | 2026-10-08 | Christian Vargas A. | **Estandarización Internacional de Nombres Markdown:** Consolidación de la especificación como `docs/SPEC.md` según los estándares internacionales de la industria y la comunidad de agentes SDD. |
 | **v2.13.0** | 2026-10-08 | Christian Vargas A. | **Módulo de Inspección de Agentes y Subagentes Autónomos (RF-5.8):** Incorporación de la 5ª opción en el panel lateral AdminLTE del Centro de Auditoría (Paso 3) para visualizar, auditar y desplegar la orquestación en tiempo real de 3 subagentes especialistas (Centinela de Especificación, Analista de Memoria/ADRs y Probador Sensorial DOM). |
 | **v2.14.0** | 2026-10-08 | Christian Vargas A. | **Panel Ejecutivo 360° Estilo Power BI en Auditoría (RF-5.9):** Incorporación de la vista inicial unificada de mando ejecutivo (Posición 0 en Sidebar AdminLTE) con 4 tarjetas KPI estratégicas, 4 widgets gráficos de telemetría (desglose de fases, enjambre de agentes, pipeline funnel y gobernanza viva) y navegación interactiva con drill-down a cada módulo técnico. |
+| **v2.15.0** | 2026-10-08 | Christian Vargas A. | **Arnés de Caos e Inyección de Mutaciones SDD (RF-5.10):** Incorporación del Laboratorio de Caos en el Centro de Auditoría (Opción 6 en Sidebar AdminLTE) con 4 vectores de mutación hostil en caliente (corrupción de JSON, huérfanos relacionales, ataques de contrato y commit corrupto), verificación empírica de auto-recuperación sin caídas y telemetría de resiliencia en vivo. |
 
 ---
 
@@ -189,6 +190,19 @@ interface ProductoLista {
   - **Navegación Interactiva "Drill-Down":**
     - Cada tarjeta KPI o widget contiene botones de acción rápida para saltar directamente a la pestaña técnica profunda correspondiente (`guardrails`, `harness`, `git`, `e2e`, `agentes`).
     - Botón de refresco interactivo de telemetría general con recálculo dinámico y animación reactiva.
+
+- **RF-5.10 (Arnés de Caos e Inyección de Mutaciones SDD - Chaos Engineering):**
+  - La plataforma incorpora en el Centro de Auditoría (`AuditoriaHub.jsx`) una **opción en el panel lateral AdminLTE** denominada `🌪️ Arnés de Caos`, en la posición 6 (`activeMenu === 'caos'`) con badge `Chaos Lab`.
+  - **Propósito:** Someter en caliente al sistema a fallas inducidas deliberadas para demostrar empíricamente la inviolabilidad de los contratos y la auto-recuperación de la resiliencia [`RNF-02`](#4-requerimientos-no-funcionales-y-migración).
+  - **4 Vectores de Inyección de Caos:**
+    1. **Vector 1 - Corrupción de Base de Datos (Inyección de JSON Malformado):** Inyecta datos con sintaxis rota en `localStorage`. Valida que `storage.js` invoque la resiliencia RNF-02, capture la excepción y reinicie a un estado limpio sin que la interfaz crashee ni se congele.
+    2. **Vector 2 - Huérfano Referencial (Violación de Clave Foránea):** Inyecta vínculos inválidos en `productos_listas` hacia IDs inexistentes. Valida que el motor de lectura filtre de forma segura los nulos evitando errores en cascada `Cannot read properties of undefined`.
+    3. **Vector 3 - Intento de Violación de Contrato (Nombre Vacío / Espacios en Blanco):** Fuerza la inserción de un producto con espacios vacíos evadiendo validación HTML. Valida que la compuerta de dominio de `storage.js` rechace formalmente la operación y lance la excepción controlada de RF-1.1.
+    4. **Vector 4 - Simulación de Intento de Commit Corrupto (El Guardrail de Acero):** Simula una violación de guardrails y ejecuta la intercepción del hook físico `.githooks/pre-commit`, mostrando la salida de denegación con código de salida `1` en una terminal emulada interactiva.
+  - **Telemetría y Registro de Resiliencia en Vivo:**
+    - Indicador reactivo de estado: `🟢 Sistema Estable`, `🟡 Caos Activo`, `🛡️ Resiliencia Verificada`.
+    - Consola de eventos con estampas de tiempo, excepción interceptada y milisegundos de auto-recuperación.
+    - Botón de auto-saneamiento instantáneo `✨ Restaurar Base de Datos Pura & Re-certificar`.
 
 ---
 

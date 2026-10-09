@@ -362,6 +362,29 @@ export class SupermarketStorage {
     }
   }
 
+  // Métodos del Laboratorio de Caos e Inyección de Mutaciones (RF-5.10)
+  inyectarCorrupcionJson(cadenaCorrupta = '{ "productos": [ { id: 999, nombre: ...SYNTAX_ERROR_CORRUPT!') {
+    this.storage.setItem(DB_KEY, cadenaCorrupta);
+  }
+
+  inyectarHuerfanoRelacional(listaId = 88888, productoId = 99999) {
+    const db = this.obtenerBaseDeDatos();
+    db.productos_listas.push({
+      id: 999999,
+      listaId,
+      productoId,
+      cantidad: 10,
+      enCarrito: true,
+      notas: 'Ataque de Integridad'
+    });
+    this.storage.setItem(DB_KEY, JSON.stringify(db));
+  }
+
+  restaurarEstadoPuro() {
+    this.storage.removeItem(DB_KEY);
+    this.inicializarSiVacio();
+  }
+
   // Métodos de compatibilidad temporal
   getDatabase() { return this.obtenerBaseDeDatos(); }
   getProducts() { return this.obtenerProductos(); }

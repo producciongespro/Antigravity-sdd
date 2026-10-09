@@ -23,6 +23,6 @@ La aplicación, el código fuente y toda la base de conocimiento técnico se enc
 ## ⚡ Comandos Rápidos de Verificación
 
 Desde `app/`:
-- **Guardrails:** `npm run check:guardrails` (46/46 verificaciones en verde).
-- **Arnés Sensorial E2E:** `npm run test:e2e` (8/8 flujos de usuario).
+- **Guardrails:** `npm run check:guardrails` (47/47 verificaciones en verde).
+- **Arnés Sensorial E2E:** `npm run test:e2e` (9/9 flujos de usuario).
 - **Arnés Visual:** `http://localhost:3000/tests/harness.html`.

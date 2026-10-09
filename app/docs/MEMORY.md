@@ -187,6 +187,20 @@
   5. Proveer botón de acción en cabecera `Recalcular Telemetría` para re-auditar en caliente todos los indicadores.
 - **Motivo:** Cumplir la visión de diseño del sponsor (Christian Vargas A.) de contar con un cuadro de mando ejecutivo de alto impacto estético y analítico inspirado en Power BI, que agregue toda la telemetría del laboratorio SDD en un único punto de control interactivo con navegación drill-down.
 
+### ADR-21: Arnés de Caos e Inyección de Mutaciones en Caliente (Chaos Engineering SDD v2.15.0)
+- **Decisión:**
+  1. Incorporar la Opción 6 en el Sidebar AdminLTE del Centro de Auditoría (`activeMenu === 'caos'`) denominada **Arnés de Caos** con badge identificador *Chaos Lab*.
+  2. Proveer 4 Vectores de Inyección de Caos interactivos:
+     - **Vector 1: Corrupción Crítica de JSON en LocalStorage (RNF-02):** Inyecta JSON sintácticamente inválido y valida la compuerta de auto-recuperación transparente hacia tablas limpias sin caídas.
+     - **Vector 2: Huérfano Referencial de Integridad Relacional:** Inyecta registros huérfanos con claves foráneas inexistentes en `productos_listas` y verifica que los selectores de consulta aíslen el registro nulo con estabilidad total de interfaz.
+     - **Vector 3: Violación de Contrato RF-1.1 (Nombre Vacío):** Intenta persistir productos con espacios en blanco evadiendo el front-end y verifica la activación estricta de la excepción de dominio.
+     - **Vector 4: Simulación de Intento de Commit Corrupto (Guardrail de Acero):** Demuestra cómo el hook de Git pre-commit intercepta y aborta transacciones defectuosas.
+  3. Integrar terminal interactiva de telemetría de resiliencia con log a color en tiempo real, métricas de latencia de recuperación y botón en cabecera `Restaurar Estado Puro`.
+  4. Encapsular toda inyección y saneamiento en métodos formales de `storageService` (`inyectarCorrupcionJson`, `inyectarHuerfanoRelacional`, `restaurarEstadoPuro`) para respetar el aislamiento de capas de persistencia (Guardrail 4.2).
+  5. Enlazar la 5ª compuerta del Embudo de Seguridad del Dashboard 360° (*Inmunidad ante Caos*) con acceso directo drill-down hacia el Chaos Lab.
+  6. Ampliar la suite sensorial E2E a 9 flujos de usuario completos (`tests/e2e.test.jsx`) y certificar 47/47 guardrails en verde.
+- **Motivo:** Dotar a SuperCarrito de resiliencia activa comprobada mediante principios de Chaos Engineering, garantizando que el sistema sea inmune a fallos en caliente y validando empíricamente la robustez de las compuertas de defensa arquitectónicas.
+
 ---
 
 ## 💡 3. Lecciones Aprendidas (Knowledge Base)
@@ -213,6 +227,7 @@
 17. **El Patrón del Puntero Maestro en la Raíz:** Tener múltiples archivos Markdown dispersos en la raíz genera desorden cognitivo. Mantener únicamente `AGENTS.md` como la Constitución Operativa en la raíz y concentrar todos los documentos de conocimiento técnico en `docs/` (con un índice de lectura obligatoria) proporciona la máxima limpieza estructural y descubrimiento infalible para los agentes de IA.
 18. **Especialización Multi-Agente sin Polución de Contexto:** Un solo agente orquestador intentando auditar código, memoria, contratos y DOM al mismo tiempo sufre de saturación cognitiva y alucinaciones; segmentar misiones críticas en subagentes especialistas acotados (Centinela de Especificación, Analista de ADRs, Probador Sensorial) permite una orquestación paralela, escalable y con veredictos 100% deterministas.
 19. **Paneles Ejecutivos 360° con Drill-Down Reducen la Fatiga Analítica:** Agrupar múltiples fuentes de telemetría especializada (contratos, arneses sensoriales, barandillas de Git y orquestación multi-agente) en un cuadro de mando ejecutivo estilo Power BI otorga a directores y desarrolladores un veredicto instantáneo de salud sistémica, habilitando a la vez navegación por profundidad (drill-down) hacia la evidencia técnica granular con un solo clic.
+20. **El Aislamiento Estricto de Persistencia también Aplica a la Inyección de Fallos:** Ni siquiera los arneses de caos o laboratorios de estrés deben manipular `localStorage` directamente desde los componentes React de UI. Encapsular la inyección de fallos controlados en métodos dedicados del servicio de dominio (`storageService.inyectarCorrupcionJson()`) mantiene las reglas de arquitectura y la frontera de capas 100% inviolables ante el linter estático.
 
 ---
 
@@ -251,4 +266,6 @@
 - [x] **Paso 28:** Estandarizar la nomenclatura Markdown al estándar internacional de la industria (`docs/SPEC.md`), unificando todos los artefactos clave del repositorio bajo nombres en mayúsculas universalmente reconocidos (v2.12.0).
 - [x] **Paso 29:** Implementar el Módulo de Inspección de Agentes y Subagentes Autónomos (RF-5.8) en el Centro de Auditoría ([`AuditoriaHub.jsx`](../src/components/AuditoriaHub.jsx)), con catálogo de 3 subagentes especialistas, orquestador Antigravity, consola de telemetría reactiva, suite E2E 7/7 en verde 🟢 y elevación a 45 Guardrails Maestros (v2.13.0).
 - [x] **Paso 30:** Implementar el Panel Ejecutivo 360° Estilo Power BI en el Centro de Auditoría ([`AuditoriaHub.jsx`](../src/components/AuditoriaHub.jsx) - RF-5.9), con 4 KPIs estratégicas, 4 widgets gráficos interactivos con navegación drill-down, suite sensorial E2E ampliada a 8/8 flujos en verde 🟢 y elevación a 46 Guardrails Maestros certificados (v2.14.0).
+- [x] **Paso 31:** Implementar el Arnés de Caos e Inyección de Mutaciones SDD (RF-5.10) en el Centro de Auditoría ([`AuditoriaHub.jsx`](../src/components/AuditoriaHub.jsx)), con 4 vectores de estrés (RNF-02, huérfanos relacionales, violación de contrato RF-1.1 y commit corrupto), consola de telemetría de resiliencia con métricas de auto-recuperación, suite sensorial E2E ampliada a 9/9 flujos en verde 🟢 y elevación a 47 Guardrails Maestros certificados (v2.15.0).
+
 

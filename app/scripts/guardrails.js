@@ -186,6 +186,10 @@ async function runGuardrails() {
     return specContent.includes('RF-5.9') && specContent.includes('Power BI');
   });
 
+  check('La Especificación define el Arnés de Caos e Inyección de Mutaciones SDD (RF-5.10)', () => {
+    return specContent.includes('RF-5.10') && specContent.includes('Chaos Engineering');
+  });
+
   check('La Especificación define las Reglas de Resiliencia y Migración (RNF-02 / RNF-03)', () => {
     return specContent.includes('RNF-02') && specContent.includes('RNF-03');
   });
